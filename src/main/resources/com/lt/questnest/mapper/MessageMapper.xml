@@ -1,0 +1,63 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.MessageMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="MessageResultMap" type="com.lt.questnest.entity.Message">
+        <result property="messageId" column="message_id"/>
+        <result property="senderId" column="sender_id"/>
+        <result property="receiverId" column="receiver_id"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="read" column="read"/>
+        <result property="conversationId" column="conversation_id"/>
+    </resultMap>
+
+    <insert id="addMessage" useGeneratedKeys="true" keyProperty="messageId">
+        insert into `message`(`sender_id`,`receiver_id`,`content`,`conversation_id`)
+        values(#{senderId},#{receiverId},#{content},#{conversationId})
+    </insert>
+
+    <update id="updateRead">
+        update `message`
+        set `read` = 1
+        where `message_id` = #{messageId}
+    </update>
+
+    <delete id="deleteByUserId">
+        DELETE FROM `message`
+        WHERE `sender_id` = #{userId}  OR `receiver_id` = #{userId}
+    </delete>
+
+    <delete id="deleteByConversationId">
+        DELETE FROM `message`
+        WHERE `conversation_id` = #{conversationId}
+    </delete>
+
+    <select id="findMessage" resultMap="MessageResultMap">
+        select `message_id`,`sender_id`,`conversation_id`,`receiver_id`,`content`,`create_time`
+        from `message`
+        where `sender_id` = #{senderId} and `receiver_id` = #{receiverId}
+    </select>
+
+
+    <select id="findByMessageId" resultMap="MessageResultMap">
+        select `message_id`,`sender_id`,`receiver_id`,`conversation_id`,`content`,`create_time`
+        from `message`
+        where `message_id` = #{messageId}
+    </select>
+
+    <select id="findByConversationId" resultMap="MessageResultMap">
+        select `message_id`,`sender_id`,`receiver_id`,`conversation_id`,`content`,`create_time`
+        from `message`
+        where `conversation_id` = #{conversationId}
+    </select>
+
+    <select id="findByUserId" resultMap="MessageResultMap">
+        select `message_id`,`sender_id`,`receiver_id`,`conversation_id`,`content`,`create_time`
+        from `message`
+        where `sender_id` = #{userId}  or `receiver_id` = #{userId}
+    </select>
+
+
+</mapper>

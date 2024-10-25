@@ -1,0 +1,30 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.HistoryMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="HistoryResultMap" type="com.lt.questnest.entity.History">
+        <result property="historyId" column="history_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="questionId" column="question_id"/>
+        <result property="articleId" column="article_id"/>
+        <result property="viewTime" column="view_time"/>
+    </resultMap>
+
+    <insert id="addHistory">
+        insert into `history`(`user_id`,`question_id`,`article_id`)
+        values (#{userId},#{questionId},#{articleId})
+    </insert>
+
+    <delete id="deleteByUserId">
+        DELETE FROM `history`
+        WHERE `user_id` = #{userId}
+    </delete>
+
+    <select id="findByUserId" resultMap="HistoryResultMap">
+        select `history_id`,`user_id`,`question_id`,`article_id`,`view_time`
+        from `history`
+        where `user_id` = #{userId}
+    </select>
+
+</mapper>

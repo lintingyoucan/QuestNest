@@ -1,0 +1,52 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.UserTopicMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="UserTopicResultMap" type="com.lt.questnest.entity.UserTopic">
+        <result property="userTopicId" column="user_topic_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="topicId" column="topic_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!-- 快捷键 ：Ctrl+/ -->
+    <!-- 检查是否关注过该话题 -->
+    <select id="findByBoth" resultMap="UserTopicResultMap">
+        select `user_topic_id`,`user_id`,`topic_id`
+        from `user_topic`
+        where `user_id` = #{userId} and `topic_id` = #{topicId}
+    </select>
+
+    <!-- 检查是否存在 -->
+    <select id="findByUserTopicId" resultMap="UserTopicResultMap">
+        select `user_topic_id`,`user_id`,`topic_id`
+        from `user_topic`
+        where `user_topic_id` = #{userTopicId}
+    </select>
+
+    <!--  显示关注话题 -->
+    <select id="findByUserId" resultMap="UserTopicResultMap">
+        select `user_topic_id`,`user_id`,`topic_id`
+        from `user_topic`
+        where `user_id` = #{userId}
+    </select>
+
+    <!-- 添加关注 -->
+    <insert id="addUserTopic" useGeneratedKeys="true" keyProperty="userTopicId">
+        insert into `user_topic`(`user_id`,`topic_id`)
+        values (#{userId},#{topicId})
+    </insert>
+
+    <!-- 取消关注 -->
+    <delete id="deleteByUserTopicId">
+        DELETE FROM `user_topic`
+        WHERE `user_topic_id` = #{userTopicId}
+    </delete>
+
+    <delete id="deleteByUserId">
+        DELETE FROM `user_topic`
+        WHERE `user_id` = #{userId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,35 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.QuestionTopicMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="QuestionResultMap" type="com.lt.questnest.entity.QuestionTopic">
+        <result property="questionId" column="question_id"/>
+        <result property="topicId" column="topic_id"></result>
+    </resultMap>
+
+    <insert id="add">
+        insert into `question_topic`(`question_id`,`topic_id`)
+        values(#{questionId},#{topicId})
+    </insert>
+
+    <update id="updateState">
+        update `question_topic`
+        set `state` = 0
+        where `question_id` = (#{questionId}) and `topic_id` = (#{topicId}) and `state` = 1
+    </update>
+
+    <select id="findByBoth" resultMap="QuestionResultMap">
+        select `question_id`,`topic_id`
+        from `question_topic`
+        where `question_id` = (#{questionId}) and `topic_id` = (#{topicId}) and `state` = 1
+    </select>
+
+    <select id="findTopicByQuestionId" resultType="java.lang.Integer">
+        select `topic_id`
+        from `question_topic`
+        where `question_id` = (#{questionId}) and `state` = 1
+    </select>
+
+
+</mapper>

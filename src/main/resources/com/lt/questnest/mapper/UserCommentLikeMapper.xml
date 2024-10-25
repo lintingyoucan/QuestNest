@@ -1,0 +1,32 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.UserCommentLikeMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="UserCommentLikeResultMap" type="com.lt.questnest.entity.UserCommentLike">
+        <result property="likeId" column="like_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="commentId" column="comment_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <insert id="add">
+        insert into `user_comment_like`(`user_id`,`comment_id`)
+        values (#{userId},#{commentId})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `user_comment_like`
+        WHERE `user_id` = #{userId} AND `comment_id` = #{commentId}
+    </delete>
+
+    <select id="find" resultMap="UserCommentLikeResultMap">
+        select `user_id`,`comment_id`
+        from `user_comment_like`
+        where `user_id` = #{userId} and `comment_id` = #{commentId}
+    </select>
+
+
+
+
+</mapper>

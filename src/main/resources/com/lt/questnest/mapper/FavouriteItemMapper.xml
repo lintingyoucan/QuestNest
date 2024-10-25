@@ -1,0 +1,43 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.FavouriteItemMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="FavouriteItemResultMap" type="com.lt.questnest.entity.FavouriteItem">
+        <result property="favouriteItemId" column="favourite_item_id"></result>
+        <result property="favouriteId" column="favourite_id"></result>
+        <result property="articleId" column="article_id"></result>
+        <result property="createTime" column="create_time"></result>
+    </resultMap>
+
+    <!-- 添加收藏项 -->
+    <insert id="addFavouriteItem" useGeneratedKeys="true" keyProperty="favouriteItemId">
+        insert into `favourite_item`(`favourite_id`,`article_id`)
+        values (#{favouriteId},#{articleId})
+    </insert>
+
+    <!-- 删除收藏项 -->
+    <delete id="deleteFavouriteItemByFavouriteItemId">
+        DELETE FROM `favourite_item`
+        WHERE `favourite_item_id` = #{favouriteItemId}
+    </delete>
+
+    <!-- 检查是否收藏 -->
+    <select id="findByBoth" resultMap="FavouriteItemResultMap">
+        select `favourite_item_id`,`favourite_id`,`article_id`
+        from `favourite_item`
+        where `favourite_id` = #{favouriteId} and `article_id` = #{articleId}
+    </select>
+
+    <select id="findByFavouriteItemId" resultMap="FavouriteItemResultMap">
+        select `favourite_item_id`,`favourite_id`,`article_id`
+        from `favourite_item`
+        where `favourite_item_id` = #{favouriteItemId}
+    </select>
+
+    <select id="findByFavouriteId" resultMap="FavouriteItemResultMap">
+        select `favourite_item_id`,`favourite_id`,`article_id`
+        from `favourite_item`
+        where `favourite_id` = #{favouriteId}
+    </select>
+</mapper>

@@ -1,0 +1,91 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.ArticleMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="ArticleResultMap" type="com.lt.questnest.entity.Article">
+        <result property="articleId" column="article_id"></result>
+        <result property="questionId" column="question_id"/>
+        <result property="userId" column="user_id"></result>
+        <result property="content" column="content"></result>
+        <result property="like" column="like"></result>
+        <result property="dislike" column="dislike"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="state" column="state"></result>
+    </resultMap>
+
+    <!-- useGeneratedKeys="true" 表示 MyBatis 会自动获取数据库生成的主键。 -->
+    <insert id="addArticle"  useGeneratedKeys="true" keyProperty="articleId">
+        insert into `article`(`question_id`,`user_id`,`content`)
+        values (#{questionId},#{userId},#{content})
+    </insert>
+
+    <update id="addLike">
+        update `article`
+        set `like` = `like` + 1
+        where `article_id` = #{articleId} and `state` = 1
+    </update>
+
+    <update id="reduceLike">
+        update `article`
+        set `like` = `like` - 1
+        where `article_id` = #{articleId} and `state` = 1
+    </update>
+
+    <update id="addDislike">
+        update `article`
+        set `dislike` = `dislike` + 1
+        where `article_id` = #{articleId} and `state` = 1
+    </update>
+
+    <update id="reduceDislike">
+        update `article`
+        set `dislike` = `dislike` - 1
+        where `article_id` = #{articleId} and `state` = 1
+    </update>
+
+    <update id="updateArticle">
+        update `article`
+        set `content` = #{content} ,`state` = 1
+        where `article_id` = #{articleId}
+    </update>
+
+    <update id="updateArticleState">
+        update `article`
+        set `state` = 0
+        where `article_id` = #{articleId} and `state` = 1
+    </update>
+
+    <delete id="deleteByArticleId">
+        delete from `article`
+        where `article_id` = #{articleId}
+    </delete>
+
+    <!-- 返回文章点赞人数 -->
+    <select id="like" resultType="int">
+        select `like`
+        from `article`
+        where `article_id` = #{articleId} and `state` = 1
+    </select>
+
+    <select id="findQuestionId" resultType="java.lang.Integer">
+        select `question_id`
+        from `article`
+        where `article_id` = #{articleId} and `state` = 1
+    </select>
+
+    <select id="findAuthor" resultType="java.lang.Integer">
+        select `user_id`
+        from `article`
+        where `article_id` = #{articleId} and `state` = 1
+    </select>
+
+    <select id="findContent" resultType="java.lang.String">
+        select `content`
+        from `article`
+        where `article_id` = #{articleId} and `state` = 1
+    </select>
+
+
+</mapper>

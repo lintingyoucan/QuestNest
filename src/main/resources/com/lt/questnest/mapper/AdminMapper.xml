@@ -1,0 +1,23 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.AdminMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="AdminResultMap" type="com.lt.questnest.entity.Admin">
+        <result property="adminId" column="admin_id"/>
+        <result property="account" column="account"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="gender" column="gender"/>
+        <result property="headUrl" column="head_url"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+    <select id="findByAccount" resultMap="AdminResultMap">
+        select `admin_id`,`account`,`username`,`password`,`gender`,`head_url`,`state`
+        from `admin`
+        where `account` = #{account}
+    </select>
+
+
+</mapper>

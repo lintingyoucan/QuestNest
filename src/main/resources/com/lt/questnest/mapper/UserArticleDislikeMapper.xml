@@ -1,0 +1,31 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.UserArticleDislikeMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="UserArticleDislikeResultMap" type="com.lt.questnest.entity.UserArticleDislike">
+        <result property="dislikeId" column="dislike_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="articleId" column="article_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <insert id="add">
+        insert into `user_article_dislike`(`user_id`,`article_id`)
+        values (#{userId}, #{articleId})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `user_article_dislike`
+        WHERE `user_id` = #{userId} AND `article_id` = #{articleId}
+    </delete>
+
+
+    <select id="find" resultMap="UserArticleDislikeResultMap">
+        select `user_id`,`article_id`
+        from `user_article_dislike`
+        where `user_id` = #{userId} and `article_id` = #{articleId}
+    </select>
+
+
+</mapper>

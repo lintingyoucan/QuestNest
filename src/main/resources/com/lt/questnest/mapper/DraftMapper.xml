@@ -1,0 +1,58 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.DraftMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="DraftResultMap" type="com.lt.questnest.entity.Draft">
+        <result property="draftId" column="draft_id"></result>
+        <result property="questionId" column="question_id"/>
+        <result property="userId" column="user_id"></result>
+        <result property="content" column="content"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="post" column="post"></result>
+    </resultMap>
+
+    <insert id="addDraft" useGeneratedKeys="true" keyProperty="draftId">
+        insert into `draft` (`question_id`,`user_id`,`content`)
+        values (#{questionId},#{userId},#{content})
+    </insert>
+
+    <!-- 发布草稿，修改草稿状态为0（不存在），修改发布状态为1（已发布）-->
+    <update id="postDraft">
+        update `draft`
+        set `post` = 1
+        where `draft_id` = #{draftId} and `post` = 0
+    </update>
+
+    <!-- 修改草稿，更新草稿的内容 -->
+    <update id="updateDraft">
+        update `draft`
+        set `content` = #{content}
+        where `draft_id` = #{draftId} and `post` = 0
+    </update>
+
+    <delete id="deleteDraftByDraftId">
+        DELETE FROM `draft`
+        WHERE `draft_id` = #{draftId}
+    </delete>
+
+    <delete id="deleteDraftByUserId">
+        DELETE FROM `draft`
+        WHERE `user_id` = #{userId}
+    </delete>
+
+    <select id="findByDraftId" resultMap="DraftResultMap">
+        select `draft_id`,`question_id`,`user_id`,`content`
+        from `draft`
+        where `draft_id` = #{draftId} and `post` = 0
+    </select>
+
+    <select id="findByUserId" resultMap="DraftResultMap">
+        select `draft_id`,`question_id`,`user_id`,`content`
+        from `draft`
+        where `user_id` = #{userId} and `post` = 0
+    </select>
+
+
+</mapper>

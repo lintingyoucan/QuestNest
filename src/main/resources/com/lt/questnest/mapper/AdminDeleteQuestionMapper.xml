@@ -1,0 +1,19 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.AdminDeleteQuestionMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="AdminDeleteQuestionResultMap" type="com.lt.questnest.entity.AdminDeleteQuestion">
+        <result property="adminDeleteQuestionId" column="admin_delete_question_id"/>
+        <result property="adminId" column="admin_id"/>
+        <result property="questionId" column="question_id"/>
+        <result property="deleteTime" column="delete_time"/>
+        <result property="reason" column="reason"/>
+
+    </resultMap>
+
+    <insert id="add">
+        insert into `admin_delete_question`(`admin_id`,`question_id`,`reason`)
+        values (#{adminId},#{questionId},#{reason})
+    </insert>
+</mapper>

@@ -1,0 +1,19 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.AdminDeleteCommentMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="AdminDeleteCommentResultMap" type="com.lt.questnest.entity.AdminDeleteComment">
+        <result property="adminDeleteCommentId" column="admin_delete_comment_id"/>
+        <result property="adminId" column="admin_id"/>
+        <result property="commentId" column="comment_id"/>
+        <result property="deleteTime" column="delete_time"/>
+        <result property="reason" column="reason"/>
+
+    </resultMap>
+
+    <insert id="add">
+        insert into `admin_delete_comment`(`admin_id`,`comment_id`,`reason`)
+        values (#{adminId},#{commentId},#{reason})
+    </insert>
+</mapper>

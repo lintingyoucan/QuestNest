@@ -1,0 +1,32 @@
+<!--   namespace :名称空间   -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.TopicMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="TopicResultMap" type="com.lt.questnest.entity.Topic">
+        <result property="topicId" column="topic_id"/>
+        <result property="name" column="name"></result>
+    </resultMap>
+
+    <!-- 添加topic -->
+    <insert id="addTopic">
+        insert into `topic`(`name`)
+        value (#{name})
+    </insert>
+
+    <!-- 找topic -->
+    <select id="findByTopic" resultMap="TopicResultMap">
+        select `topic_id`,`name`
+        from `topic`
+        where `name` = #{name}
+    </select>
+
+    <select id="findByTopicId" resultType="java.lang.String">
+        select `name`
+        from `topic`
+        where `topic_id` = #{topicId}
+    </select>
+
+
+</mapper>

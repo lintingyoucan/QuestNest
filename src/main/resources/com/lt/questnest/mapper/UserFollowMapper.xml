@@ -1,0 +1,53 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.UserFollowMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="UserFollowResultMap" type="com.lt.questnest.entity.UserFollow">
+        <result property="userFollowId" column="user_follow_id"/>
+        <result property="followerId" column="follower_id"/>
+        <result property="followedId" column="followed_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+    <!-- 找出是否已经关注 -->
+    <select id="findByBoth" resultMap="UserFollowResultMap">
+        select `user_follow_id`,`follower_id`,`followed_id`
+        from `user_follow`
+        where `follower_id` = #{followerId} and `followed_id` = #{followedId} and `state` = 1
+    </select>
+
+    <select id="findByUserFollowId" resultMap="UserFollowResultMap">
+        select `user_follow_id`,`follower_id`,`followed_id`
+        from `user_follow`
+        where `user_follow_id` = #{userFollowId} and `state` = 1
+    </select>
+
+    <!-- 返回粉丝列表 -->
+    <select id="findByFollowedId" resultMap="UserFollowResultMap">
+        select `user_follow_id`,`follower_id`,`followed_id`
+        from `user_follow`
+        where `followed_id` = #{followedId} and `state` = 1
+    </select>
+
+    <!-- 返回关注列表 -->
+    <select id="findByFollowerId" resultMap="UserFollowResultMap">
+        select `user_follow_id`,`follower_id`,`followed_id`
+        from `user_follow`
+        where `follower_id` = #{followerId} and `state` = 1
+    </select>
+
+    <!-- 添加关注 -->
+    <insert id="addFollow" useGeneratedKeys="true" keyProperty="userFollowId">
+        insert into `user_follow`(`follower_id`,`followed_id`)
+        values (#{followerId},#{followedId})
+    </insert>
+    <!-- 取消关注 -->
+    <update id="updateState">
+        update `user_follow`
+        set `state` = 0
+        where `user_follow_id` = #{userFollowId} and `state` = 1
+    </update>
+
+</mapper>

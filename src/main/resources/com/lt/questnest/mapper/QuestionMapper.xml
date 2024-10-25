@@ -1,0 +1,67 @@
+<!--   namespace :名称空间   -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.QuestionMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="QuestionResultMap" type="com.lt.questnest.entity.Question">
+        <result property="questionId" column="question_id"/>
+        <result property="userId" column="user_id"></result>
+        <result property="title" column="title"></result>
+        <result property="content" column="content"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="state" column="state"></result>
+    </resultMap>
+
+    <!-- 添加问题 -->
+    <insert id="addQuestion" useGeneratedKeys="true" keyProperty="questionId">
+        insert into `question`(`user_id`,`title`,`content`)
+        values (#{userId},#{title},#{content})
+    </insert>
+
+    <update id="updateQuestion">
+        update `question`
+        set `title` = #{title}, `content` = #{content}, `state` = 1
+        where `question_id` = #{questionId}
+    </update>
+
+    <update id="updateQuestionContent">
+        update `question`
+        set `content` = #{content}, `state` = 1
+        where `question_id` = #{questionId}
+    </update>
+
+    <update id="updateQuestionState">
+        update `question`
+        set `state` = 0
+        where `question_id` = #{questionId} and `state` = 1
+    </update>
+
+    <!-- 找问题 -->
+    <select id="findByTitle" resultMap="QuestionResultMap">
+        select `question_id`,`user_id`,`title`,`content`,`state`
+        from `question`
+        where `title` = #{title} and `state` = 1
+    </select>
+
+    <!-- 返回所有问题 -->
+    <select id="findAllQuestion" resultMap="QuestionResultMap">
+        select `question_id`,`user_id`,`title`,`content`,`state`
+        from `question`
+        where `state` = 1
+    </select>
+
+    <select id="findQuestionTitle" resultType="java.lang.String">
+        select `title`
+        from `question`
+        where `question_id` = #{questionId} and `state` = 1
+    </select>
+
+    <select id="findByQuestionId" resultMap="QuestionResultMap">
+        select `question_id`,`user_id`,`title`,`content`
+        from `question`
+        where `question_id` = #{questionId} and `state` = 1
+    </select>
+
+
+</mapper>

@@ -1,0 +1,31 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.AdminUserMuteMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="AdminUserMuteResultMap" type="com.lt.questnest.entity.AdminUserMute">
+        <result property="adminUserMuteId" column="admin_user_mute_id"/>
+        <result property="adminId" column="admin_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="muteTime" column="mute_time"/>
+        <result property="reason" column="reason"/>
+    </resultMap>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="adminUserMuteId">
+        insert into `admin_user_mute`(`admin_id`,`user_id`,`reason`)
+        values (#{adminId},#{userId},#{reason})
+    </insert>
+
+    <delete id="delete">
+        delete from `admin_user_mute`
+        where `user_id` = #{userId}
+    </delete>
+
+    <select id="findByUserId" resultMap="AdminUserMuteResultMap">
+        select `user_id`,`reason`
+        from `admin_user_mute`
+        where `user_id` = #{userId}
+    </select>
+
+
+</mapper>

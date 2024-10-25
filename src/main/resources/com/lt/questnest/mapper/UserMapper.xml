@@ -1,0 +1,76 @@
+<!--   namespace :名称空间   -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.UserMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="UserResultMap" type="com.lt.questnest.entity.User">
+        <result property="id" column="id"/>
+        <result property="email" column="email"></result>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="gender" column="gender"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="headUrl" column="head_url"></result>
+        <result property="state" column="state"></result>
+    </resultMap>
+
+
+    <!-- 添加用户 -->
+    <insert id="addUser">
+        insert into user(`email`,`username`,`password`)
+        values (#{email},#{username},#{password})
+    </insert>
+
+    <!-- 通过账号查找用户-->
+    <select id="getUserByEmail" resultMap="UserResultMap">
+        select `id`,`email`,`username`,`password`,`gender`,`birthday`,`head_url`,`state`
+        from `user`
+        where `email` = #{email} and `state` = 1
+    </select>
+
+    <select id="getUserById" resultMap="UserResultMap">
+        select `id`,`email`,`username`,`password`,`gender`,`birthday`,`head_url`,`state`
+        from `user`
+        where `id` = #{id} and `state` = 1
+    </select>
+
+    <select id="findUsername" resultType="java.lang.String">
+        select `username`
+        from `user`
+        where `id` = #{userId} and `state` = 1
+    </select>
+
+
+    <!-- 修改用户状态和姓名 -->
+    <update id="updateUserState" parameterType="com.lt.questnest.entity.User">
+        update `user`
+        set `state` = 0 , `username` = "用户已注销"
+        where `email` = #{email} and `state` = 1
+    </update>
+
+    <!-- 修改用户信息 -->
+    <update id="updateUser" parameterType="com.lt.questnest.entity.User">
+        update user
+        set `username` = #{username},
+            `gender` = #{gender},
+            `birthday` = #{birthday}
+        where `email` = #{email} and `state` = 1
+    </update>
+
+    <!--  重置密码 -->
+    <update id="updatePasswd" parameterType="com.lt.questnest.entity.User">
+        update `user`
+        set `password` = #{password}
+        where `email` = #{email} and `state` = 1
+    </update>
+
+    <!-- 选择上传头像 -->
+    <update id="uploadPicture" parameterType="com.lt.questnest.entity.User">
+        update `user`
+        set `head_url` = #{headUrl}
+        where `email` = #{email} and `state` = 1
+    </update>
+
+
+</mapper>
