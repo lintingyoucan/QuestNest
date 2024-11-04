@@ -1,0 +1,38 @@
+<!--   namespace :名称空间   -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.InformMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="InformResultMap" type="com.lt.questnest.entity.Inform">
+        <result property="informId" column="inform_id"/>
+        <result property="sender" column="sender"/>
+        <result property="receiver" column="receiver"/>
+        <result property="content" column="content"/>
+        <result property="sendTime" column="send_time"/>
+        <result property="read" column="read"/>
+    </resultMap>
+
+    <insert id="add">
+        insert into `inform`(`sender`,`receiver`,`content`,`send_time`)
+        value (#{sender},#{receiver},#{content},#{sendTime})
+    </insert>
+
+    <update id="updateRead">
+        update `inform`
+        set `read` = 1
+        where `inform_id` = #{informId}
+    </update>
+
+    <select id="getRead" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `inform`
+        WHERE `read` = 0 and `receiver` = #{receiver}
+    </select>
+
+    <select id="getInform" resultMap="InformResultMap">
+        select `inform_id`,`sender`,`receiver`,`content`,`send_time`
+        from `inform`
+        where `receiver` = (#{receiver})
+    </select>
+</mapper>

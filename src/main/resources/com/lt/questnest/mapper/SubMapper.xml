@@ -1,0 +1,16 @@
+<!--   namespace :名称空间   -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.SubMapper">
+
+
+    <insert id="add">
+        insert into `sub`(`channel`) values (#{channel})
+    </insert>
+
+    <select id="getChannel" resultType="java.lang.String">
+        select `channel` from `sub`
+    </select>
+
+
+</mapper>
