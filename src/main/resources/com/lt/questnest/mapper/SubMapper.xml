@@ -8,6 +8,10 @@
         insert into `sub`(`channel`) values (#{channel})
     </insert>
 
+    <delete id="delete">
+        delete from `sub` where `channel` = #{channel}
+    </delete>
+
     <select id="getChannel" resultType="java.lang.String">
         select `channel` from `sub`
     </select>

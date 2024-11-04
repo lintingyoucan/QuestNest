@@ -1,16 +1,13 @@
 package com.lt.questnest.controller;
 
 import com.lt.questnest.entity.User;
-import com.lt.questnest.service.MailService;
-import com.lt.questnest.service.OnlineUserService;
-import com.lt.questnest.service.RedisService;
-import com.lt.questnest.service.UserService;
+import com.lt.questnest.pubsub.RedisMessageSubscriber;
+import com.lt.questnest.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +32,12 @@ public class UserController {
 
     @Autowired
     OnlineUserService onlineUserService;
+
+    @Autowired
+    RedisMessageSubscriber redisMessageSubscriber;
+
+    @Autowired
+    SubService subService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -460,10 +463,22 @@ public class UserController {
 
             // 如果注册成功
             if (map.containsValue("success")) {
-                result.put("status", "success");
-                result.put("message", "注册成功");
-                // 返回 HTTP 200 OK
-                return ResponseEntity.ok(result);
+
+                // 订阅用户关于自己的消息
+                String subByRedis = redisMessageSubscriber.subscribe(email);
+                String subByDB = subService.add(email);
+                if (subByRedis.equals("success") && subByDB.equals("success")){
+                    result.put("status", "success");
+                    // result.put("message", "订阅消息成功,注册成功");
+                    logger.info("userController中调用查看订阅的人:{}",RedisMessageSubscriber.emitters.get(email));
+                    // 返回 HTTP 200 OK
+                    return ResponseEntity.ok(result);
+                } else {
+                    result.put("status","error");
+                    result.put("message","订阅消息失败");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+                }
+
             } else {
                 // 如果注册失败，返回错误信息
                 result.put("status", "error");

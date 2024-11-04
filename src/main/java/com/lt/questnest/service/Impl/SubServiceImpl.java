@@ -17,11 +17,19 @@ public class SubServiceImpl implements SubService {
         return subMapper.getChannel();
     }
 
-    public String add(String account){
-        Integer result = subMapper.add(account);
+    public String add(String email){
+        Integer result = subMapper.add(email);
         if (result == null || result <= 0){
             return "error";
         }
-        return "ok";
+        return "success";
+    }
+
+    public String delete(String email){
+        Integer result = subMapper.delete(email);
+        if (result == null || result <= 0){
+            return "error";
+        }
+        return "success";
     }
 }

@@ -6,16 +6,16 @@
     <!-- 实体类和表的字段映射 -->
     <resultMap id="InformResultMap" type="com.lt.questnest.entity.Inform">
         <result property="informId" column="inform_id"/>
-        <result property="sender" column="sender"/>
-        <result property="receiver" column="receiver"/>
+        <result property="senderId" column="sender_id"/>
+        <result property="receiverId" column="receiver_id"/>
         <result property="content" column="content"/>
         <result property="sendTime" column="send_time"/>
         <result property="read" column="read"/>
     </resultMap>
 
     <insert id="add">
-        insert into `inform`(`sender`,`receiver`,`content`,`send_time`)
-        value (#{sender},#{receiver},#{content},#{sendTime})
+        insert into `inform`(`sender_id`,`receiver_id`,`content`,`send_time`)
+        value (#{senderId},#{receiverId},#{content},#{sendTime})
     </insert>
 
     <update id="updateRead">
@@ -27,12 +27,7 @@
     <select id="getRead" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM `inform`
-        WHERE `read` = 0 and `receiver` = #{receiver}
+        WHERE `read` = 0 and `receiver_id` = #{receiverId}
     </select>
 
-    <select id="getInform" resultMap="InformResultMap">
-        select `inform_id`,`sender`,`receiver`,`content`,`send_time`
-        from `inform`
-        where `receiver` = (#{receiver})
-    </select>
 </mapper>

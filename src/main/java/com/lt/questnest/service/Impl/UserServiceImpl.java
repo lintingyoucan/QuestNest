@@ -3,28 +3,19 @@ package com.lt.questnest.service.Impl;
 import com.lt.questnest.controller.UserController;
 import com.lt.questnest.entity.*;
 import com.lt.questnest.mapper.*;
-import com.lt.questnest.service.FileService;
-import com.lt.questnest.service.MailService;
-import com.lt.questnest.service.RedisService;
-import com.lt.questnest.service.UserService;
+import com.lt.questnest.pubsub.RedisMessageSubscriber;
+import com.lt.questnest.service.*;
 import com.lt.questnest.util.EncryptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -59,12 +50,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserTopicMapper userTopicMapper;
 
+    @Autowired
+    SubService subService;
+
+    @Autowired
+    RedisMessageSubscriber redisMessageSubscriber;
+
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
     /**
      * 注销用户账号，将 state 更新为 0
-     * 将用户相关的内容都删除，比如会话、聊天信息、草稿、收藏夹、收藏项、浏览历史、关注话题
+     * 将用户相关的内容都删除，比如会话、聊天信息、草稿、收藏夹、收藏项、浏览历史、关注话题、订阅消息
      * @param email 用户邮箱
      * @return 操作结果
      */
@@ -115,6 +112,22 @@ public class UserServiceImpl implements UserService {
             if (deleteUserTopic == null || deleteUserTopic < 0){
                 result.put("status", "error");
                 result.put("msg", "用户注销失败，删除浏览记录失败！");
+                return result;
+            }
+
+            // 取消用户监听频道
+            String unsub = redisMessageSubscriber.unsubscribe(email);
+            if (!(unsub.equals("success"))){
+                result.put("status","error");
+                result.put("msg","取消用户监听频道失败!");
+                return result;
+            }
+
+            // 删除用户订阅消息频道
+            String deleteSub = subService.delete(email);
+            if (!(deleteSub.equals("success"))){
+                result.put("status","error");
+                result.put("msg","删除用户订阅信息失败!");
                 return result;
             }
 

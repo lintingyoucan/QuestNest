@@ -7,9 +7,9 @@ import java.util.List;
 @Service
 public interface InformService {
 
-    String add(String sender,String receiver,String body);
+    String add(Integer senderId,Integer receiverId,String body);
 
-    int getRead(String account);
+    Integer getRead(String email);
 
-    List<Object> showInform(String account);
+    List<Object> showInform(String email);
 }

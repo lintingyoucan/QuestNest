@@ -12,7 +12,11 @@ public class RedisMessagePublisher {
 
     // 发布消息到channel
     public String publish(String channel, String body) {
-        redisTemplate.convertAndSend(channel, body);
-        return "ok";
+        try {
+            redisTemplate.convertAndSend(channel, body);
+            return "success";
+        } catch (Exception e) {
+            return "error";
+        }
     }
 }

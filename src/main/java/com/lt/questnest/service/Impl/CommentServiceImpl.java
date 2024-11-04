@@ -6,7 +6,10 @@ import com.lt.questnest.entity.User;
 import com.lt.questnest.entity.UserArticleLike;
 import com.lt.questnest.entity.UserCommentLike;
 import com.lt.questnest.mapper.*;
+import com.lt.questnest.pubsub.RedisMessagePublisher;
+import com.lt.questnest.pubsub.RedisMessageSubscriber;
 import com.lt.questnest.service.CommentService;
+import com.lt.questnest.service.InformService;
 import com.lt.questnest.service.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +42,12 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     UserCommentLikeMapper userCommentLikeMapper;
 
+    @Autowired
+    RedisMessagePublisher redisMessagePublisher;
+
+    @Autowired
+    InformService informService;
+
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     // 评论文章、回复评论
@@ -69,9 +78,9 @@ public class CommentServiceImpl implements CommentService {
 
         String commentUsername = null; // 评论者的用户名
         Integer commentId = 0; // 评论者添加评论后的Id
+        Integer commentUserId = 0; // 评论者的用户ID
         Integer articleUserId = 0; // 评论者评论的文章作者的Id
         String articleUserEmail = null; // 评论者评论的文章作者的email，用于评论文章后通知文章作者
-        String title = null; // 评论者评论的文章对应的问题
         Integer parentCommentUserId = 0; // 父评论的作者Id
         String parentCommentContent = null; // 父评论的内容
         String parentCommentUserEmail = null; // 父评论的作者email,用于回复评论后通知父评论作者
@@ -84,7 +93,7 @@ public class CommentServiceImpl implements CommentService {
                 result.put("msg","从数据库获取评论作者失败");
                 return result;
             }
-            int commentUserId = commentUser.getId();
+            commentUserId = commentUser.getId();
             commentUsername = commentUser.getUsername();
 
             // 将评论保存进数据库
@@ -128,12 +137,6 @@ public class CommentServiceImpl implements CommentService {
                 result.put("msg","从数据库获取文章对应的问题ID失败");
                 return result;
             }
-            title = questionMapper.findQuestionTitle(questionId);
-            if (title == null || title.isEmpty()){
-                result.put("status","error");
-                result.put("msg","从数据库获取文章对应的问题title失败");
-                return result;
-            }
 
             // 如果parentCommentId存在
             if (parentCommentId != null && !(parentCommentId <= 0) ) {
@@ -154,14 +157,35 @@ public class CommentServiceImpl implements CommentService {
 
         }
 
-        // 异步发送站内通知
+        // 异步站内通知:修改，调用redis发布消息到频道和保存进数据库
         if (parentCommentId == null || parentCommentId <= 0){ // parentCommentId不存在，评论文章
-            notificationService.sendCommentNotification(articleUserEmail,commentUsername,title);
-            result.put("status","success");
+
+            String body = commentUsername + "评论了你的文章:" + content;
+            String addInform = informService.add(commentUserId,articleUserId,body);
+            String publish = redisMessagePublisher.publish(articleUserEmail,body);
+
+            if (addInform.equals("success") && publish.equals("success")){
+                result.put("status","success");
+                return result;
+            }
+
+            result.put("msg","异步通知失败");
+            result.put("status","error");
             return result;
-        } else {
-            notificationService.sendReplyCommentNotification(parentCommentUserEmail,commentUsername,title);
-            result.put("status","success");
+
+        } else { // 回复父评论
+
+            String body = commentUsername + "回复了你的评论:" + content;
+            String addInform = informService.add(commentUserId,parentCommentId,body);
+            String publish = redisMessagePublisher.publish(parentCommentUserEmail,body);
+
+            if (addInform.equals("success") && publish.equals("success")){
+                result.put("status","success");
+                return result;
+            }
+
+            result.put("msg","异步通知失败");
+            result.put("status","error");
             return result;
         }
 

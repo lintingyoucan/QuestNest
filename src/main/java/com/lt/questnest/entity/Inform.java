@@ -12,8 +12,8 @@ import java.sql.Timestamp;
 public class Inform {
 
     private Integer informId;
-    private String sender;
-    private String receiver;
+    private Integer senderId;
+    private Integer receiverId;
     private String content;
     private Timestamp sendTime;
     private boolean read;

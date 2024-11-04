@@ -45,15 +45,12 @@ public class RedisMessageSubscriber implements MessageListener {
             try {
                 // 发送消息到客户端
                 emitter.send(body);
-                // 保存到数据库
-
-                // 统计未读消息条数
 
             } catch (IOException e) {
                 logger.error("发送消息失败: {}", e.getMessage());
                 emitter.completeWithError(e);
             }
-        }else {
+        } else {
             logger.warn("没有找到订阅者，频道: {}", channel);
         }
 
@@ -62,18 +59,25 @@ public class RedisMessageSubscriber implements MessageListener {
     // 订阅信息
     public String subscribe(String channel) {
 
-        MessageListener listener = registeredListener.computeIfAbsent(channel, ch -> new RedisMessageSubscriber(stringRedisSerializer));
-        container.addMessageListener(listener, new ChannelTopic(channel));
-        return "ok";
+        try {
+            MessageListener listener = registeredListener.computeIfAbsent(channel, ch -> new RedisMessageSubscriber(stringRedisSerializer));
+            container.addMessageListener(listener, new ChannelTopic(channel));
+            return "success";
+        } catch (Exception e) {
+            return "error";
+        }
+
     }
 
     // 取消订阅信息
     public String unsubscribe(String channel) {
+
         MessageListener messageListener = registeredListener.get(channel);
         if (messageListener != null) {
             emitters.remove(channel);
             container.removeMessageListener(messageListener, new ChannelTopic(channel));
+            return "success";
         }
-        return "ok";
+        return "error";
     }
 }

@@ -1,16 +1,15 @@
 package com.lt.questnest.mapper;
 
+import com.lt.questnest.entity.InformView;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
-public interface SubMapper {
+public interface InformViewMapper {
 
-    int add(@Param("channel") String channel);
+    List<InformView> getInform(@Param("receiverEmail") String receiverEmail);
 
-    List<String> getChannel();
 
-    int delete(@Param("channel") String channel);
 }

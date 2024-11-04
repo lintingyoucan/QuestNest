@@ -17,49 +17,49 @@ public class SseController {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisMessageSubscriber.class);
 
-    public static void remove(String account) {
-        RedisMessageSubscriber.emitters.remove(account);
-        logger.info("移除连接：{}", account);
+    public static void remove(String email) {
+        RedisMessageSubscriber.emitters.remove(email);
+        logger.info("移除连接：{}", email);
     }
 
-    private static Runnable completionCallBack(String account) {
+    private static Runnable completionCallBack(String email) {
         return () -> {
-            logger.info("结束连接：{}", account);
-            remove(account);
+            logger.info("结束连接：{}", email);
+            remove(email);
         };
     }
 
-    private static Runnable timeoutCallBack(String account) {
+    private static Runnable timeoutCallBack(String email) {
         return () -> {
-            logger.info("结束连接：{}", account);
-            remove(account);
+            logger.info("结束连接：{}", email);
+            remove(email);
         };
     }
 
-    private static Consumer<Throwable> errorCallBack(String account) {
+    private static Consumer<Throwable> errorCallBack(String email) {
         return throwable -> {
-            logger.info("连接异常：{}", account);
-            remove(account);
+            logger.info("连接异常：{}", email);
+            remove(email);
         };
     }
 
 
     @GetMapping("/sse")
-    public SseEmitter connect(@RequestParam("account") String account) {
+    public SseEmitter connect(@RequestParam("email") String email) {
 
         logger.info("进入connect方法");
 
-        if (RedisMessageSubscriber.emitters.get(account) != null){
-            return RedisMessageSubscriber.emitters.get(account);
+        if (RedisMessageSubscriber.emitters.get(email) != null){
+            return RedisMessageSubscriber.emitters.get(email);
         }
 
         // 超时时间设置为1小时
         logger.info("创建新的SseEmitter");
         SseEmitter sseEmitter = new SseEmitter(3_600_000L);
-        RedisMessageSubscriber.emitters.put(account, sseEmitter);
-        sseEmitter.onTimeout(timeoutCallBack(account)); // 超时
-        sseEmitter.onCompletion(completionCallBack(account)); // 完成
-        sseEmitter.onError(errorCallBack(account)); // 错误
+        RedisMessageSubscriber.emitters.put(email, sseEmitter);
+        sseEmitter.onTimeout(timeoutCallBack(email)); // 超时
+        sseEmitter.onCompletion(completionCallBack(email)); // 完成
+        sseEmitter.onError(errorCallBack(email)); // 错误
         return sseEmitter;
 
     }

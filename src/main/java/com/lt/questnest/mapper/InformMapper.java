@@ -11,9 +11,7 @@ public interface InformMapper {
 
     int add(Inform inform);
 
-    int getRead(@Param("receiver") String receiver);
-
-    List<Inform> getInform(@Param("receiver") String receiver);
+    int getRead(@Param("receiverId") Integer receiverId);
 
     int updateRead(@Param("informId") Integer informId);
 

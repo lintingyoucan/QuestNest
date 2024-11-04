@@ -1,0 +1,20 @@
+<!--   namespace :名称空间   -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.InformViewMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="InformViewResultMap" type="com.lt.questnest.entity.InformView">
+        <result property="senderEmail" column="sender_email"/>
+        <result property="senderUsername" column="sender_username"/>
+        <result property="receiverEmail" column="receiver_email"/>
+        <result property="content" column="content"/>
+        <result property="sendTime" column="send_time"/>
+    </resultMap>
+
+    <select id="getInform" resultMap="InformViewResultMap">
+        select `sender_email`,`sender_username`,`content`,`send_time`
+        from `inform_view`
+        where `receiver_email` = #{receiverEmail}
+    </select>
+</mapper>

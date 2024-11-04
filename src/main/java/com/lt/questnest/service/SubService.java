@@ -12,7 +12,9 @@ public interface SubService {
 
     List<String> getChannel();
 
-    String add(String account);
+    String add(String email);
+
+    String delete(String email);
 
 }
 
