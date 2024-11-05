@@ -66,16 +66,12 @@ public class AdminDeleteCommentServiceImpl implements AdminDeleteCommentService 
 
             Integer addResult = adminDeleteCommentMapper.add(adminDeleteComment);
             if (addResult == null || addResult <= 0){
-                result.put("status","error");
-                result.put("msg","添加记录失败，删除评论失败");
-                return result;
+                throw new RuntimeException("添加记录失败，删除评论失败");
             }
 
             Integer deleteResult = commentMapper.deleteByCommentId(commentId);
             if (deleteResult == null || deleteResult <= 0){
-                result.put("status","error");
-                result.put("msg","删除评论失败");
-                return result;
+                throw new RuntimeException("删除评论失败");
             }
 
         } catch (Exception e) {

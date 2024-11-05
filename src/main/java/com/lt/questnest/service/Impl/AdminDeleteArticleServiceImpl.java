@@ -2,10 +2,11 @@ package com.lt.questnest.service.Impl;
 
 import com.lt.questnest.entity.AdminDeleteArticle;
 import com.lt.questnest.mapper.*;
+import com.lt.questnest.pubsub.RedisMessagePublisher;
+import com.lt.questnest.pubsub.RedisMessageSubscriber;
 import com.lt.questnest.service.AdminDeleteArticleService;
-import com.lt.questnest.service.NotificationService;
+import com.lt.questnest.service.InformService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,12 +30,16 @@ public class AdminDeleteArticleServiceImpl implements AdminDeleteArticleService 
     AdminMapper adminMapper;
 
     @Autowired
-    NotificationService notificationService;
-
-    @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    RedisMessagePublisher redisMessagePublisher;
 
+    @Autowired
+    InformService informService;
+
+
+    // 管理员审核不通过文章
     @Transactional
     public Map<String,String> failToArticle(String account, Integer articleId, String reason){
 
@@ -51,10 +56,9 @@ public class AdminDeleteArticleServiceImpl implements AdminDeleteArticleService 
             return result;
         }
 
-
-        String userEmail;
         String content;
-        String title;
+        Integer articleUserId;
+        String articleUserEmail;
 
         // 修改回答状态、添加记录
         try {
@@ -68,13 +72,8 @@ public class AdminDeleteArticleServiceImpl implements AdminDeleteArticleService 
             }
 
             // 获取作者ID
-            Integer userId = articleMapper.findAuthor(articleId);
-            // 获取作者email
-            userEmail = userMapper.getUserById(userId).getEmail();
-
-            // 获取问题title
-            Integer questionId = articleMapper.findQuestionId(articleId);
-            title = questionMapper.findQuestionTitle(questionId);
+            articleUserId = articleMapper.findAuthor(articleId);
+            articleUserEmail = userMapper.getUserById(articleUserId).getEmail();
 
             // 找出管理员ID
             Integer adminId = adminMapper.findByAccount(account).getAdminId();
@@ -86,16 +85,12 @@ public class AdminDeleteArticleServiceImpl implements AdminDeleteArticleService 
 
             Integer addResult = adminDeleteArticleMapper.add(adminDeleteArticle);
             if (addResult == null || addResult <= 0){
-                result.put("status","error");
-                result.put("msg","添加记录失败，回答无法打回重修");
-                return result;
+                throw new RuntimeException("添加记录失败，回答无法打回重修！");
             }
 
             Integer updateResult = articleMapper.updateArticleState(articleId);
             if (updateResult == null || updateResult <= 0){
-                result.put("status","error");
-                result.put("msg","回答打回重修失败");
-                return result;
+                throw new RuntimeException("回答打回重修失败！");
             }
 
         } catch (Exception e) {
@@ -104,10 +99,21 @@ public class AdminDeleteArticleServiceImpl implements AdminDeleteArticleService 
             return result;
         }
 
-        // 异步通知作者重修回答，给出违规原因
-        notificationService.failToArticleNotification(userEmail,content,title,reason);
+        // 异步通知作者重修回答，给出违规原因，调用redis发布消息，保存进数据库
+        // 检查用户是否存在，如果用户注销，那么不必通知,避免添加数据时出现null错误
+        if (articleUserEmail == null ||articleUserEmail.isEmpty()){
+            result.put("status", "success");
+            return result;
+        }
 
-        result.put("status","success");
-        return result;
+        String body = "{\"reason\":\"" + reason + "\", \"content\":\"" + content + "\", \"message\":\"请重新编辑\"}";
+        String save = informService.add(0,articleUserId,body);
+        String publish = redisMessagePublisher.publish(articleUserEmail,body);
+        if (save.equals("success") && publish.equals("success")) {
+            result.put("status", "success");
+            return result;
+        }
+        throw new RuntimeException("异步站内通知失败");
+
     }
 }

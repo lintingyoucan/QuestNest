@@ -43,22 +43,4 @@ public class RedisServiceImpl implements RedisService {
         redisTemplate.delete(email);
     }
 
-
-    // 将通知内容存入Redis
-    public void addNotification(String key, String notification) {
-        redisTemplate.opsForList().leftPush(key, notification); // 从左侧存储信息，可以将最新信息先弹出来
-        redisTemplate.expire(key, 7, TimeUnit.DAYS);  // 设置通知的过期时间，比如保留7天，如果用户在线，可以即时推送消息，如果用户不在线，等用户上线时，也可以马上将消息推送给用户
-    }
-
-
-    // 获取通知内容
-    public List<String> getNotifications(String key) {
-        return redisTemplate.opsForList().range(key, 0, -1);
-    }
-
-
-    // 清空通知
-    public void clearNotifications(String key) {
-        redisTemplate.delete(key);
-    }
 }

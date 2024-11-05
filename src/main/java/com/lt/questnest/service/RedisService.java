@@ -13,10 +13,5 @@ public interface RedisService {
 
     void removeVerificationCode(String email);
 
-    void addNotification(String key, String notification);
-
-    List<String> getNotifications(String key);
-
-    void clearNotifications(String key);
 
 }

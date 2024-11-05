@@ -13,4 +13,5 @@ public interface SubMapper {
     List<String> getChannel();
 
     int delete(@Param("channel") String channel);
+
 }

@@ -3,8 +3,10 @@ package com.lt.questnest.service.Impl;
 import com.lt.questnest.controller.UserController;
 import com.lt.questnest.entity.*;
 import com.lt.questnest.mapper.*;
+import com.lt.questnest.pubsub.RedisMessagePublisher;
 import com.lt.questnest.service.ArticleService;
 import com.lt.questnest.service.FileService;
+import com.lt.questnest.service.InformService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     UserArticleDislikeMapper userArticleDislikeMapper;
 
+    @Autowired
+    RedisMessagePublisher redisMessagePublisher;
+
+    @Autowired
+    InformService informService;
+
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     /**
@@ -48,7 +56,8 @@ public class ArticleServiceImpl implements ArticleService {
      * @param title
      * @param content
      * @return
-     */
+    **/
+    @Transactional
     public Map<String,Object> addArticle(String email,String title,String content){
 
         Map<String,Object> result = new HashMap<>();
@@ -59,18 +68,23 @@ public class ArticleServiceImpl implements ArticleService {
             result.put("msg","content n不能为空");
             return result;
         }
-        // 获取提问用户
+
+        // 获取回答用户
         User user = userMapper.getUserByEmail(email);
         if (user == null || !(user.isState())) { // 如果用户不存在或者已注销
             result.put("status","error");
             result.put("msg","用户不存在或已注销");
             return result;
         }
-        // 用户存在，获取userId
-        Integer userId = user.getId();
+        Integer userId = user.getId(); // 用户存在，获取userId
+        String username = user.getUsername(); // 获取回答的作者名字
 
-        // 获取问题的ID
-        Integer questionId = questionMapper.findByTitle(title).getQuestionId();
+        Question question = questionMapper.findByTitle(title);
+        Integer questionId = question.getQuestionId(); // 获取问题的ID
+        Integer questionUserId = question.getUserId(); // 获取问题的作者ID
+
+        // 这里要特别注意用户是否已经注销，以防出现null错误
+        String questionUserEmail = userMapper.getUserById(questionUserId).getEmail(); // 获取问题的作者email
 
         // 将article放入数据库
         Article article = new Article(questionId,userId,content);
@@ -78,18 +92,27 @@ public class ArticleServiceImpl implements ArticleService {
 
         // 处理数据库返回结果
         if (addResult==null || addResult <= 0){
-            result.put("status","error");
-            result.put("msg","回答添加失败");
-            return result;
+            throw new RuntimeException("回答添加失败!");
         }
 
         // 获取文章的ID返回给前端，当看到这篇文章时可以通过文章的ID锁定
         int articleId = article.getArticleId();
-
-        result.put("status","success");
         result.put("articleId",articleId);
 
-        return result;
+        // 如果用户存在，异步通知用户：有人回复问题
+        if (questionUserEmail == null || questionUserEmail.isEmpty()){
+            result.put("status","success");
+            return result;
+        }
+        String body = username + "回复了你的问题:" + content;
+        String save = informService.add(userId,questionUserId,body);
+        String publish = redisMessagePublisher.publish(questionUserEmail,body);
+        if (save.equals("success") && publish.equals("success")) {
+            result.put("status", "success");
+            return result;
+        }
+        throw new RuntimeException("异步站内通知失败!");
+
     }
 
 

@@ -78,57 +78,43 @@ public class UserServiceImpl implements UserService {
             // 删除与用户有关的会话
             Integer deleteConversation = conversationMapper.deleteByUserId(userId);
             if (deleteConversation == null || deleteConversation < 0) {
-                result.put("status", "error");
-                result.put("msg", "用户注销失败，删除会话失败！");
-                return result;
+                throw new RuntimeException("用户注销失败，删除会话失败！");
             }
 
             // 删除用户草稿
             Integer deleteDraft = draftMapper.deleteDraftByUserId(userId);
             if (deleteDraft == null || deleteDraft < 0) {
-                result.put("status", "error");
-                result.put("msg", "用户注销失败，删除用户草稿失败！");
-                return result;
+                throw new RuntimeException("用户注销失败，删除用户草稿失败！");
             }
 
             // 用户一定有“默认收藏夹”，删除收藏夹
             Integer deleteFavourite = favouriteMapper.deleteByUserId(userId);
             if (deleteFavourite == null || deleteFavourite <= 0){
-                result.put("status", "error");
-                result.put("msg", "用户注销失败，删除收藏夹失败！");
-                return result;
+                throw new RuntimeException("用户注销失败，删除收藏夹失败！");
             }
 
             // 删除浏览历史
             Integer deleteHistory = historyMapper.deleteByUserId(userId);
             if (deleteHistory == null || deleteHistory < 0){
-                result.put("status", "error");
-                result.put("msg", "用户注销失败，删除浏览记录失败！");
-                return result;
+                throw new RuntimeException("用户注销失败，删除浏览记录失败！");
             }
 
             // 删除用户是否有关注话题
             Integer deleteUserTopic = userTopicMapper.deleteByUserId(userId);
             if (deleteUserTopic == null || deleteUserTopic < 0){
-                result.put("status", "error");
-                result.put("msg", "用户注销失败，删除浏览记录失败！");
-                return result;
+                throw new RuntimeException("用户注销失败，删除浏览记录失败！");
             }
 
             // 取消用户监听频道
             String unsub = redisMessageSubscriber.unsubscribe(email);
             if (!(unsub.equals("success"))){
-                result.put("status","error");
-                result.put("msg","取消用户监听频道失败!");
-                return result;
+                throw new RuntimeException("取消用户监听频道失败!");
             }
 
             // 删除用户订阅消息频道
             String deleteSub = subService.delete(email);
             if (!(deleteSub.equals("success"))){
-                result.put("status","error");
-                result.put("msg","删除用户订阅信息失败!");
-                return result;
+                throw new RuntimeException("删除用户订阅信息失败!");
             }
 
             // 将用户状态设置为注销（state = 0）
@@ -139,9 +125,7 @@ public class UserServiceImpl implements UserService {
                 result.put("msg", "用户注销成功！");
                 return result;
             } else {
-                result.put("status", "error");
-                result.put("msg", "用户注销失败，请稍后再试！");
-                return result;
+                throw new RuntimeException("用户注销失败，请稍后再试！");
             }
 
         } catch (Exception e) {

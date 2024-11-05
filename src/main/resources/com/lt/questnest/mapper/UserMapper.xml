@@ -41,6 +41,12 @@
         where `id` = #{userId} and `state` = 1
     </select>
 
+    <select id="getUserByIdIgnoreState" resultType="com.lt.questnest.entity.User">
+        select `id`,`email`,`username`,`password`,`gender`,`birthday`,`head_url`,`state`
+        from `user`
+        where `id` = #{id}
+    </select>
+
 
     <!-- 修改用户状态和姓名 -->
     <update id="updateUserState" parameterType="com.lt.questnest.entity.User">

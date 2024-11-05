@@ -164,7 +164,7 @@ public class UserFollowServiceImpl implements UserFollowService {
                 // 获取关注者Id
                 Integer followerId = userFollow.getFollowerId();
                 // 获取关注者信息，将信息返回给前端，包括userId、username、headUrl
-                User user = userMapper.getUserById(followerId);
+                User user = userMapper.getUserByIdIgnoreState(followerId);
                 fanItem.put("userId",followerId);
                 fanItem.put("username",user.getUsername());
                 fanItem.put("headUrl",user.getHeadUrl());
@@ -214,7 +214,7 @@ public class UserFollowServiceImpl implements UserFollowService {
                 // 获取被关注者Id
                 Integer followedId = userFollow.getFollowedId();
                 // 获取关注者信息，将信息返回给前端，包括userId、username、headUrl
-                User user = userMapper.getUserById(followedId);
+                User user = userMapper.getUserByIdIgnoreState(followedId);
                 followedItem.put("userId",followedId);
                 followedItem.put("username",user.getUsername());
                 followedItem.put("headUrl",user.getHeadUrl());

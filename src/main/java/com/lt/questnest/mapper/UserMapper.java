@@ -15,6 +15,8 @@ public interface UserMapper {
 
     User getUserById(@Param("id") Integer id);
 
+    User getUserByIdIgnoreState(@Param("id") Integer id); // 如果是需要显示全部数据（显示问题，显示回答，显示评论，显示粉丝列表，显示关注列表等），无论用户是否注销，使用这个接口
+
     int updateUserState(String email);
 
     int updatePasswd(@Param("email") String email, @Param("password") String password);

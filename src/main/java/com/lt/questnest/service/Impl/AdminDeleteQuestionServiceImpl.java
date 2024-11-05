@@ -1,17 +1,15 @@
 package com.lt.questnest.service.Impl;
 
-import com.lt.questnest.entity.Admin;
-import com.lt.questnest.entity.AdminDeleteArticle;
 import com.lt.questnest.entity.AdminDeleteQuestion;
 import com.lt.questnest.entity.Question;
 import com.lt.questnest.mapper.AdminDeleteQuestionMapper;
 import com.lt.questnest.mapper.AdminMapper;
 import com.lt.questnest.mapper.QuestionMapper;
 import com.lt.questnest.mapper.UserMapper;
+import com.lt.questnest.pubsub.RedisMessagePublisher;
 import com.lt.questnest.service.AdminDeleteQuestionService;
-import com.lt.questnest.service.NotificationService;
+import com.lt.questnest.service.InformService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +32,10 @@ public class AdminDeleteQuestionServiceImpl implements AdminDeleteQuestionServic
     QuestionMapper questionMapper;
 
     @Autowired
-    NotificationService notificationService;
+    RedisMessagePublisher redisMessagePublisher;
+
+    @Autowired
+    InformService informService;
 
     @Transactional
     public Map<String,String> failToQuestion(String account, Integer questionId, String reason){
@@ -55,7 +56,7 @@ public class AdminDeleteQuestionServiceImpl implements AdminDeleteQuestionServic
 
         String email; // 问题作者的email
         String title; // 问题title
-        String content; // 问题内容
+        Integer userId; // 问题作者的ID
 
         // 修改问题状态、添加记录
         try {
@@ -69,10 +70,9 @@ public class AdminDeleteQuestionServiceImpl implements AdminDeleteQuestionServic
             }
 
             title = question.getTitle();
-            content = question.getContent();
 
             // 获取问题作者
-            Integer userId = question.getUserId();
+            userId = question.getUserId();
             email = userMapper.getUserById(userId).getEmail();
 
             // 找出管理员ID
@@ -85,16 +85,12 @@ public class AdminDeleteQuestionServiceImpl implements AdminDeleteQuestionServic
 
             Integer addResult = adminDeleteQuestionMapper.add(adminDeleteQuestion);
             if (addResult == null || addResult <= 0){
-                result.put("status","error");
-                result.put("msg","添加记录失败，问题无法打回重修");
-                return result;
+                throw new RuntimeException("添加记录失败，问题无法打回重修");
             }
 
             Integer updateResult = questionMapper.updateQuestionState(questionId);
             if (updateResult == null || updateResult <= 0){
-                result.put("status","error");
-                result.put("msg","问题打回重修失败");
-                return result;
+                throw new RuntimeException("问题打回重修失败");
             }
 
         } catch (Exception e) {
@@ -104,9 +100,19 @@ public class AdminDeleteQuestionServiceImpl implements AdminDeleteQuestionServic
         }
 
         // 异步通知作者重修回答，给出违规原因
-        notificationService.failToQuestionNotification(email,title,content,reason);
+        // 检查用户是否存在，如果用户注销，那么不必通知,避免添加数据时出现null错误
+        if (email == null || email.isEmpty()){
+            result.put("status", "success");
+            return result;
+        }
 
-        result.put("status","success");
-        return result;
+        String body = "{\"reason\":\"" + reason + "\", \"title\":\"" + title + "\", \"message\":\"请重新编辑\"}";
+        String save = informService.add(0,userId,body);
+        String publish = redisMessagePublisher.publish(email,body);
+        if (save.equals("success") && publish.equals("success")) {
+            result.put("status", "success");
+            return result;
+        }
+        throw new RuntimeException("异步站内通知失败");
     }
 }
