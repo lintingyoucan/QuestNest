@@ -1,7 +1,5 @@
 package com.lt.questnest.controller;
 
-import com.lt.questnest.entity.AdminUserMute;
-import com.lt.questnest.mapper.ArticleMapper;
 import com.lt.questnest.service.AdminUserMuteService;
 import com.lt.questnest.service.ArticleService;
 import com.lt.questnest.service.FileService;

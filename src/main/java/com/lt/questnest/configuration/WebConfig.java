@@ -21,7 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**") // 对所有路径应用拦截器
-                .excludePathPatterns("/loginByPasswd", "/register","/sendCode","/loginByCode","/resetPasswd","/images/**","/static/**", "/css/**", "/js/**","/admin/**","/chat","/enter"); // 不拦截的请求URL
+                .excludePathPatterns("/loginByPasswd", "/register","/sendCode","/loginByCode","/resetPasswd","/images/**","/static/**", "/css/**", "/js/**","/admin/**","/chat","/cancelCloseCommentArea","/closeCommentArea"); // 不拦截的请求URL
     }
 
     /**

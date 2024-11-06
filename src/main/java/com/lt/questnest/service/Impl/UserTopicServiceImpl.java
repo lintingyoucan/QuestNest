@@ -1,9 +1,6 @@
 package com.lt.questnest.service.Impl;
 
 import com.lt.questnest.controller.UserController;
-import com.lt.questnest.entity.Topic;
-import com.lt.questnest.entity.User;
-import com.lt.questnest.entity.UserFollow;
 import com.lt.questnest.entity.UserTopic;
 import com.lt.questnest.mapper.TopicMapper;
 import com.lt.questnest.mapper.UserMapper;
@@ -12,7 +9,6 @@ import com.lt.questnest.service.UserTopicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

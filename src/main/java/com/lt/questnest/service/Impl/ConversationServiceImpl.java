@@ -1,6 +1,5 @@
 package com.lt.questnest.service.Impl;
 
-import com.lt.questnest.controller.UserController;
 import com.lt.questnest.entity.*;
 import com.lt.questnest.mapper.ConversationMapper;
 import com.lt.questnest.mapper.MessageMapper;

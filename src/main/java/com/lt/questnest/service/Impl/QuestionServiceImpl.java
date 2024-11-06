@@ -9,10 +9,7 @@ import com.lt.questnest.entity.Question;
 import com.lt.questnest.entity.QuestionTopic;
 import com.lt.questnest.entity.Topic;
 import com.lt.questnest.entity.User;
-import com.lt.questnest.mapper.QuestionMapper;
-import com.lt.questnest.mapper.QuestionTopicMapper;
-import com.lt.questnest.mapper.TopicMapper;
-import com.lt.questnest.mapper.UserMapper;
+import com.lt.questnest.mapper.*;
 import com.lt.questnest.service.FileService;
 import com.lt.questnest.service.QuestionService;
 import org.slf4j.Logger;
@@ -20,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -44,6 +40,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     FileService fileService;
+
+    @Autowired
+    ArticleMapper articleMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -482,5 +481,17 @@ public class QuestionServiceImpl implements QuestionService {
         result.put("illegalQuestion",questionList);
         result.put("status","success");
         return result;
+    }
+
+    // 显示问题回答数目
+    public Integer getAnswerNumber(String title) {
+        Map<String, Object> result = new HashMap<>();
+
+        // 根据title找questionId
+        Question question = questionMapper.findByTitle(title);
+        Integer questionId = question.getQuestionId();
+        // 根据questionId找出文章回答数目
+        Integer answerNumber = articleMapper.getQuestionAnswerNumber(questionId);
+        return answerNumber;
     }
 }

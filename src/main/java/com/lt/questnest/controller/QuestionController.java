@@ -280,11 +280,65 @@ public class QuestionController {
 
     }
 
-    // 显示所有问题
+    /**
+     * 显示问题回答数
+     * 20241106
+     * @param title
+     * @param session
+     * @return
+     */
+    @PostMapping("/showAnswerNumber")
+    public ResponseEntity<Map<String, Object>> sshowAnswerNumber(@RequestParam("title") String title,
+                                                          HttpSession session) {
 
+        Map<String,Object> result = new HashMap<>();
+        String email = (String)session.getAttribute("email");
 
-    // 显示问题回答数
+        try {
+            if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录
+                // 从Service层获取搜索结果
+                Integer answerNumber = questionService.getAnswerNumber(title);
+                result.put("status","success");
+                result.put("answerNumber",answerNumber);
+                return ResponseEntity.ok(result); // 返回200状态
+            } else {
+                result.put("status","error");
+                result.put("message","用户未登录");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);  // 返回401状态
+            }
+        } catch (Exception e) {
+            result.put("status", "error");
+            result.put("message", "显示问题回答数目失败：" + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);  // 返回500状态
+        }
+
+    }
 
     // 显示问题对应的回答
+    @PostMapping("/showQuestionAndArticle")
+    public ResponseEntity<Map<String, Object>> showQuestionAndArticle(@RequestParam("title") String title,
+                                                                 HttpSession session) {
+
+        Map<String,Object> result = new HashMap<>();
+        String email = (String)session.getAttribute("email");
+
+        try {
+            if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录
+                // 从Service层获取搜索结果
+                Integer answerNumber = null;
+                result.put("status","success");
+                return ResponseEntity.ok(result); // 返回200状态
+            } else {
+                result.put("status","error");
+                result.put("message","用户未登录");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);  // 返回401状态
+            }
+        } catch (Exception e) {
+            result.put("status", "error");
+            result.put("message", "显示问题回答数目失败：" + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);  // 返回500状态
+        }
+
+    }
 
 }

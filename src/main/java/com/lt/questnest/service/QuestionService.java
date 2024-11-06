@@ -18,4 +18,6 @@ public interface QuestionService {
     Map<String,Object> searchByAI(String keyword);
 
     Map<String,Object> getIllegalQuestion(String email);
+
+    Integer getAnswerNumber(String title);
 }

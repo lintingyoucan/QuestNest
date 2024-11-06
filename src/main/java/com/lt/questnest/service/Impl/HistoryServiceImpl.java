@@ -3,7 +3,6 @@ package com.lt.questnest.service.Impl;
 
 import com.lt.questnest.controller.UserController;
 import com.lt.questnest.entity.History;
-import com.lt.questnest.entity.UserTopic;
 import com.lt.questnest.mapper.ArticleMapper;
 import com.lt.questnest.mapper.HistoryMapper;
 import com.lt.questnest.mapper.QuestionMapper;
@@ -12,7 +11,6 @@ import com.lt.questnest.service.HistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;

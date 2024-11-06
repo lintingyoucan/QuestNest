@@ -1,0 +1,22 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.AdminCheckArticleMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="AdminCheckArticleResultMap" type="com.lt.questnest.entity.AdminCheckArticle">
+        <result property="adminCheckArticleId" column="admin_check_article_id"/>
+        <result property="articleId" column="article_id"/>
+        <result property="check" column="check"/>
+    </resultMap>
+
+    <delete id="delete">
+        delete from `admin_check_article`
+        where `article_id` = #{articleId}
+    </delete>
+
+    <select id="get" resultMap="AdminCheckArticleResultMap">
+        select `admin_check_article_id`,`article_id`
+        from `admin_check_article`
+        where `check` = 0
+    </select>
+</mapper>

@@ -1,6 +1,5 @@
 package com.lt.questnest.service.Impl;
 
-import com.lt.questnest.controller.UserController;
 import com.lt.questnest.entity.Inform;
 import com.lt.questnest.entity.InformView;
 import com.lt.questnest.entity.User;

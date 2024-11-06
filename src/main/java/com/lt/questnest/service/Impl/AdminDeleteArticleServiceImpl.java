@@ -3,7 +3,6 @@ package com.lt.questnest.service.Impl;
 import com.lt.questnest.entity.AdminDeleteArticle;
 import com.lt.questnest.mapper.*;
 import com.lt.questnest.pubsub.RedisMessagePublisher;
-import com.lt.questnest.pubsub.RedisMessageSubscriber;
 import com.lt.questnest.service.AdminDeleteArticleService;
 import com.lt.questnest.service.InformService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,9 @@ public class AdminDeleteArticleServiceImpl implements AdminDeleteArticleService 
 
     @Autowired
     InformService informService;
+
+    @Autowired
+    AdminCheckArticleMapper adminCheckArticleMapper;
 
 
     // 管理员审核不通过文章
@@ -91,6 +93,11 @@ public class AdminDeleteArticleServiceImpl implements AdminDeleteArticleService 
             Integer updateResult = articleMapper.updateArticleState(articleId);
             if (updateResult == null || updateResult <= 0){
                 throw new RuntimeException("回答打回重修失败！");
+            }
+
+            Integer deleteResult = adminCheckArticleMapper.delete(articleId);
+            if (deleteResult == null || deleteResult <= 0){
+                throw new RuntimeException("删除未审核回答记录失败！");
             }
 
         } catch (Exception e) {

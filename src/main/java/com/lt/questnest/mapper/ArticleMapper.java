@@ -38,5 +38,7 @@ public interface ArticleMapper {
 
     List<Article> getIllegalArticle(@Param("userId") Integer userId);
 
+    int getQuestionAnswerNumber(@Param("questionId") Integer questionId);
+
 
 }

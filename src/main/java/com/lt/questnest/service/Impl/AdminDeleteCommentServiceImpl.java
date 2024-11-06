@@ -7,7 +7,6 @@ import com.lt.questnest.mapper.AdminMapper;
 import com.lt.questnest.mapper.CommentMapper;
 import com.lt.questnest.service.AdminDeleteCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +25,7 @@ public class AdminDeleteCommentServiceImpl implements AdminDeleteCommentService 
 
     @Autowired
     AdminDeleteCommentMapper adminDeleteCommentMapper;
+
 
     // 删除评论
     @Transactional

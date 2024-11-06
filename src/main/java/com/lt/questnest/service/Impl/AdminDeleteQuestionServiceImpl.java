@@ -2,10 +2,7 @@ package com.lt.questnest.service.Impl;
 
 import com.lt.questnest.entity.AdminDeleteQuestion;
 import com.lt.questnest.entity.Question;
-import com.lt.questnest.mapper.AdminDeleteQuestionMapper;
-import com.lt.questnest.mapper.AdminMapper;
-import com.lt.questnest.mapper.QuestionMapper;
-import com.lt.questnest.mapper.UserMapper;
+import com.lt.questnest.mapper.*;
 import com.lt.questnest.pubsub.RedisMessagePublisher;
 import com.lt.questnest.service.AdminDeleteQuestionService;
 import com.lt.questnest.service.InformService;
@@ -36,6 +33,9 @@ public class AdminDeleteQuestionServiceImpl implements AdminDeleteQuestionServic
 
     @Autowired
     InformService informService;
+
+    @Autowired
+    AdminCheckQuestionMapper adminCheckQuestionMapper;
 
     @Transactional
     public Map<String,String> failToQuestion(String account, Integer questionId, String reason){
@@ -91,6 +91,11 @@ public class AdminDeleteQuestionServiceImpl implements AdminDeleteQuestionServic
             Integer updateResult = questionMapper.updateQuestionState(questionId);
             if (updateResult == null || updateResult <= 0){
                 throw new RuntimeException("问题打回重修失败");
+            }
+
+            Integer deleteResult = adminCheckQuestionMapper.delete(questionId);
+            if (deleteResult == null || deleteResult <= 0){
+                throw new RuntimeException("删除未审核问题记录失败");
             }
 
         } catch (Exception e) {

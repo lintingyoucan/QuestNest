@@ -18,7 +18,14 @@ public class AdminDeleteCommentController {
     @Autowired
     AdminDeleteCommentService adminDeleteCommentService;
 
-    // 删除评论
+    /**
+     * 审核不通过评论（直接删除）
+     * 20241024
+     * @param commentId
+     * @param reason
+     * @param session
+     * @return
+     */
     @PostMapping("/deleteComment")
     public ResponseEntity<Map<String, Object>> deleteComment(@RequestParam("commentId") Integer commentId,
                                                              @RequestParam("reason") String reason,
@@ -51,4 +58,5 @@ public class AdminDeleteCommentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);  // 返回500状态
         }
     }
+
 }
