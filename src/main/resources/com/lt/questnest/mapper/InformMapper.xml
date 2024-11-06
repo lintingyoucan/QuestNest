@@ -21,10 +21,10 @@
     <update id="updateRead">
         update `inform`
         set `read` = 1
-        where `inform_id` = #{informId}
+        where `read` = 0 and `receiver_id` = #{receiverId}
     </update>
 
-    <select id="getRead" resultType="java.lang.Integer">
+    <select id="getUnreadNumber" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM `inform`
         WHERE `read` = 0 and `receiver_id` = #{receiverId}

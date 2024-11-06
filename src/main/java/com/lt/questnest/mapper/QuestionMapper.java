@@ -28,4 +28,8 @@ public interface QuestionMapper {
     int updateQuestionContent(@Param("questionId") int questionId,@Param("content") String content);
 
     int updateQuestionState(@Param("questionId") int questionId);
+
+    List<Question> findIllegalQuestion(@Param("userId") Integer userId);
+
+    Question findByQuestionIdIgnoreState(@Param("questionId") int questionId);
 }

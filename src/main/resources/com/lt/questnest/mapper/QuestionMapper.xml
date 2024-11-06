@@ -63,5 +63,17 @@
         where `question_id` = #{questionId} and `state` = 1
     </select>
 
+    <select id="findIllegalQuestion" resultMap="QuestionResultMap">
+        select `question_id`,`user_id`,`title`,`content`
+        from `question`
+        where `user_id` = #{userId} and `state` = 0
+    </select>
+
+    <select id="findByQuestionIdIgnoreState" resultMap="QuestionResultMap">
+        select `question_id`,`user_id`,`title`,`content`
+        from `question`
+        where `question_id` = #{questionId}
+    </select>
+
 
 </mapper>

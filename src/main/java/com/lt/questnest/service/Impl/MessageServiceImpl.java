@@ -236,7 +236,7 @@ public class MessageServiceImpl implements MessageService {
             return result;
         }
 
-        // 按照 createTime 属性排序
+        // 按照 createTime 属性排序，时间早的在前面
         Collections.sort(messages, new Comparator<Message>() {
             @Override
             public int compare(Message m1, Message m2) {
@@ -244,20 +244,11 @@ public class MessageServiceImpl implements MessageService {
             }
         });
 
+        // 根据会话ID，将消息的状态置为已读
         try {
-            // 遍历每一条消息，将消息的read置为1
-            for (Message message : messages) {
-                Integer updateRead = messageMapper.updateRead(message.getMessageId());
-                if (updateRead == null || updateRead <= 0){
-                    result.put("status","error");
-                    result.put("msg","message设置为已读状态失败");
-                    return result;
-                }
-            }
+            Integer updateRead = messageMapper.updateRead(conversationId);
         } catch (Exception e) {
-            result.put("status","error");
-            result.put("msg","数据库访问失败");
-            return result;
+            throw new RuntimeException("更新私信的已读状态失败");
         }
 
         // 数据结果列表

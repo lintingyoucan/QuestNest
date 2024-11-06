@@ -10,10 +10,11 @@
         <result property="receiverEmail" column="receiver_email"/>
         <result property="content" column="content"/>
         <result property="sendTime" column="send_time"/>
+        <result property="senderHeadUrl" column="sender_head_url"/>
     </resultMap>
 
     <select id="getInform" resultMap="InformViewResultMap">
-        select `sender_email`,`sender_username`,`content`,`send_time`
+        select `sender_email`,`sender_username`,`content`,`send_time`,`sender_head_url`
         from `inform_view`
         where `receiver_email` = #{receiverEmail}
     </select>

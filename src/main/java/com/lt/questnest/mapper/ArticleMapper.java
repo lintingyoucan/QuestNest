@@ -4,6 +4,8 @@ import com.lt.questnest.entity.Article;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface ArticleMapper {
 
@@ -33,6 +35,8 @@ public interface ArticleMapper {
     int updateArticle(Article article);
 
     int updateArticleState(@Param("articleId") int articleId);
+
+    List<Article> getIllegalArticle(@Param("userId") Integer userId);
 
 
 }

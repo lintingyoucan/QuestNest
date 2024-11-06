@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.beans.PropertyEditorSupport;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -514,4 +516,36 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
+    public Map<String,Object> getIllegalArticle(String email){
+
+        Map<String,Object> result = new HashMap<>();
+
+        // 找出用户ID
+        User user = userMapper.getUserByEmail(email);
+        Integer userId  = user.getId();
+
+        // 找出用户的文章状态state = 0
+        List<Article> articles = articleMapper.getIllegalArticle(userId);
+        if (articles == null || articles.isEmpty()){ // 如果没有违规问题，那么返回空列表
+            result.put("status","success");
+            result.put("illegalArticle",new ArrayList<>());
+            return result;
+        }
+
+        List<Map<String, Object>> articleList = new ArrayList<>();
+        // 返回列表
+        for (Article article : articles) {
+            Map<String,Object> articleItem = new HashMap<>();
+            articleItem.put("questionId",article.getQuestionId());
+            articleItem.put("articleId",article.getArticleId());
+            articleItem.put("content",article.getContent());
+            // 找出问题title
+            Question question = questionMapper.findByQuestionIdIgnoreState(article.getQuestionId());
+            articleItem.put("title",question.getTitle());
+            articleList.add(articleItem);
+        }
+        result.put("illegalArticle",articleList);
+        result.put("status","success");
+        return result;
+    }
 }

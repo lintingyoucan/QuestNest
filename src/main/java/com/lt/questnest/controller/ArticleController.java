@@ -9,10 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -400,6 +397,45 @@ public class ArticleController {
             result.put("message", "显示文章内容失败：" + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);  // 返回500状态
         }
+    }
+
+    /**
+     * 显示用户违规的回答
+     * 20241106
+     * @param session
+     * @return
+     */
+    @GetMapping("/showIllegalArticle")
+    public ResponseEntity<Map<String, Object>> showIllegalArticle(HttpSession session) {
+
+        Map<String,Object> result = new HashMap<>();
+        String email = (String)session.getAttribute("email");
+
+        try {
+            if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录
+                // 从Service层获取搜索结果
+                Map<String, Object> getResult = articleService.getIllegalArticle(email);
+                if (getResult.containsValue("success")){ // 是否有返回问题列表
+                    result.put("status","success");
+                    result.put("illegalArticle",getResult.get("illegalArticle")); // 返回违规回答列表
+                    return ResponseEntity.ok(result); // 返回200状态，并返回问题列表
+                } else {
+                    result.put("status","error");
+                    result.put("message",getResult.get("msg"));
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);  // 返回400状态
+                }
+
+            } else {
+                result.put("status","error");
+                result.put("message","用户未登录");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);  // 返回401状态
+            }
+        } catch (Exception e) {
+            result.put("status", "error");
+            result.put("message", "显示用户违规回答失败：" + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);  // 返回500状态
+        }
+
     }
 
 }

@@ -241,12 +241,50 @@ public class QuestionController {
     }
 
 
+    /**
+     * 显示用户违规的问题
+     * 20241106
+     * @param session
+     * @return
+     */
+    @GetMapping("/showIllegalQuestion")
+    public ResponseEntity<Map<String, Object>> showIllegalQuestion(HttpSession session) {
+
+        Map<String,Object> result = new HashMap<>();
+        String email = (String)session.getAttribute("email");
+
+        try {
+            if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录
+                // 从Service层获取搜索结果
+                Map<String, Object> getResult = questionService.getIllegalQuestion(email);
+                if (getResult.containsValue("success")){ // 是否有返回问题列表
+                    result.put("status","success");
+                    result.put("illegalQuestion",getResult.get("illegalQuestion")); // 返回违规问题列表
+                    return ResponseEntity.ok(result); // 返回200状态，并返回问题列表
+                } else {
+                    result.put("status","error");
+                    result.put("message",getResult.get("msg"));
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);  // 返回400状态
+                }
+
+            } else {
+                result.put("status","error");
+                result.put("message","用户未登录");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);  // 返回401状态
+            }
+        } catch (Exception e) {
+            result.put("status", "error");
+            result.put("message", "显示用户违规问题失败：" + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);  // 返回500状态
+        }
+
+    }
+
     // 显示所有问题
 
 
     // 显示问题回答数
 
     // 显示问题对应的回答
-
 
 }

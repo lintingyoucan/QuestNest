@@ -26,4 +26,6 @@ public interface ArticleService {
 
     Map<String,Object> showArticleContent(int articleId);
 
+    Map<String,Object> getIllegalArticle(String email);
+
 }

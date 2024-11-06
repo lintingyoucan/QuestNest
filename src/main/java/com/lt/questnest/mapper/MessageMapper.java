@@ -23,7 +23,7 @@ public interface MessageMapper {
 
     Message findByMessageId(@Param("messageId") Integer messageId);
 
-    int updateRead(@Param("messageId") Integer messageId);
+    int updateRead(@Param("conversationId") Integer conversationId);
 
     List<Message> findByConversationId(@Param("conversationId") Integer conversationId);
 }

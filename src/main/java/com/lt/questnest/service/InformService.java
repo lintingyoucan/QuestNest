@@ -3,13 +3,14 @@ package com.lt.questnest.service;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface InformService {
 
     String add(Integer senderId,Integer receiverId,String body);
 
-    Integer getRead(String email);
+    Integer getUnreadNumber(String email);
 
-    List<Object> showInform(String email);
+    Map<String,Object> showInform(String email);
 }

@@ -21,7 +21,7 @@
     <update id="updateRead">
         update `message`
         set `read` = 1
-        where `message_id` = #{messageId}
+        where `conversation_id` = #{conversationId}
     </update>
 
     <delete id="deleteByUserId">

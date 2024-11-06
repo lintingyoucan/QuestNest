@@ -450,4 +450,37 @@ public class QuestionServiceImpl implements QuestionService {
         result.put("status","success");
         return result;
     }
+
+    // 返回违规问题
+    public Map<String,Object> getIllegalQuestion(String email){
+        Map<String,Object> result = new HashMap<>();
+
+        // 找出用户ID
+        User user = userMapper.getUserByEmail(email);
+        Integer userId  = user.getId();
+
+        // 找出用户的问题状态state = 0
+        List<Question> questions = questionMapper.findIllegalQuestion(userId);
+        if (questions == null || questions.isEmpty()){ // 如果没有违规问题，那么返回空列表
+            result.put("status","success");
+            result.put("illegalQuestion",new ArrayList<>());
+            return result;
+        }
+
+        // 数据列表
+        List<Map<String, Object>> questionList = new ArrayList<>();
+        // 返回问题
+        for (Question question : questions) {
+            Map<String,Object> questionItem = new HashMap<>();
+            questionItem.put("title",question.getTitle());
+            questionItem.put("content",question.getContent());
+            questionItem.put("questionId",question.getQuestionId());
+
+            questionList.add(questionItem);
+        }
+
+        result.put("illegalQuestion",questionList);
+        result.put("status","success");
+        return result;
+    }
 }

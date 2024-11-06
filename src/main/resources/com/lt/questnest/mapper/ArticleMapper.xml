@@ -87,5 +87,11 @@
         where `article_id` = #{articleId} and `state` = 1
     </select>
 
+    <select id="getIllegalArticle" resultMap="ArticleResultMap">
+        select `article_id`,`question_id`,`content`
+        from `article`
+        where `user_id` = #{userId} and `state` = 0
+    </select>
+
 
 </mapper>

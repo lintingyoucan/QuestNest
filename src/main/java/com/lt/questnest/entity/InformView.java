@@ -16,4 +16,5 @@ public class InformView {
     private String receiverEmail;    // 接收者邮箱
     private String content;          // 消息内容
     private Timestamp sendTime;      // 发送时间
+    private String senderHeadUrl;    // 发送方头像URL
 }

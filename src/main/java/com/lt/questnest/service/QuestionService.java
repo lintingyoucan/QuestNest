@@ -16,4 +16,6 @@ public interface QuestionService {
     Map<String,String> updateQuestion(Integer questionId,String email,String title,String content,Set<String> topics);
 
     Map<String,Object> searchByAI(String keyword);
+
+    Map<String,Object> getIllegalQuestion(String email);
 }
