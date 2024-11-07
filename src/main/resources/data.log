@@ -1,41 +1,613 @@
-2024-11-07 13:13:21.101 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'articleMapper': [adminCheckArticleServiceImpl, commentAreaMuteServiceImpl, favouriteItemServiceImpl, historyServiceImpl, questionServiceImpl]
-2024-11-07 13:13:21.107 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'favouriteItemServiceImpl': [favouriteItemController]
-2024-11-07 13:13:21.107 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'historyServiceImpl': [historyController]
-2024-11-07 13:13:21.107 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'questionServiceImpl': [questionController]
-2024-11-07 13:13:21.107 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'questionMapper': [adminCheckQuestionServiceImpl, draftServiceImpl]
-2024-11-07 13:13:21.107 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'draftServiceImpl': [draftController]
-2024-11-07 13:13:21.107 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminMapper': [adminDeleteCommentServiceImpl, adminServiceImpl, adminUserMuteServiceImpl]
-2024-11-07 13:13:21.107 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminDeleteCommentServiceImpl': [adminCommentController]
-2024-11-07 13:13:21.107 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminServiceImpl': [adminController]
-2024-11-07 13:13:21.113 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminUserMuteServiceImpl': [adminUserMuteController]
-2024-11-07 13:13:21.113 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'userMapper': [informServiceImpl, reportCommentServiceImpl, conversationServiceImpl, favouriteServiceImpl, userFollowServiceImpl, userTopicServiceImpl]
-2024-11-07 13:13:21.113 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'informServiceImpl': [informController]
-2024-11-07 13:13:21.113 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'conversationServiceImpl': [conversationController]
-2024-11-07 13:13:21.113 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'favouriteServiceImpl': [favouriteController]
-2024-11-07 13:13:21.113 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'userFollowServiceImpl': [userFollowController]
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'userTopicServiceImpl': [userTopicController]
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'subMapper': [subServiceImpl]
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'sqlSessionTemplate'
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'dataSource': [sqlSessionFactory, org.springframework.boot.autoconfigure.jdbc.DataSourceJmxConfiguration$Hikari, dataSourceScriptDatabaseInitializer, jdbcTemplate, transactionManager]
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'dataSourceScriptDatabaseInitializer': [jdbcTemplate, namedParameterJdbcTemplate]
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'jdbcTemplate': [namedParameterJdbcTemplate]
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'transactionManager': [transactionTemplate]
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking close() on bean with name 'dataSource'
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-11-07 13:13:21.114 [SpringApplicationShutdownHook] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Before shutdown stats (total=10, active=0, idle=10, waiting=0)
-2024-11-07 13:13:21.114 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3dce6dd8: (connection evicted)
-2024-11-07 13:13:21.122 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@55fa36cf: (connection evicted)
-2024-11-07 13:13:21.122 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2122b545: (connection evicted)
-2024-11-07 13:13:21.126 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@70d75d5b: (connection evicted)
-2024-11-07 13:13:21.126 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3e6efe3e: (connection evicted)
-2024-11-07 13:13:21.126 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3350ea27: (connection evicted)
-2024-11-07 13:13:21.126 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@69f32ef8: (connection evicted)
-2024-11-07 13:13:21.126 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@255a0ae6: (connection evicted)
-2024-11-07 13:13:21.137 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@19f367ca: (connection evicted)
-2024-11-07 13:13:21.138 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@4cd6eb1d: (connection evicted)
-2024-11-07 13:13:21.138 [SpringApplicationShutdownHook] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
-2024-11-07 13:13:21.138 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-11-07 13:13:21.138 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'characterEncodingFilter'
-2024-11-07 13:13:21.138 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'formContentFilter'
-2024-11-07 13:13:21.138 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'requestContextFilter'
-2024-11-07 13:13:21.138 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory': [org.springframework.context.annotation.internalConfigurationAnnotationProcessor]
+2024-11-07 14:40:37.353 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.transport.tcp - RMI TCP Connection(4)-192.168.178.78: accepted socket from [192.168.178.78:61663]
+2024-11-07 14:40:37.355 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.transport.tcp - RMI TCP Connection(4)-192.168.178.78: (port 61612) suggesting 192.168.178.78:61663
+2024-11-07 14:40:37.355 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.transport.tcp - RMI TCP Connection(4)-192.168.178.78: (port 61612) client using 127.0.0.1:0
+2024-11-07 14:40:37.356 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.transport.tcp - RMI TCP Connection(4)-192.168.178.78: (port 61612) op = 80
+2024-11-07 14:40:37.356 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.transport.misc - RMI TCP Connection(4)-192.168.178.78: getting input stream
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.transport.misc - RMI TCP Connection(4)-192.168.178.78: call dispatcher
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.server.call - RMI TCP Connection(4)-192.168.178.78: [192.168.178.78: sun.rmi.transport.DGCImpl[0:0:0, 2]: void clean(java.rmi.server.ObjID[], long, java.rmi.dgc.VMID, boolean)]
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: name = "[Ljava.rmi.server.ObjID;", codebase = "", defaultLoader = sun.misc.Launcher$ExtClassLoader@59f99ea
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: class "[Ljava.rmi.server.ObjID;" found via defaultLoader, defined by null
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter ALLOWED: class [Ljava.rmi.server.ObjID;, array length: -1, nRefs: 2, depth: 1, bytes: 80, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter ALLOWED: class [Ljava.rmi.server.ObjID;, array length: 10, nRefs: 3, depth: 1, bytes: 86, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: name = "java.rmi.server.ObjID", codebase = "", defaultLoader = sun.misc.Launcher$ExtClassLoader@59f99ea
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: class "java.rmi.server.ObjID" found via defaultLoader, defined by null
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter ALLOWED: class java.rmi.server.ObjID, array length: -1, nRefs: 5, depth: 2, bytes: 164, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: name = "java.rmi.server.UID", codebase = "", defaultLoader = sun.misc.Launcher$ExtClassLoader@59f99ea
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: class "java.rmi.server.UID" found via defaultLoader, defined by null
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter ALLOWED: class java.rmi.server.UID, array length: -1, nRefs: 8, depth: 3, bytes: 233, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 10, depth: 2, bytes: 255, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 11, depth: 3, bytes: 269, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 12, depth: 2, bytes: 289, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 13, depth: 3, bytes: 303, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 14, depth: 2, bytes: 323, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 15, depth: 3, bytes: 337, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 16, depth: 2, bytes: 357, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 17, depth: 3, bytes: 371, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 18, depth: 2, bytes: 391, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 19, depth: 3, bytes: 405, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 20, depth: 2, bytes: 425, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 21, depth: 3, bytes: 439, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 22, depth: 2, bytes: 459, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 23, depth: 3, bytes: 473, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 24, depth: 2, bytes: 493, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 25, depth: 3, bytes: 507, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 26, depth: 2, bytes: 527, ex: n/a
+2024-11-07 14:40:37.357 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 27, depth: 3, bytes: 541, ex: n/a
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 28, depth: 1, bytes: 620, ex: n/a
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: name = "java.rmi.dgc.VMID", codebase = "", defaultLoader = sun.misc.Launcher$ExtClassLoader@59f99ea
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: class "java.rmi.dgc.VMID" found via defaultLoader, defined by null
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter ALLOWED: class java.rmi.dgc.VMID, array length: -1, nRefs: 29, depth: 1, bytes: 621, ex: n/a
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: name = "[B", codebase = "", defaultLoader = sun.misc.Launcher$ExtClassLoader@59f99ea
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.loader - RMI TCP Connection(4)-192.168.178.78: class "[B" found via defaultLoader, defined by null
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter ALLOWED: class [B, array length: -1, nRefs: 32, depth: 2, bytes: 641, ex: n/a
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter ALLOWED: class [B, array length: 8, nRefs: 33, depth: 2, bytes: 647, ex: n/a
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG java.io.serialization - ObjectInputFilter UNDECIDED: null, array length: -1, nRefs: 34, depth: 2, bytes: 661, ex: n/a
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7ff7, 2466930426048631973], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7fcc, -189732926795112126], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7ffd, 2865295823900674939], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7feb, 7219241756303713935], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7fdf, -4526995494608773865], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7ff1, -7688356586456479048], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7fff, 2248778809479306158], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: remove from dirty set: f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: reference set is empty: target = sun.rmi.transport.Target@1e54ddda
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7fd2, -6890006740365188862], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7fe5, -2385057625392355779], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.358 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.dgc - RMI TCP Connection(4)-192.168.178.78: id = [-219e6fb4:193055a6d21:-7fd9, 7518093030367293954], vmid = f58f8df721b2c08d:-5ab4bc8a:193053d6b35:-7fff, strong = false
+2024-11-07 14:40:37.359 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.transport.misc - RMI TCP Connection(4)-192.168.178.78: getting output stream
+2024-11-07 14:40:37.443 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961637443; nextExpiration=1730961637440; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:38.148 [http-nio-8080-Acceptor] DEBUG o.a.tomcat.util.threads.LimitLatch - Counting up[http-nio-8080-Acceptor] latch=1
+2024-11-07 14:40:38.148 [http-nio-8080-Acceptor] DEBUG o.a.tomcat.util.threads.LimitLatch - Counting up[http-nio-8080-Acceptor] latch=2
+2024-11-07 14:40:38.149 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11NioProtocol - Processing socket [org.apache.tomcat.util.net.NioChannel@12319055:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61665]] with status [OPEN_READ]
+2024-11-07 14:40:38.149 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11NioProtocol - Processing socket [org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]] with status [OPEN_READ]
+2024-11-07 14:40:38.150 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11NioProtocol - Found processor [null] for socket [org.apache.tomcat.util.net.NioChannel@12319055:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61665]]
+2024-11-07 14:40:38.150 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11NioProtocol - Found processor [null] for socket [org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]]
+2024-11-07 14:40:38.150 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11NioProtocol - Popped processor [null] from cache
+2024-11-07 14:40:38.150 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11NioProtocol - Popped processor [null] from cache
+2024-11-07 14:40:38.166 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11NioProtocol - Register [org.apache.coyote.http11.Http11Processor@3938283] as [Tomcat:type=RequestProcessor,worker="http-nio-8080",name=HttpRequest1]
+2024-11-07 14:40:38.166 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11NioProtocol - Created new processor [org.apache.coyote.http11.Http11Processor@3938283]
+2024-11-07 14:40:38.167 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11NioProtocol - Register [org.apache.coyote.http11.Http11Processor@59744ef5] as [Tomcat:type=RequestProcessor,worker="http-nio-8080",name=HttpRequest2]
+2024-11-07 14:40:38.167 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11NioProtocol - Created new processor [org.apache.coyote.http11.Http11Processor@59744ef5]
+2024-11-07 14:40:38.167 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11InputBuffer - Before fill(): parsingHeader: [true], parsingRequestLine: [true], parsingRequestLinePhase: [0], parsingRequestLineStart: [0], byteBuffer.position(): [0], byteBuffer.limit(): [0], end: [0]
+2024-11-07 14:40:38.167 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11InputBuffer - Before fill(): parsingHeader: [true], parsingRequestLine: [true], parsingRequestLinePhase: [0], parsingRequestLineStart: [0], byteBuffer.position(): [0], byteBuffer.limit(): [0], end: [0]
+2024-11-07 14:40:38.168 [http-nio-8080-exec-1] DEBUG o.a.t.util.net.SocketWrapperBase - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@2a34669e:org.apache.tomcat.util.net.NioChannel@12319055:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61665]], Read from buffer: [0]
+2024-11-07 14:40:38.168 [http-nio-8080-exec-2] DEBUG o.a.t.util.net.SocketWrapperBase - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read from buffer: [0]
+2024-11-07 14:40:38.168 [http-nio-8080-exec-2] DEBUG o.apache.tomcat.util.net.NioEndpoint - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read direct from socket: [697]
+2024-11-07 14:40:38.168 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11InputBuffer - Received [POST /loginByPasswd HTTP/1.1
+User-Agent: PostmanRuntime/7.42.0
+Accept: */*
+Cache-Control: no-cache
+Postman-Token: a139bbe7-2ff9-49f4-84ae-157612d2a67b
+Host: localhost:8080
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Type: multipart/form-data; boundary=--------------------------223554629084378771697336
+Cookie: JSESSIONID=41C5549A17BFD9ACFD9602772052F25F
+Content-Length: 287
+
+----------------------------223554629084378771697336
+Content-Disposition: form-data; name="password"
+
+123
+----------------------------223554629084378771697336
+Content-Disposition: form-data; name="email"
+
+1370910756@qq.com
+----------------------------223554629084378771697336--
+]
+2024-11-07 14:40:38.168 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11Processor - Error parsing HTTP request header
+java.io.EOFException: null
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.fillReadBuffer(NioEndpoint.java:1340)
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.read(NioEndpoint.java:1227)
+	at org.apache.coyote.http11.Http11InputBuffer.fill(Http11InputBuffer.java:805)
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:271)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2024-11-07 14:40:38.168 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11Processor - Error state [CLOSE_CONNECTION_NOW] reported while processing request
+java.io.EOFException: null
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.fillReadBuffer(NioEndpoint.java:1340)
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.read(NioEndpoint.java:1227)
+	at org.apache.coyote.http11.Http11InputBuffer.fill(Http11InputBuffer.java:805)
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:271)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2024-11-07 14:40:38.168 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11Processor - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@2a34669e:org.apache.tomcat.util.net.NioChannel@12319055:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61665]], Status in: [OPEN_READ], State out: [CLOSED]
+2024-11-07 14:40:38.168 [http-nio-8080-exec-1] DEBUG o.a.coyote.http11.Http11NioProtocol - Pushed Processor [org.apache.coyote.http11.Http11Processor@59744ef5]
+2024-11-07 14:40:38.168 [http-nio-8080-exec-1] DEBUG o.a.tomcat.util.threads.LimitLatch - Counting down[http-nio-8080-exec-1] latch=2
+2024-11-07 14:40:38.168 [http-nio-8080-exec-1] DEBUG o.apache.tomcat.util.net.NioEndpoint - Calling [org.apache.tomcat.util.net.NioEndpoint@53dfeef8].closeSocket([org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@2a34669e:org.apache.tomcat.util.net.NioChannel@12319055:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61665]])
+2024-11-07 14:40:38.178 [http-nio-8080-exec-2] DEBUG o.apache.tomcat.util.http.Parameters - Set query string encoding to UTF-8
+2024-11-07 14:40:38.179 [http-nio-8080-exec-2] DEBUG o.a.t.u.http.Rfc6265CookieProcessor - Cookies: Parsing b[]: JSESSIONID=41C5549A17BFD9ACFD9602772052F25F
+2024-11-07 14:40:38.179 [http-nio-8080-exec-2] DEBUG o.a.catalina.connector.CoyoteAdapter -  Requested cookie session id is 41C5549A17BFD9ACFD9602772052F25F
+2024-11-07 14:40:38.180 [http-nio-8080-exec-2] DEBUG o.a.c.a.AuthenticatorBase - Security checking request POST /loginByPasswd
+2024-11-07 14:40:38.180 [http-nio-8080-exec-2] DEBUG org.apache.catalina.realm.RealmBase -   No applicable constraints defined
+2024-11-07 14:40:38.183 [http-nio-8080-exec-2] DEBUG o.a.c.a.jaspic.AuthConfigFactoryImpl - Loading persistent provider registrations from [C:\Users\林婷\AppData\Local\Temp\tomcat.8080.4334043979646630081\conf\jaspic-providers.xml]
+2024-11-07 14:40:38.183 [http-nio-8080-exec-2] DEBUG o.a.c.a.AuthenticatorBase - Not subject to any constraint
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'multipartResolver'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.multipart.support.StandardServletMultipartResolver@53a9f37a
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'localeResolver'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@6cd6e1f2
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'themeResolver'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.theme.FixedThemeResolver@17f65fb1
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'webSocketHandlerMapping'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'requestMappingHandlerMapping'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'welcomePageHandlerMapping'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'viewControllerHandlerMapping'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'beanNameHandlerMapping'
+2024-11-07 14:40:38.184 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'routerFunctionMapping'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'resourceHandlerMapping'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'defaultServletHandlerMapping'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'requestMappingHandlerAdapter'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'handlerFunctionAdapter'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'httpRequestHandlerAdapter'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'simpleControllerHandlerAdapter'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'errorAttributes'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'handlerExceptionResolver'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'viewNameTranslator'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.web.servlet.DispatcherServlet - Detected DefaultRequestToViewNameTranslator
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'beanNameViewResolver'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'mvcViewResolver'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'defaultViewResolver'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'viewResolver'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'flashMapManager'
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] TRACE o.s.web.servlet.DispatcherServlet - Detected SessionFlashMapManager
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-11-07 14:40:38.185 [http-nio-8080-exec-2] DEBUG o.a.catalina.core.StandardWrapper -   Returning non-STM instance
+2024-11-07 14:40:38.189 [http-nio-8080-exec-2] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Bound request context to thread: org.apache.catalina.connector.RequestFacade@32650947
+2024-11-07 14:40:38.192 [http-nio-8080-exec-2] TRACE o.s.web.servlet.DispatcherServlet - POST "/loginByPasswd", parameters={multipart}, headers={masked} in DispatcherServlet 'dispatcherServlet'
+2024-11-07 14:40:38.210 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'userController'
+2024-11-07 14:40:38.210 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.lt.questnest.controller.UserController#loginByPasswd(String, String, HttpSession)
+2024-11-07 14:40:38.217 [http-nio-8080-exec-2] DEBUG o.apache.tomcat.util.http.Parameters - Set encoding to UTF-8
+2024-11-07 14:40:38.222 [http-nio-8080-exec-2] TRACE o.s.c.i.s.SpringFactoriesLoader - Loaded [org.springframework.data.util.ProxyUtils$ProxyDetector] names: []
+2024-11-07 14:40:38.227 [http-nio-8080-exec-2] TRACE o.s.web.method.HandlerMethod - Arguments: [1370910756@qq.com, 123, org.apache.catalina.session.StandardSessionFacade@3ab5cfad]
+2024-11-07 14:40:38.232 [http-nio-8080-exec-2] DEBUG org.mybatis.spring.SqlSessionUtils - Creating a new SqlSession
+2024-11-07 14:40:38.232 [http-nio-8080-exec-2] DEBUG org.mybatis.spring.SqlSessionUtils - SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4f44c3a4] was not registered for synchronization because synchronization is not active
+2024-11-07 14:40:38.232 [http-nio-8080-exec-2] DEBUG o.s.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+2024-11-07 14:40:38.232 [http-nio-8080-exec-2] DEBUG o.m.s.t.SpringManagedTransaction - JDBC Connection [HikariProxyConnection@1073494597 wrapping com.mysql.cj.jdbc.ConnectionImpl@faea4da] will not be managed by Spring
+2024-11-07 14:40:38.232 [http-nio-8080-exec-2] DEBUG c.l.q.m.UserMapper.getUserByEmail - ==>  Preparing: select `id`,`email`,`username`,`password`,`gender`,`birthday`,`head_url`,`state` from `user` where `email` = ? and `state` = 1
+2024-11-07 14:40:38.233 [http-nio-8080-exec-2] DEBUG c.l.q.m.UserMapper.getUserByEmail - ==> Parameters: 1370910756@qq.com(String)
+2024-11-07 14:40:38.234 [http-nio-8080-exec-2] TRACE c.l.q.m.UserMapper.getUserByEmail - <==    Columns: id, email, username, password, gender, birthday, head_url, state
+2024-11-07 14:40:38.234 [http-nio-8080-exec-2] TRACE c.l.q.m.UserMapper.getUserByEmail - <==        Row: 11, 1370910756@qq.com, lin, a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, 女, 2022-09-20, /images/c409e209-7ca0-4575-a655-8927c6516cba.png, 1
+2024-11-07 14:40:38.236 [http-nio-8080-exec-2] DEBUG c.l.q.m.UserMapper.getUserByEmail - <==      Total: 1
+2024-11-07 14:40:38.236 [http-nio-8080-exec-2] DEBUG org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4f44c3a4]
+2024-11-07 14:40:38.236 [http-nio-8080-exec-2] INFO  c.l.q.controller.UserController - HttpSession中存储的email:1370910756@qq.com
+2024-11-07 14:40:38.248 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2024-11-07 14:40:38.248 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{message=登录成功, status=success}]
+2024-11-07 14:40:38.259 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Applying default cacheSeconds=-1
+2024-11-07 14:40:38.259 [http-nio-8080-exec-2] TRACE o.s.web.servlet.DispatcherServlet - No view rendering, null ModelAndView returned.
+2024-11-07 14:40:38.259 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK, headers={masked}
+2024-11-07 14:40:38.260 [http-nio-8080-exec-2] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'springApplicationAdminRegistrar'
+2024-11-07 14:40:38.260 [http-nio-8080-exec-2] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Cleared thread-bound request context: org.apache.catalina.connector.RequestFacade@32650947
+2024-11-07 14:40:38.263 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11InputBuffer - Before fill(): parsingHeader: [true], parsingRequestLine: [true], parsingRequestLinePhase: [0], parsingRequestLineStart: [0], byteBuffer.position(): [0], byteBuffer.limit(): [0], end: [410]
+2024-11-07 14:40:38.263 [http-nio-8080-exec-2] DEBUG o.a.t.util.net.SocketWrapperBase - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read from buffer: [0]
+2024-11-07 14:40:38.263 [http-nio-8080-exec-2] DEBUG o.apache.tomcat.util.net.NioEndpoint - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read direct from socket: [0]
+2024-11-07 14:40:38.263 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11InputBuffer - Received []
+2024-11-07 14:40:38.264 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11Processor - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Status in: [OPEN_READ], State out: [OPEN]
+2024-11-07 14:40:38.264 [http-nio-8080-exec-2] DEBUG o.a.coyote.http11.Http11NioProtocol - Pushed Processor [org.apache.coyote.http11.Http11Processor@3938283]
+2024-11-07 14:40:38.264 [http-nio-8080-exec-2] DEBUG o.apache.tomcat.util.net.NioEndpoint - Registered read interest for [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]]
+2024-11-07 14:40:39.279 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961639279; nextExpiration=1730961638443; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:40.284 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961640284; nextExpiration=1730961640279; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:41.038 [http-nio-8080-exec-3] DEBUG o.a.coyote.http11.Http11NioProtocol - Processing socket [org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]] with status [OPEN_READ]
+2024-11-07 14:40:41.038 [http-nio-8080-exec-3] DEBUG o.a.coyote.http11.Http11NioProtocol - Found processor [null] for socket [org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]]
+2024-11-07 14:40:41.038 [http-nio-8080-exec-3] DEBUG o.a.coyote.http11.Http11NioProtocol - Popped processor [org.apache.coyote.http11.Http11Processor@3938283] from cache
+2024-11-07 14:40:41.038 [http-nio-8080-exec-3] DEBUG o.a.coyote.http11.Http11InputBuffer - Before fill(): parsingHeader: [true], parsingRequestLine: [true], parsingRequestLinePhase: [0], parsingRequestLineStart: [0], byteBuffer.position(): [0], byteBuffer.limit(): [0], end: [410]
+2024-11-07 14:40:41.038 [http-nio-8080-exec-3] DEBUG o.a.t.util.net.SocketWrapperBase - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read from buffer: [0]
+2024-11-07 14:40:41.038 [http-nio-8080-exec-3] DEBUG o.apache.tomcat.util.net.NioEndpoint - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read direct from socket: [586]
+2024-11-07 14:40:41.038 [http-nio-8080-exec-3] DEBUG o.a.coyote.http11.Http11InputBuffer - Received [POST /showQuestionAndArticle HTTP/1.1
+User-Agent: PostmanRuntime/7.42.0
+Accept: */*
+Cache-Control: no-cache
+Postman-Token: 4f2256c2-734c-4e9e-a80c-ce32dd393738
+Host: localhost:8080
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Type: multipart/form-data; boundary=--------------------------470191845913603681379480
+Cookie: JSESSIONID=DE19E33128A6C70BAC54C3BF86967687
+Content-Length: 167
+
+----------------------------470191845913603681379480
+Content-Disposition: form-data; name="questionId"
+
+16
+----------------------------470191845913603681379480--
+]
+2024-11-07 14:40:41.039 [http-nio-8080-exec-3] DEBUG o.a.t.u.http.Rfc6265CookieProcessor - Cookies: Parsing b[]: JSESSIONID=DE19E33128A6C70BAC54C3BF86967687
+2024-11-07 14:40:41.039 [http-nio-8080-exec-3] DEBUG o.a.catalina.connector.CoyoteAdapter -  Requested cookie session id is DE19E33128A6C70BAC54C3BF86967687
+2024-11-07 14:40:41.039 [http-nio-8080-exec-3] DEBUG o.a.c.a.AuthenticatorBase - Security checking request POST /showQuestionAndArticle
+2024-11-07 14:40:41.039 [http-nio-8080-exec-3] DEBUG org.apache.catalina.realm.RealmBase -   No applicable constraints defined
+2024-11-07 14:40:41.039 [http-nio-8080-exec-3] DEBUG o.a.c.a.AuthenticatorBase - Not subject to any constraint
+2024-11-07 14:40:41.039 [http-nio-8080-exec-3] DEBUG o.a.catalina.core.StandardWrapper -   Returning non-STM instance
+2024-11-07 14:40:41.040 [http-nio-8080-exec-3] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Bound request context to thread: org.apache.catalina.connector.RequestFacade@32650947
+2024-11-07 14:40:41.040 [http-nio-8080-exec-3] TRACE o.s.web.servlet.DispatcherServlet - POST "/showQuestionAndArticle", parameters={multipart}, headers={masked} in DispatcherServlet 'dispatcherServlet'
+2024-11-07 14:40:41.043 [http-nio-8080-exec-3] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'questionController'
+2024-11-07 14:40:41.043 [http-nio-8080-exec-3] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.lt.questnest.controller.QuestionController#showQuestionAndArticle(Integer, HttpSession)
+2024-11-07 14:40:41.043 [http-nio-8080-exec-3] DEBUG o.apache.tomcat.util.http.Parameters - Set encoding to UTF-8
+2024-11-07 14:40:41.044 [http-nio-8080-exec-3] TRACE o.s.web.method.HandlerMethod - Arguments: [16, org.apache.catalina.session.StandardSessionFacade@3ab5cfad]
+2024-11-07 14:40:41.048 [http-nio-8080-exec-3] DEBUG org.mybatis.spring.SqlSessionUtils - Creating a new SqlSession
+2024-11-07 14:40:41.048 [http-nio-8080-exec-3] DEBUG org.mybatis.spring.SqlSessionUtils - SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@340dfa7d] was not registered for synchronization because synchronization is not active
+2024-11-07 14:40:41.048 [http-nio-8080-exec-3] DEBUG o.s.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+2024-11-07 14:40:41.049 [http-nio-8080-exec-3] DEBUG o.m.s.t.SpringManagedTransaction - JDBC Connection [HikariProxyConnection@978644160 wrapping com.mysql.cj.jdbc.ConnectionImpl@faea4da] will not be managed by Spring
+2024-11-07 14:40:41.049 [http-nio-8080-exec-3] DEBUG c.l.q.m.U.get - ==>  Preparing: select `question_id`,`question_title`,`question_content`,`article_id`,`article_content`,`article_username`,`article_head_url` from `user_question_article_view` where `question_id` = ?
+2024-11-07 14:40:41.049 [http-nio-8080-exec-3] DEBUG c.l.q.m.U.get - ==> Parameters: 16(Integer)
+2024-11-07 14:40:41.052 [http-nio-8080-exec-3] TRACE c.l.q.m.U.get - <==    Columns: question_id, question_title, question_content, article_id, article_content, article_username, article_head_url
+2024-11-07 14:40:41.052 [http-nio-8080-exec-3] TRACE c.l.q.m.U.get - <==        Row: 16, My 18th Question, <<BLOB>>, 15, <<BLOB>>, lin, /images/c409e209-7ca0-4575-a655-8927c6516cba.png
+2024-11-07 14:40:41.052 [http-nio-8080-exec-3] TRACE c.l.q.m.U.get - <==        Row: 16, My 18th Question, <<BLOB>>, 16, <<BLOB>>, lin, /images/c409e209-7ca0-4575-a655-8927c6516cba.png
+2024-11-07 14:40:41.053 [http-nio-8080-exec-3] TRACE c.l.q.m.U.get - <==        Row: 16, My 18th Question, <<BLOB>>, 17, <<BLOB>>, lin, /images/c409e209-7ca0-4575-a655-8927c6516cba.png
+2024-11-07 14:40:41.053 [http-nio-8080-exec-3] DEBUG c.l.q.m.U.get - <==      Total: 3
+2024-11-07 14:40:41.053 [http-nio-8080-exec-3] DEBUG org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@340dfa7d]
+2024-11-07 14:40:41.054 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2024-11-07 14:40:41.054 [http-nio-8080-exec-3] TRACE o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{questionContent=Here is some text with {image1} and {video1}, questionId=16, questionTitle=My 18th Question, userQuestionArticle=[{articleHeadUrl=/images/c409e209-7ca0-4575-a655-8927c6516cba.png, articleId=15, articleContent=正常, articleUsername=lin}, {articleHeadUrl=/images/c409e209-7ca0-4575-a655-8927c6516cba.png, articleId=16, articleContent=test, articleUsername=lin}, {articleHeadUrl=/images/c409e209-7ca0-4575-a655-8927c6516cba.png, articleId=17, articleContent=测试, articleUsername=lin}], status=success}]
+2024-11-07 14:40:41.060 [http-nio-8080-exec-3] TRACE o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Applying default cacheSeconds=-1
+2024-11-07 14:40:41.060 [http-nio-8080-exec-3] TRACE o.s.web.servlet.DispatcherServlet - No view rendering, null ModelAndView returned.
+2024-11-07 14:40:41.060 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK, headers={masked}
+2024-11-07 14:40:41.060 [http-nio-8080-exec-3] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Cleared thread-bound request context: org.apache.catalina.connector.RequestFacade@32650947
+2024-11-07 14:40:41.060 [http-nio-8080-exec-3] DEBUG o.a.coyote.http11.Http11InputBuffer - Before fill(): parsingHeader: [true], parsingRequestLine: [true], parsingRequestLinePhase: [0], parsingRequestLineStart: [0], byteBuffer.position(): [0], byteBuffer.limit(): [0], end: [419]
+2024-11-07 14:40:41.061 [http-nio-8080-exec-3] DEBUG o.a.t.util.net.SocketWrapperBase - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read from buffer: [0]
+2024-11-07 14:40:41.061 [http-nio-8080-exec-3] DEBUG o.apache.tomcat.util.net.NioEndpoint - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read direct from socket: [0]
+2024-11-07 14:40:41.061 [http-nio-8080-exec-3] DEBUG o.a.coyote.http11.Http11InputBuffer - Received []
+2024-11-07 14:40:41.061 [http-nio-8080-exec-3] DEBUG o.a.coyote.http11.Http11Processor - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Status in: [OPEN_READ], State out: [OPEN]
+2024-11-07 14:40:41.061 [http-nio-8080-exec-3] DEBUG o.a.coyote.http11.Http11NioProtocol - Pushed Processor [org.apache.coyote.http11.Http11Processor@3938283]
+2024-11-07 14:40:41.061 [http-nio-8080-exec-3] DEBUG o.apache.tomcat.util.net.NioEndpoint - Registered read interest for [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]]
+2024-11-07 14:40:42.071 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961642071; nextExpiration=1730961641284; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:43.081 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961643081; nextExpiration=1730961643071; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:44.095 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961644095; nextExpiration=1730961644081; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:45.108 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961645108; nextExpiration=1730961645095; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:46.114 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961646114; nextExpiration=1730961646108; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:47.126 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961647126; nextExpiration=1730961647114; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:48.134 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961648134; nextExpiration=1730961648126; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:49.140 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961649140; nextExpiration=1730961649134; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:50.152 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961650152; nextExpiration=1730961650140; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:51.164 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961651164; nextExpiration=1730961651152; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:52.175 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961652175; nextExpiration=1730961652164; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:53.185 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961653185; nextExpiration=1730961653175; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:54.196 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961654196; nextExpiration=1730961654185; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:55.203 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961655203; nextExpiration=1730961655196; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:56.213 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961656213; nextExpiration=1730961656203; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:57.222 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961657222; nextExpiration=1730961657213; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:58.225 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961658225; nextExpiration=1730961658222; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:40:59.226 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961659226; nextExpiration=1730961659225; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:00.226 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961660226; nextExpiration=1730961660226; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:01.234 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961661234; nextExpiration=1730961661226; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:02.247 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961662247; nextExpiration=1730961662234; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:03.261 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961663261; nextExpiration=1730961663247; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:03.573 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.transport.tcp - RMI TCP Connection(4)-192.168.178.78: (port 61612) connection closed
+2024-11-07 14:41:03.574 [RMI TCP Connection(4)-192.168.178.78] DEBUG sun.rmi.transport.tcp - RMI TCP Connection(4)-192.168.178.78: close connection
+2024-11-07 14:41:04.276 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961664276; nextExpiration=1730961664261; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:05.287 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961665287; nextExpiration=1730961665276; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:05.709 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2024-11-07 14:41:05.710 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2024-11-07 14:41:06.302 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961666302; nextExpiration=1730961666287; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:07.313 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961667313; nextExpiration=1730961667302; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:07.657 [http-nio-8080-exec-4] DEBUG o.a.coyote.http11.Http11NioProtocol - Processing socket [org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]] with status [OPEN_READ]
+2024-11-07 14:41:07.657 [http-nio-8080-exec-4] DEBUG o.a.coyote.http11.Http11NioProtocol - Found processor [null] for socket [org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]]
+2024-11-07 14:41:07.657 [http-nio-8080-exec-4] DEBUG o.a.coyote.http11.Http11NioProtocol - Popped processor [org.apache.coyote.http11.Http11Processor@3938283] from cache
+2024-11-07 14:41:07.657 [http-nio-8080-exec-4] DEBUG o.a.coyote.http11.Http11InputBuffer - Before fill(): parsingHeader: [true], parsingRequestLine: [true], parsingRequestLinePhase: [0], parsingRequestLineStart: [0], byteBuffer.position(): [0], byteBuffer.limit(): [0], end: [419]
+2024-11-07 14:41:07.657 [http-nio-8080-exec-4] DEBUG o.a.t.util.net.SocketWrapperBase - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read from buffer: [0]
+2024-11-07 14:41:07.657 [http-nio-8080-exec-4] DEBUG o.apache.tomcat.util.net.NioEndpoint - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read direct from socket: [585]
+2024-11-07 14:41:07.657 [http-nio-8080-exec-4] DEBUG o.a.coyote.http11.Http11InputBuffer - Received [POST /showQuestionAndArticle HTTP/1.1
+User-Agent: PostmanRuntime/7.42.0
+Accept: */*
+Cache-Control: no-cache
+Postman-Token: 617ad202-a292-41d4-8236-5bfcd66f02fe
+Host: localhost:8080
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Type: multipart/form-data; boundary=--------------------------567992272420325411438640
+Cookie: JSESSIONID=DE19E33128A6C70BAC54C3BF86967687
+Content-Length: 166
+
+----------------------------567992272420325411438640
+Content-Disposition: form-data; name="questionId"
+
+9
+----------------------------567992272420325411438640--
+]
+2024-11-07 14:41:07.658 [http-nio-8080-exec-4] DEBUG o.a.t.u.http.Rfc6265CookieProcessor - Cookies: Parsing b[]: JSESSIONID=DE19E33128A6C70BAC54C3BF86967687
+2024-11-07 14:41:07.658 [http-nio-8080-exec-4] DEBUG o.a.catalina.connector.CoyoteAdapter -  Requested cookie session id is DE19E33128A6C70BAC54C3BF86967687
+2024-11-07 14:41:07.658 [http-nio-8080-exec-4] DEBUG o.a.c.a.AuthenticatorBase - Security checking request POST /showQuestionAndArticle
+2024-11-07 14:41:07.658 [http-nio-8080-exec-4] DEBUG org.apache.catalina.realm.RealmBase -   No applicable constraints defined
+2024-11-07 14:41:07.658 [http-nio-8080-exec-4] DEBUG o.a.c.a.AuthenticatorBase - Not subject to any constraint
+2024-11-07 14:41:07.658 [http-nio-8080-exec-4] DEBUG o.a.catalina.core.StandardWrapper -   Returning non-STM instance
+2024-11-07 14:41:07.658 [http-nio-8080-exec-4] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Bound request context to thread: org.apache.catalina.connector.RequestFacade@32650947
+2024-11-07 14:41:07.658 [http-nio-8080-exec-4] TRACE o.s.web.servlet.DispatcherServlet - POST "/showQuestionAndArticle", parameters={multipart}, headers={masked} in DispatcherServlet 'dispatcherServlet'
+2024-11-07 14:41:07.660 [http-nio-8080-exec-4] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'questionController'
+2024-11-07 14:41:07.660 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.lt.questnest.controller.QuestionController#showQuestionAndArticle(Integer, HttpSession)
+2024-11-07 14:41:07.661 [http-nio-8080-exec-4] DEBUG o.apache.tomcat.util.http.Parameters - Set encoding to UTF-8
+2024-11-07 14:41:07.661 [http-nio-8080-exec-4] TRACE o.s.web.method.HandlerMethod - Arguments: [9, org.apache.catalina.session.StandardSessionFacade@3ab5cfad]
+2024-11-07 14:41:07.661 [http-nio-8080-exec-4] DEBUG org.mybatis.spring.SqlSessionUtils - Creating a new SqlSession
+2024-11-07 14:41:07.661 [http-nio-8080-exec-4] DEBUG org.mybatis.spring.SqlSessionUtils - SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@67a76f99] was not registered for synchronization because synchronization is not active
+2024-11-07 14:41:07.661 [http-nio-8080-exec-4] DEBUG o.s.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+2024-11-07 14:41:07.661 [http-nio-8080-exec-4] DEBUG o.m.s.t.SpringManagedTransaction - JDBC Connection [HikariProxyConnection@1767939357 wrapping com.mysql.cj.jdbc.ConnectionImpl@faea4da] will not be managed by Spring
+2024-11-07 14:41:07.661 [http-nio-8080-exec-4] DEBUG c.l.q.m.U.get - ==>  Preparing: select `question_id`,`question_title`,`question_content`,`article_id`,`article_content`,`article_username`,`article_head_url` from `user_question_article_view` where `question_id` = ?
+2024-11-07 14:41:07.662 [http-nio-8080-exec-4] DEBUG c.l.q.m.U.get - ==> Parameters: 9(Integer)
+2024-11-07 14:41:07.662 [http-nio-8080-exec-4] TRACE c.l.q.m.U.get - <==    Columns: question_id, question_title, question_content, article_id, article_content, article_username, article_head_url
+2024-11-07 14:41:07.662 [http-nio-8080-exec-4] TRACE c.l.q.m.U.get - <==        Row: 9, My 7th Question, <<BLOB>>, null, <<BLOB>>, null, null
+2024-11-07 14:41:07.663 [http-nio-8080-exec-4] DEBUG c.l.q.m.U.get - <==      Total: 1
+2024-11-07 14:41:07.663 [http-nio-8080-exec-4] DEBUG org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@67a76f99]
+2024-11-07 14:41:07.663 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2024-11-07 14:41:07.663 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{questionContent=Here is some text with {image1} and {video1}, questionId=9, questionTitle=My 7th Question, status=success}]
+2024-11-07 14:41:07.664 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Applying default cacheSeconds=-1
+2024-11-07 14:41:07.664 [http-nio-8080-exec-4] TRACE o.s.web.servlet.DispatcherServlet - No view rendering, null ModelAndView returned.
+2024-11-07 14:41:07.664 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK, headers={masked}
+2024-11-07 14:41:07.664 [http-nio-8080-exec-4] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Cleared thread-bound request context: org.apache.catalina.connector.RequestFacade@32650947
+2024-11-07 14:41:07.664 [http-nio-8080-exec-4] DEBUG o.a.coyote.http11.Http11InputBuffer - Before fill(): parsingHeader: [true], parsingRequestLine: [true], parsingRequestLinePhase: [0], parsingRequestLineStart: [0], byteBuffer.position(): [0], byteBuffer.limit(): [0], end: [419]
+2024-11-07 14:41:07.664 [http-nio-8080-exec-4] DEBUG o.a.t.util.net.SocketWrapperBase - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read from buffer: [0]
+2024-11-07 14:41:07.665 [http-nio-8080-exec-4] DEBUG o.apache.tomcat.util.net.NioEndpoint - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read direct from socket: [0]
+2024-11-07 14:41:07.665 [http-nio-8080-exec-4] DEBUG o.a.coyote.http11.Http11InputBuffer - Received []
+2024-11-07 14:41:07.665 [http-nio-8080-exec-4] DEBUG o.a.coyote.http11.Http11Processor - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Status in: [OPEN_READ], State out: [OPEN]
+2024-11-07 14:41:07.665 [http-nio-8080-exec-4] DEBUG o.a.coyote.http11.Http11NioProtocol - Pushed Processor [org.apache.coyote.http11.Http11Processor@3938283]
+2024-11-07 14:41:07.665 [http-nio-8080-exec-4] DEBUG o.apache.tomcat.util.net.NioEndpoint - Registered read interest for [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]]
+2024-11-07 14:41:08.679 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961668679; nextExpiration=1730961668313; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:09.691 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961669691; nextExpiration=1730961669679; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:10.705 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961670705; nextExpiration=1730961670691; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:11.719 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961671719; nextExpiration=1730961671705; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:12.728 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961672728; nextExpiration=1730961672719; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:13.736 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961673736; nextExpiration=1730961673728; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:14.746 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=1; now=1730961674746; nextExpiration=1730961674736; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:15.141 [http-nio-8080-exec-5] DEBUG o.a.coyote.http11.Http11NioProtocol - Processing socket [org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]] with status [OPEN_READ]
+2024-11-07 14:41:15.141 [http-nio-8080-exec-5] DEBUG o.a.coyote.http11.Http11NioProtocol - Found processor [null] for socket [org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]]
+2024-11-07 14:41:15.141 [http-nio-8080-exec-5] DEBUG o.a.coyote.http11.Http11NioProtocol - Popped processor [org.apache.coyote.http11.Http11Processor@3938283] from cache
+2024-11-07 14:41:15.141 [http-nio-8080-exec-5] DEBUG o.a.coyote.http11.Http11InputBuffer - Before fill(): parsingHeader: [true], parsingRequestLine: [true], parsingRequestLinePhase: [0], parsingRequestLineStart: [0], byteBuffer.position(): [0], byteBuffer.limit(): [0], end: [419]
+2024-11-07 14:41:15.141 [http-nio-8080-exec-5] DEBUG o.a.t.util.net.SocketWrapperBase - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read from buffer: [0]
+2024-11-07 14:41:15.141 [http-nio-8080-exec-5] DEBUG o.apache.tomcat.util.net.NioEndpoint - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Read direct from socket: [584]
+2024-11-07 14:41:15.141 [http-nio-8080-exec-5] DEBUG o.a.coyote.http11.Http11InputBuffer - Received [POST /showQuestionAndArticle HTTP/1.1
+User-Agent: PostmanRuntime/7.42.0
+Accept: */*
+Cache-Control: no-cache
+Postman-Token: 4290c93a-08e9-43ff-86b2-3e8e7e29c721
+Host: localhost:8080
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Type: multipart/form-data; boundary=--------------------------880733085741554793723547
+Cookie: JSESSIONID=DE19E33128A6C70BAC54C3BF86967687
+Content-Length: 165
+
+----------------------------880733085741554793723547
+Content-Disposition: form-data; name="questionId"
+
+
+----------------------------880733085741554793723547--
+]
+2024-11-07 14:41:15.142 [http-nio-8080-exec-5] DEBUG o.a.t.u.http.Rfc6265CookieProcessor - Cookies: Parsing b[]: JSESSIONID=DE19E33128A6C70BAC54C3BF86967687
+2024-11-07 14:41:15.142 [http-nio-8080-exec-5] DEBUG o.a.catalina.connector.CoyoteAdapter -  Requested cookie session id is DE19E33128A6C70BAC54C3BF86967687
+2024-11-07 14:41:15.142 [http-nio-8080-exec-5] DEBUG o.a.c.a.AuthenticatorBase - Security checking request POST /showQuestionAndArticle
+2024-11-07 14:41:15.142 [http-nio-8080-exec-5] DEBUG org.apache.catalina.realm.RealmBase -   No applicable constraints defined
+2024-11-07 14:41:15.142 [http-nio-8080-exec-5] DEBUG o.a.c.a.AuthenticatorBase - Not subject to any constraint
+2024-11-07 14:41:15.142 [http-nio-8080-exec-5] DEBUG o.a.catalina.core.StandardWrapper -   Returning non-STM instance
+2024-11-07 14:41:15.142 [http-nio-8080-exec-5] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Bound request context to thread: org.apache.catalina.connector.RequestFacade@32650947
+2024-11-07 14:41:15.142 [http-nio-8080-exec-5] TRACE o.s.web.servlet.DispatcherServlet - POST "/showQuestionAndArticle", parameters={multipart}, headers={masked} in DispatcherServlet 'dispatcherServlet'
+2024-11-07 14:41:15.143 [http-nio-8080-exec-5] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'questionController'
+2024-11-07 14:41:15.143 [http-nio-8080-exec-5] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.lt.questnest.controller.QuestionController#showQuestionAndArticle(Integer, HttpSession)
+2024-11-07 14:41:15.143 [http-nio-8080-exec-5] DEBUG o.apache.tomcat.util.http.Parameters - Set encoding to UTF-8
+2024-11-07 14:41:15.144 [http-nio-8080-exec-5] DEBUG o.s.web.method.HandlerMethod - Could not resolve parameter [0] in public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> com.lt.questnest.controller.QuestionController.showQuestionAndArticle(java.lang.Integer,javax.servlet.http.HttpSession): Required request parameter 'questionId' for method parameter type Integer is present but converted to null
+2024-11-07 14:41:15.146 [http-nio-8080-exec-5] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'questionId' for method parameter type Integer is present but converted to null]
+2024-11-07 14:41:15.146 [http-nio-8080-exec-5] TRACE o.s.web.servlet.DispatcherServlet - No view rendering, null ModelAndView returned.
+2024-11-07 14:41:15.146 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST, headers={masked}
+2024-11-07 14:41:15.146 [http-nio-8080-exec-5] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Cleared thread-bound request context: org.apache.catalina.connector.RequestFacade@32650947
+2024-11-07 14:41:15.147 [http-nio-8080-exec-5] DEBUG o.a.c.c.C.[Tomcat].[localhost] - Processing ErrorPage[errorCode=0, location=/error]
+2024-11-07 14:41:15.148 [http-nio-8080-exec-5] DEBUG o.a.catalina.core.StandardWrapper -   Returning non-STM instance
+2024-11-07 14:41:15.148 [http-nio-8080-exec-5] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Bound request context to thread: org.apache.catalina.core.ApplicationHttpRequest@22f1c76f
+2024-11-07 14:41:15.148 [http-nio-8080-exec-5] TRACE o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for POST "/error", parameters={multipart}, headers={masked} in DispatcherServlet 'dispatcherServlet'
+2024-11-07 14:41:15.149 [http-nio-8080-exec-5] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
+2024-11-07 14:41:15.150 [http-nio-8080-exec-5] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'basicErrorController'
+2024-11-07 14:41:15.150 [http-nio-8080-exec-5] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2024-11-07 14:41:15.150 [http-nio-8080-exec-5] TRACE o.s.web.method.HandlerMethod - Arguments: [org.springframework.web.multipart.support.StandardMultipartHttpServletRequest@384d5ffd]
+2024-11-07 14:41:15.152 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2024-11-07 14:41:15.152 [http-nio-8080-exec-5] TRACE o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{timestamp=Thu Nov 07 14:41:15 CST 2024, status=400, error=Bad Request, path=/showQuestionAndArticle}]
+2024-11-07 14:41:15.166 [http-nio-8080-exec-5] TRACE o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Applying default cacheSeconds=-1
+2024-11-07 14:41:15.166 [http-nio-8080-exec-5] TRACE o.s.web.servlet.DispatcherServlet - No view rendering, null ModelAndView returned.
+2024-11-07 14:41:15.166 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 400, headers={masked}
+2024-11-07 14:41:15.166 [http-nio-8080-exec-5] TRACE o.s.b.w.s.f.OrderedRequestContextFilter - Cleared thread-bound request context: org.apache.catalina.core.ApplicationHttpRequest@22f1c76f
+2024-11-07 14:41:15.167 [http-nio-8080-exec-5] DEBUG o.a.c.c.C.[.[.[.[dispatcherServlet] -  Disabling the response for further output
+2024-11-07 14:41:15.167 [http-nio-8080-exec-5] DEBUG o.a.coyote.http11.Http11Processor - Socket: [org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]], Status in: [OPEN_READ], State out: [CLOSED]
+2024-11-07 14:41:15.167 [http-nio-8080-exec-5] DEBUG o.a.coyote.http11.Http11NioProtocol - Pushed Processor [org.apache.coyote.http11.Http11Processor@3938283]
+2024-11-07 14:41:15.167 [http-nio-8080-exec-5] DEBUG o.a.tomcat.util.threads.LimitLatch - Counting down[http-nio-8080-exec-5] latch=1
+2024-11-07 14:41:15.167 [http-nio-8080-exec-5] DEBUG o.apache.tomcat.util.net.NioEndpoint - Calling [org.apache.tomcat.util.net.NioEndpoint@53dfeef8].closeSocket([org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper@3e8bc93b:org.apache.tomcat.util.net.NioChannel@17ba4731:java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:61666]])
+2024-11-07 14:41:16.148 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961676148; nextExpiration=1730961675746; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:17.158 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961677158; nextExpiration=1730961677148; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:18.162 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961678162; nextExpiration=1730961678158; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:19.174 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961679174; nextExpiration=1730961679162; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:20.184 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961680184; nextExpiration=1730961680174; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:21.197 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961681197; nextExpiration=1730961681184; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:22.203 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961682203; nextExpiration=1730961682197; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:23.216 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961683216; nextExpiration=1730961683203; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:24.227 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961684227; nextExpiration=1730961684216; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:25.228 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961685228; nextExpiration=1730961685227; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:26.228 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961686228; nextExpiration=1730961686228; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:27.229 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961687229; nextExpiration=1730961687228; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:28.238 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961688238; nextExpiration=1730961688229; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:29.245 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961689245; nextExpiration=1730961689238; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:30.256 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961690256; nextExpiration=1730961690245; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:31.266 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961691266; nextExpiration=1730961691256; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:32.279 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961692279; nextExpiration=1730961692266; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:33.288 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961693288; nextExpiration=1730961693279; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:34.223 [Catalina-utility-1] DEBUG o.a.catalina.session.ManagerBase - Start expire sessions StandardManager at 1730961694223 sessioncount 1
+2024-11-07 14:41:34.223 [Catalina-utility-1] DEBUG o.a.catalina.session.ManagerBase - End expire sessions StandardManager processingTime 0 expired sessions: 0
+2024-11-07 14:41:34.303 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961694303; nextExpiration=1730961694288; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:35.318 [http-nio-8080-Poller] DEBUG o.apache.tomcat.util.net.NioEndpoint - timeout completed: keys processed=0; now=1730961695318; nextExpiration=1730961695303; keyCount=0; hasEvents=false; eval=false
+2024-11-07 14:41:35.724 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2024-11-07 14:41:35.724 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2024-11-07 14:41:35.920 [SpringApplicationShutdownHook] DEBUG o.s.b.a.ApplicationAvailabilityBean - Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2024-11-07 14:41:35.920 [SpringApplicationShutdownHook] DEBUG o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@10feca44, started on Thu Nov 07 14:40:33 CST 2024
+2024-11-07 14:41:35.920 [SpringApplicationShutdownHook] TRACE o.s.b.c.p.s.ConfigurationPropertySourcesPropertyResolver$DefaultResolver - Searching for key 'spring.liveBeansView.mbeanDomain' in PropertySource 'server.ports'
+2024-11-07 14:41:35.920 [SpringApplicationShutdownHook] TRACE o.s.b.c.p.s.ConfigurationPropertySourcesPropertyResolver$DefaultResolver - Searching for key 'spring.liveBeansView.mbeanDomain' in PropertySource 'configurationProperties'
+2024-11-07 14:41:35.920 [SpringApplicationShutdownHook] TRACE o.s.b.c.p.s.ConfigurationPropertySourcesPropertyResolver$DefaultResolver - Searching for key 'spring.liveBeansView.mbeanDomain' in PropertySource 'servletConfigInitParams'
+2024-11-07 14:41:35.920 [SpringApplicationShutdownHook] TRACE o.s.b.c.p.s.ConfigurationPropertySourcesPropertyResolver$DefaultResolver - Searching for key 'spring.liveBeansView.mbeanDomain' in PropertySource 'servletContextInitParams'
+2024-11-07 14:41:35.920 [SpringApplicationShutdownHook] TRACE o.s.b.c.p.s.ConfigurationPropertySourcesPropertyResolver$DefaultResolver - Searching for key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties'
+2024-11-07 14:41:35.920 [SpringApplicationShutdownHook] DEBUG o.s.b.c.p.s.ConfigurationPropertySourcesPropertyResolver$DefaultResolver - Found key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties' with value of type String
+2024-11-07 14:41:35.921 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'springApplicationAdminRegistrar'
+2024-11-07 14:41:35.921 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'redisMessageListenerContainer'
+2024-11-07 14:41:35.921 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'webSocketHandlerMapping'
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'lifecycleProcessor'
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'springBootLoggingLifecycle'
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'webServerGracefulShutdown'
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'webServerStartStop'
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] TRACE o.s.c.s.DefaultLifecycleProcessor - Asking bean 'redisMessageListenerContainer' of type [org.springframework.data.redis.listener.RedisMessageListenerContainer] to stop
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] TRACE o.s.d.r.l.RedisMessageListenerContainer - Cancelling Redis subscription...
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] TRACE o.s.d.r.l.RedisMessageListenerContainer - Unsubscribing from all channels
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] DEBUG io.lettuce.core.RedisChannelHandler - dispatching command AsyncCommand [type=UNSUBSCRIBE, output=PubSubOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command]
+2024-11-07 14:41:35.922 [SpringApplicationShutdownHook] DEBUG i.l.core.protocol.DefaultEndpoint - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2] write() writeAndFlush command AsyncCommand [type=UNSUBSCRIBE, output=PubSubOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command]
+2024-11-07 14:41:35.923 [SpringApplicationShutdownHook] DEBUG i.l.core.protocol.DefaultEndpoint - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2] write() done
+2024-11-07 14:41:35.923 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] write(ctx, AsyncCommand [type=UNSUBSCRIBE, output=PubSubOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command], promise)
+2024-11-07 14:41:35.923 [SpringApplicationShutdownHook] DEBUG io.lettuce.core.RedisChannelHandler - dispatching command AsyncCommand [type=PING, output=StatusOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command]
+2024-11-07 14:41:35.923 [SpringApplicationShutdownHook] DEBUG i.l.core.protocol.DefaultEndpoint - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2] write() writeAndFlush command AsyncCommand [type=PING, output=StatusOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command]
+2024-11-07 14:41:35.923 [SpringApplicationShutdownHook] DEBUG i.l.core.protocol.DefaultEndpoint - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2] write() done
+2024-11-07 14:41:35.923 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandEncoder - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379] writing command AsyncCommand [type=UNSUBSCRIBE, output=PubSubOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command]
+2024-11-07 14:41:35.923 [lettuce-nioEventLoop-4-2] TRACE i.l.core.protocol.CommandEncoder - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379] Sent: *1
+$11
+UNSUBSCRIBE
+2024-11-07 14:41:35.923 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] write(ctx, AsyncCommand [type=PING, output=StatusOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command], promise)
+2024-11-07 14:41:35.924 [SpringApplicationShutdownHook] DEBUG io.lettuce.core.RedisChannelHandler - closeAsync()
+2024-11-07 14:41:35.924 [SpringApplicationShutdownHook] DEBUG i.l.core.protocol.DefaultEndpoint - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2] closeAsync()
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandEncoder - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379] writing command AsyncCommand [type=PING, output=StatusOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command]
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] TRACE i.l.core.protocol.CommandEncoder - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379] Sent: *1
+$4
+PING
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] Received: 164 bytes, 2 commands in the stack
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] TRACE i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] Buffer: *3
+$11
+unsubscribe
+$17
+1370910756@qq.com
+:2
+*3
+$11
+unsubscribe
+$22
+13925692760@aliyun.com
+:1
+*3
+$11
+unsubscribe
+$19
+13925692760@163.com
+:0
++PONG
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] Stack contains: 2 commands
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.RedisStateMachine - Decode done, empty stack: true
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] Completing command AsyncCommand [type=UNSUBSCRIBE, output=PubSubOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command]
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] Stack contains: 1 commands
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.RedisStateMachine - Decode done, empty stack: true
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] Completing command AsyncCommand [type=PING, output=StatusOutput [output=null, error='null'], commandType=io.lettuce.core.protocol.Command]
+2024-11-07 14:41:35.924 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.RedisStateMachine - Decode done, empty stack: true
+2024-11-07 14:41:35.925 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.RedisStateMachine - Decode done, empty stack: true
+2024-11-07 14:41:35.925 [SpringApplicationShutdownHook] TRACE o.s.d.r.l.RedisMessageListenerContainer - Closing connection
+2024-11-07 14:41:35.925 [SpringApplicationShutdownHook] DEBUG o.s.d.r.l.RedisMessageListenerContainer - Stopped RedisMessageListenerContainer
+2024-11-07 14:41:35.925 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Bean 'redisMessageListenerContainer' completed its stop procedure
+2024-11-07 14:41:35.925 [SpringApplicationShutdownHook] TRACE o.s.c.s.DefaultLifecycleProcessor - Asking bean 'webSocketHandlerMapping' of type [org.springframework.web.socket.server.support.WebSocketHandlerMapping] to stop
+2024-11-07 14:41:35.925 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Bean 'webSocketHandlerMapping' completed its stop procedure
+2024-11-07 14:41:35.925 [SpringApplicationShutdownHook] TRACE o.s.c.s.DefaultLifecycleProcessor - Asking bean 'webServerGracefulShutdown' of type [org.springframework.boot.web.context.WebServerGracefulShutdownLifecycle] to stop
+2024-11-07 14:41:35.926 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Bean 'webServerGracefulShutdown' completed its stop procedure
+2024-11-07 14:41:35.926 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483646
+2024-11-07 14:41:35.926 [SpringApplicationShutdownHook] TRACE o.s.c.s.DefaultLifecycleProcessor - Asking bean 'webServerStartStop' of type [org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle] to stop
+2024-11-07 14:41:35.926 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] channelInactive()
+2024-11-07 14:41:35.951 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.DefaultEndpoint - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2] deactivating endpoint handler
+2024-11-07 14:41:35.952 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] channelInactive() done
+2024-11-07 14:41:35.954 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.ConnectionWatchdog - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, last known addr=localhost/127.0.0.1:6379] channelInactive()
+2024-11-07 14:41:35.954 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.ConnectionWatchdog - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, last known addr=localhost/127.0.0.1:6379] Reconnect scheduling disabled
+2024-11-07 14:41:35.954 [lettuce-nioEventLoop-4-2] DEBUG i.l.core.protocol.CommandHandler - [channel=0xeac9423e, /127.0.0.1:61662 -> localhost/127.0.0.1:6379, epid=0x2, chid=0x2] channelUnregistered()
+2024-11-07 14:41:36.580 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Bean 'webServerStartStop' completed its stop procedure
+2024-11-07 14:41:36.580 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase -2147483647
+2024-11-07 14:41:36.580 [SpringApplicationShutdownHook] TRACE o.s.c.s.DefaultLifecycleProcessor - Asking bean 'springBootLoggingLifecycle' of type [org.springframework.boot.context.logging.LoggingApplicationListener$Lifecycle] to stop
+2024-11-07 14:41:36.580 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Bean 'springBootLoggingLifecycle' completed its stop procedure
+2024-11-07 14:41:36.580 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@46d59067: defining beans [org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.event.internalEventListenerProcessor,org.springframework.context.event.internalEventListenerFactory,questNestApplication,org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory,asyncConfig,customWebSocketHandler,redisConfig,webConfig,webSocketConfig,adminArticleController,adminCommentController,adminController,adminQuestionController,adminUserMuteController,articleController,commentController,conversationController,draftController,favouriteController,favouriteItemController,historyController,informController,messageController,onlineUserController,questionController,sseController,userController,userFollowController,userTopicController,customHandshakeInterceptor,loginInterceptor,appStartupRunner,redisMessagePublisher,redisMessageSubscriber,adminCheckArticleServiceImpl,adminCheckQuestionServiceImpl,adminDeleteArticleServiceImpl,adminDeleteCommentServiceImpl,adminDeleteQuestionServiceImpl,adminServiceImpl,adminUserMuteServiceImpl,articleServiceImpl,commentAreaMuteServiceImpl,commentServiceImpl,conversationServiceImpl,draftServiceImpl,favouriteItemServiceImpl,favouriteServiceImpl,fileServiceImpl,historyServiceImpl,informServiceImpl,mailServiceImpl,messageServiceImpl,onlineUserServiceImpl,questionServiceImpl,redisServiceImpl,reportCommentServiceImpl,subServiceImpl,userFollowServiceImpl,userServiceImpl,userTopicServiceImpl,org.springframework.scheduling.annotation.ProxyAsyncConfiguration,org.springframework.context.annotation.internalAsyncAnnotationProcessor,taskExecutor,redisMessageListenerContainer,redisTemplate,redisMessageListener,stringRedisSerializer,org.springframework.web.socket.config.annotation.DelegatingWebSocketConfiguration,webSocketHandlerMapping,defaultSockJsTaskScheduler,createWebSocketContainer,org.springframework.boot.autoconfigure.AutoConfigurationPackages,org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration,propertySourcesPlaceholderConfigurer,org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration$TomcatWebSocketConfiguration,websocketServletWebServerCustomizer,org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration,org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryConfiguration$EmbeddedTomcat,tomcatServletWebServerFactory,org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration,servletWebServerFactoryCustomizer,tomcatServletWebServerFactoryCustomizer,org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor,org.springframework.boot.context.internalConfigurationPropertiesBinderFactory,org.springframework.boot.context.internalConfigurationPropertiesBinder,org.springframework.boot.context.properties.BoundConfigurationProperties,org.springframework.boot.context.properties.EnableConfigurationPropertiesRegistrar.methodValidationExcludeFilter,server-org.springframework.boot.autoconfigure.web.ServerProperties,webServerFactoryCustomizerBeanPostProcessor,errorPageRegistrarBeanPostProcessor,org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration$DispatcherServletConfiguration,dispatcherServlet,spring.mvc-org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties,org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration$DispatcherServletRegistrationConfiguration,dispatcherServletRegistration,org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration,org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration,taskExecutorBuilder,spring.task.execution-org.springframework.boot.autoconfigure.task.TaskExecutionProperties,org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration,error,beanNameViewResolver,org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration$DefaultErrorViewResolverConfiguration,conventionErrorViewResolver,spring.web-org.springframework.boot.autoconfigure.web.WebProperties,org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration,errorAttributes,basicErrorController,errorPageCustomizer,preserveErrorControllerTargetClassPostProcessor,org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration,requestMappingHandlerAdapter,requestMappingHandlerMapping,welcomePageHandlerMapping,localeResolver,themeResolver,flashMapManager,mvcConversionService,mvcValidator,mvcContentNegotiationManager,mvcPatternParser,mvcUrlPathHelper,mvcPathMatcher,viewControllerHandlerMapping,beanNameHandlerMapping,routerFunctionMapping,resourceHandlerMapping,mvcResourceUrlProvider,defaultServletHandlerMapping,handlerFunctionAdapter,mvcUriComponentsContributor,httpRequestHandlerAdapter,simpleControllerHandlerAdapter,handlerExceptionResolver,mvcViewResolver,mvcHandlerMappingIntrospector,viewNameTranslator,org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter,defaultViewResolver,viewResolver,requestContextFilter,org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration,formContentFilter,org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari,dataSource,org.springframework.boot.autoconfigure.jdbc.DataSourceJmxConfiguration$Hikari,org.springframework.boot.autoconfigure.jdbc.DataSourceJmxConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration$PooledDataSourceConfiguration,org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration,hikariPoolDataSourceMetadataProvider,org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties,org.mybatis.spring.boot.autoconfigure.MybatisLanguageDriverAutoConfiguration,org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$MapperScannerRegistrarNotFoundConfiguration,org.mybatis.spring.mapper.MapperScannerConfigurer,org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration,sqlSessionFactory,sqlSessionTemplate,mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties,org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration,mbeanExporter,objectNamingStrategy,mbeanServer,org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration,springApplicationAdminRegistrar,org.springframework.boot.autoconfigure.aop.AopAutoConfiguration$ClassProxyingConfiguration,forceAutoProxyCreatorToUseClassProxying,org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,org.springframework.boot.autoconfigure.availability.ApplicationAvailabilityAutoConfiguration,applicationAvailability,org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration,standardJacksonObjectMapperBuilderCustomizer,spring.jackson-org.springframework.boot.autoconfigure.jackson.JacksonProperties,org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperBuilderConfiguration,jacksonObjectMapperBuilder,org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$ParameterNamesModuleConfiguration,parameterNamesModule,org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperConfiguration,jacksonObjectMapper,org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration,jsonComponentModule,org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration,lettuceClientResources,redisConnectionFactory,org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,stringRedisTemplate,spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties,org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration,org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration,lifecycleProcessor,spring.lifecycle-org.springframework.boot.autoconfigure.context.LifecycleProperties,org.springframework.boot.autoconfigure.dao.PersistenceExceptionTranslationAutoConfiguration,persistenceExceptionTranslationPostProcessor,org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration,reactiveRedisTemplate,reactiveStringRedisTemplate,org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration,keyValueMappingContext,redisCustomConversions,redisReferenceResolver,redisConverter,redisKeyValueAdapter,redisKeyValueTemplate,org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration$StringHttpMessageConverterConfiguration,stringHttpMessageConverter,org.springframework.boot.autoconfigure.http.JacksonHttpMessageConvertersConfiguration$MappingJackson2HttpMessageConverterConfiguration,mappingJackson2HttpMessageConverter,org.springframework.boot.autoconfigure.http.JacksonHttpMessageConvertersConfiguration,org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration,messageConverters,org.springframework.data.web.config.ProjectingArgumentResolverRegistrar,projectingArgumentResolverBeanPostProcessor,org.springframework.data.web.config.SpringDataWebConfiguration,pageableResolver,sortResolver,org.springframework.data.web.config.SpringDataJacksonConfiguration,jacksonGeoModule,org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration,pageableCustomizer,sortCustomizer,spring.data.web-org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties,org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration,spring.info-org.springframework.boot.autoconfigure.info.ProjectInfoProperties,org.springframework.boot.autoconfigure.jdbc.JdbcTemplateConfiguration,jdbcTemplate,org.springframework.boot.autoconfigure.jdbc.NamedParameterJdbcTemplateConfiguration,namedParameterJdbcTemplate,org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration,spring.jdbc-org.springframework.boot.autoconfigure.jdbc.JdbcProperties,org.springframework.boot.sql.init.dependency.DatabaseInitializationDependencyConfigurer$DependsOnDatabaseInitializationPostProcessor,org.springframework.boot.autoconfigure.mail.MailSenderPropertiesConfiguration,mailSender,org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration,spring.mail-org.springframework.boot.autoconfigure.mail.MailProperties,org.springframework.boot.autoconfigure.netty.NettyAutoConfiguration,spring.netty-org.springframework.boot.autoconfigure.netty.NettyProperties,org.springframework.boot.autoconfigure.sql.init.DataSourceInitializationConfiguration,dataSourceScriptDatabaseInitializer,org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration,spring.sql.init-org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties,org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration,scheduledBeanLazyInitializationExcludeFilter,taskSchedulerBuilder,spring.task.scheduling-org.springframework.boot.autoconfigure.task.TaskSchedulingProperties,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration$JdbcTransactionManagerConfiguration,transactionManager,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration,org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration,org.springframework.transaction.config.internalTransactionAdvisor,transactionAttributeSource,transactionInterceptor,org.springframework.transaction.config.internalTransactionalEventListenerFactory,org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$EnableTransactionManagementConfiguration$CglibAutoProxyConfiguration,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$EnableTransactionManagementConfiguration,org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$TransactionTemplateConfiguration,transactionTemplate,org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration,platformTransactionManagerCustomizers,spring.transaction-org.springframework.boot.autoconfigure.transaction.TransactionProperties,org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration,restTemplateBuilderConfigurer,restTemplateBuilder,org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration$TomcatWebServerFactoryCustomizerConfiguration,tomcatWebServerFactoryCustomizer,org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration,org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration,characterEncodingFilter,localeCharsetMappingsCustomizer,org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration,multipartConfigElement,multipartResolver,spring.servlet.multipart-org.springframework.boot.autoconfigure.web.servlet.MultipartProperties,org.springframework.ws.config.annotation.DelegatingWsConfiguration,payloadRootAnnotationMethodEndpointMapping,soapActionAnnotationMethodEndpointMapping,annotationActionEndpointMapping,defaultMethodEndpointAdapter,soapFaultAnnotationExceptionResolver,simpleSoapExceptionResolver,org.springframework.boot.autoconfigure.webservices.WebServicesAutoConfiguration$WsConfiguration,org.springframework.boot.autoconfigure.webservices.WebServicesAutoConfiguration,messageDispatcherServlet,spring.webservices-org.springframework.boot.autoconfigure.webservices.WebServicesProperties,org.springframework.boot.autoconfigure.webservices.client.WebServiceTemplateAutoConfiguration,webServiceTemplateBuilder,org.springframework.boot.autoconfigure.websocket.servlet.WebSocketMessagingAutoConfiguration,adminCheckArticleMapper,adminCheckQuestionMapper,adminDeleteArticleMapper,adminDeleteCommentMapper,adminDeleteQuestionMapper,adminMapper,adminUserMuteMapper,articleMapper,commentAreaMuteMapper,commentMapper,conversationMapper,draftMapper,favouriteItemMapper,favouriteMapper,historyMapper,informMapper,informViewMapper,messageMapper,questionMapper,questionTopicMapper,reportCommentMapper,reportCommentViewMapper,subMapper,topicMapper,userArticleDislikeMapper,userArticleLikeMapper,userCommentLikeMapper,userFollowMapper,userMapper,userQuestionArticleViewMapper,userTopicMapper]; root of factory hierarchy
+2024-11-07 14:41:36.581 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'redisKeyValueTemplate'
+2024-11-07 14:41:36.581 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'redisKeyValueAdapter'
+2024-11-07 14:41:36.581 [SpringApplicationShutdownHook] DEBUG o.s.d.r.l.RedisMessageListenerContainer - Stopped RedisMessageListenerContainer
+2024-11-07 14:41:36.581 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'springApplicationAdminRegistrar'
+2024-11-07 14:41:36.581 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'mbeanExporter'
+2024-11-07 14:41:36.581 [SpringApplicationShutdownHook] DEBUG o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] DEBUG o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'mvcResourceUrlProvider': [requestMappingHandlerMapping, welcomePageHandlerMapping, viewControllerHandlerMapping, beanNameHandlerMapping, routerFunctionMapping, resourceHandlerMapping]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'taskExecutor'
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] DEBUG o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'taskExecutor'
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'redisMessageListenerContainer': [redisMessageSubscriber, redisMessageListener]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'redisMessageSubscriber': [userServiceImpl, userController, appStartupRunner]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'userServiceImpl': [userController]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'redisMessageListenerContainer'
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] DEBUG o.s.d.r.l.RedisMessageListenerContainer - Stopped RedisMessageListenerContainer
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'redisConnectionFactory': [redisTemplate, stringRedisTemplate, reactiveRedisTemplate, reactiveStringRedisTemplate]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'redisTemplate': [redisMessagePublisher, redisReferenceResolver]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'redisMessagePublisher': [adminDeleteArticleServiceImpl, adminDeleteQuestionServiceImpl, articleServiceImpl, commentServiceImpl]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminDeleteArticleServiceImpl': [adminArticleController]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminDeleteQuestionServiceImpl': [adminQuestionController]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'articleServiceImpl': [articleController]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'commentServiceImpl': [commentController]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'redisReferenceResolver': [redisConverter]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'stringRedisTemplate': [messageServiceImpl, redisServiceImpl]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'messageServiceImpl': [messageController]
+2024-11-07 14:41:36.582 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'redisConnectionFactory'
+2024-11-07 14:41:36.583 [SpringApplicationShutdownHook] DEBUG io.lettuce.core.RedisChannelHandler - closeAsync()
+2024-11-07 14:41:36.583 [SpringApplicationShutdownHook] DEBUG i.l.core.protocol.DefaultEndpoint - [channel=0xfd8489de, /127.0.0.1:61661 -> localhost/127.0.0.1:6379, epid=0x1] closeAsync()
+2024-11-07 14:41:36.584 [SpringApplicationShutdownHook] DEBUG io.lettuce.core.AbstractRedisClient - Initiate shutdown (100, 100, MILLISECONDS)
+2024-11-07 14:41:36.584 [lettuce-nioEventLoop-4-1] DEBUG i.l.core.protocol.CommandHandler - [channel=0xfd8489de, /127.0.0.1:61661 -> localhost/127.0.0.1:6379, epid=0x1, chid=0x1] channelInactive()
+2024-11-07 14:41:36.584 [lettuce-nioEventLoop-4-1] DEBUG i.l.core.protocol.DefaultEndpoint - [channel=0xfd8489de, /127.0.0.1:61661 -> localhost/127.0.0.1:6379, epid=0x1] deactivating endpoint handler
+2024-11-07 14:41:36.584 [lettuce-nioEventLoop-4-1] DEBUG i.l.core.protocol.CommandHandler - [channel=0xfd8489de, /127.0.0.1:61661 -> localhost/127.0.0.1:6379, epid=0x1, chid=0x1] channelInactive() done
+2024-11-07 14:41:36.585 [lettuce-nioEventLoop-4-1] DEBUG i.l.core.protocol.ConnectionWatchdog - [channel=0xfd8489de, /127.0.0.1:61661 -> localhost/127.0.0.1:6379, last known addr=localhost/127.0.0.1:6379] channelInactive()
+2024-11-07 14:41:36.585 [lettuce-nioEventLoop-4-1] DEBUG i.l.core.protocol.ConnectionWatchdog - [channel=0xfd8489de, /127.0.0.1:61661 -> localhost/127.0.0.1:6379, last known addr=localhost/127.0.0.1:6379] Reconnect scheduling disabled
+2024-11-07 14:41:36.585 [lettuce-nioEventLoop-4-1] DEBUG i.l.core.protocol.CommandHandler - [channel=0xfd8489de, /127.0.0.1:61661 -> localhost/127.0.0.1:6379, epid=0x1, chid=0x1] channelUnregistered()
+2024-11-07 14:41:36.587 [SpringApplicationShutdownHook] DEBUG i.l.c.r.DefaultEventLoopGroupProvider - Release executor io.netty.channel.nio.NioEventLoopGroup@194f6423
+2024-11-07 14:41:36.588 [lettuce-nioEventLoop-4-2] DEBUG io.netty.buffer.PoolThreadCache - Freed 5 thread-local buffer(s) from thread: lettuce-nioEventLoop-4-2
+2024-11-07 14:41:36.700 [lettuce-nioEventLoop-4-1] DEBUG io.netty.buffer.PoolThreadCache - Freed 3 thread-local buffer(s) from thread: lettuce-nioEventLoop-4-1
+2024-11-07 14:41:36.702 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking custom destroy method 'shutdown' on bean with name 'lettuceClientResources'
+2024-11-07 14:41:36.702 [SpringApplicationShutdownHook] DEBUG i.l.c.r.DefaultClientResources - Initiate shutdown (0, 2, SECONDS)
+2024-11-07 14:41:36.704 [SpringApplicationShutdownHook] DEBUG i.l.c.r.DefaultEventLoopGroupProvider - Initiate shutdown (0, 2, SECONDS)
+2024-11-07 14:41:36.706 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'sqlSessionTemplate': [adminDeleteArticleMapper, articleMapper, questionMapper, adminMapper, userMapper, informMapper, informViewMapper, adminCheckArticleMapper, commentMapper, adminDeleteCommentMapper, reportCommentMapper, reportCommentViewMapper, adminDeleteQuestionMapper, adminCheckQuestionMapper, adminUserMuteMapper, userArticleLikeMapper, userArticleDislikeMapper, userCommentLikeMapper, commentAreaMuteMapper, conversationMapper, messageMapper, draftMapper, favouriteMapper, favouriteItemMapper, historyMapper, topicMapper, questionTopicMapper, userQuestionArticleViewMapper, userTopicMapper, subMapper, userFollowMapper]
+2024-11-07 14:41:36.706 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'articleMapper': [adminCheckArticleServiceImpl, commentAreaMuteServiceImpl, favouriteItemServiceImpl, historyServiceImpl, questionServiceImpl]
+2024-11-07 14:41:36.706 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'favouriteItemServiceImpl': [favouriteItemController]
+2024-11-07 14:41:36.706 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'historyServiceImpl': [historyController]
+2024-11-07 14:41:36.706 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'questionServiceImpl': [questionController]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'questionMapper': [adminCheckQuestionServiceImpl, draftServiceImpl]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'draftServiceImpl': [draftController]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminMapper': [adminDeleteCommentServiceImpl, adminServiceImpl, adminUserMuteServiceImpl]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminDeleteCommentServiceImpl': [adminCommentController]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminServiceImpl': [adminController]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'adminUserMuteServiceImpl': [adminUserMuteController]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'userMapper': [informServiceImpl, reportCommentServiceImpl, conversationServiceImpl, favouriteServiceImpl, userFollowServiceImpl, userTopicServiceImpl]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'informServiceImpl': [informController]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'conversationServiceImpl': [conversationController]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'favouriteServiceImpl': [favouriteController]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'userFollowServiceImpl': [userFollowController]
+2024-11-07 14:41:36.708 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'userTopicServiceImpl': [userTopicController]
+2024-11-07 14:41:36.709 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'subMapper': [subServiceImpl]
+2024-11-07 14:41:36.709 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'sqlSessionTemplate'
+2024-11-07 14:41:36.709 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'dataSource': [sqlSessionFactory, org.springframework.boot.autoconfigure.jdbc.DataSourceJmxConfiguration$Hikari, dataSourceScriptDatabaseInitializer, jdbcTemplate, transactionManager]
+2024-11-07 14:41:36.709 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'dataSourceScriptDatabaseInitializer': [jdbcTemplate, namedParameterJdbcTemplate]
+2024-11-07 14:41:36.709 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'jdbcTemplate': [namedParameterJdbcTemplate]
+2024-11-07 14:41:36.709 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'transactionManager': [transactionTemplate]
+2024-11-07 14:41:36.709 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking close() on bean with name 'dataSource'
+2024-11-07 14:41:36.709 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-11-07 14:41:36.709 [SpringApplicationShutdownHook] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Before shutdown stats (total=10, active=0, idle=10, waiting=0)
+2024-11-07 14:41:36.709 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@faea4da: (connection evicted)
+2024-11-07 14:41:36.710 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@69edd247: (connection evicted)
+2024-11-07 14:41:36.711 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1d89fdac: (connection evicted)
+2024-11-07 14:41:36.711 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@4cc0ae51: (connection evicted)
+2024-11-07 14:41:36.711 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1f59271: (connection evicted)
+2024-11-07 14:41:36.713 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@7f751d3a: (connection evicted)
+2024-11-07 14:41:36.713 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@9d4569: (connection evicted)
+2024-11-07 14:41:36.713 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@74b16c69: (connection evicted)
+2024-11-07 14:41:36.713 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@16e97879: (connection evicted)
+2024-11-07 14:41:36.714 [HikariPool-1 connection closer] DEBUG com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@6c09dcbb: (connection evicted)
+2024-11-07 14:41:36.714 [SpringApplicationShutdownHook] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+2024-11-07 14:41:36.714 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-11-07 14:41:36.714 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'characterEncodingFilter'
+2024-11-07 14:41:36.714 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'formContentFilter'
+2024-11-07 14:41:36.714 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DisposableBeanAdapter - Invoking destroy() on bean with name 'requestContextFilter'
+2024-11-07 14:41:36.714 [SpringApplicationShutdownHook] TRACE o.s.b.f.s.DefaultListableBeanFactory - Retrieved dependent beans for bean 'org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory': [org.springframework.context.annotation.internalConfigurationAnnotationProcessor]

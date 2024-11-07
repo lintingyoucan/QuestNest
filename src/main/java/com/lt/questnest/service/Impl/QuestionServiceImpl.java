@@ -5,13 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.huaban.analysis.jieba.JiebaSegmenter;
 import com.huaban.analysis.jieba.SegToken;
 import com.lt.questnest.controller.UserController;
-import com.lt.questnest.entity.Question;
-import com.lt.questnest.entity.QuestionTopic;
-import com.lt.questnest.entity.Topic;
-import com.lt.questnest.entity.User;
+import com.lt.questnest.entity.*;
 import com.lt.questnest.mapper.*;
 import com.lt.questnest.service.FileService;
 import com.lt.questnest.service.QuestionService;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +38,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     FileService fileService;
+
+    @Autowired
+    UserQuestionArticleViewMapper userQuestionArticleViewMapper;
 
     @Autowired
     ArticleMapper articleMapper;
@@ -493,5 +494,45 @@ public class QuestionServiceImpl implements QuestionService {
         // 根据questionId找出文章回答数目
         Integer answerNumber = articleMapper.getQuestionAnswerNumber(questionId);
         return answerNumber;
+    }
+
+    // 显示问题对应的回答
+    public Map<String,Object> getQuestionAndArticle(Integer questionId){
+        Map<String,Object> result = new HashMap<>();
+
+        // 获取
+        List<UserQuestionArticleView> userQuestionArticles = userQuestionArticleViewMapper.get(questionId);
+
+        List<Map<String,Object>> userQuestionArticleList = new ArrayList<>();
+        for (UserQuestionArticleView userQuestionArticle : userQuestionArticles) {
+
+            int count = 1;
+            // 取出问题相关信息
+            if (count == 1){
+                result.put("questionId",questionId);
+                result.put("questionTitle",userQuestionArticle.getQuestionTitle());
+                result.put("questionContent",userQuestionArticle.getQuestionContent());
+                count = 0;
+            }
+
+            // 如果返回文章内容为空，说明该问题暂时没有人回答
+            if ((userQuestionArticle.getArticleContent()) == null || (userQuestionArticle.getArticleContent()).isEmpty()){
+                result.put("status","success");
+                return result;
+            }
+
+            // 取出文章相关信息
+            Map<String,Object> userQuestionArticleItem = new HashMap<>();
+            userQuestionArticleItem.put("articleId",userQuestionArticle.getArticleId());
+            userQuestionArticleItem.put("articleContent",userQuestionArticle.getArticleContent());
+            userQuestionArticleItem.put("articleUsername",userQuestionArticle.getArticleUsername());
+            userQuestionArticleItem.put("articleHeadUrl",userQuestionArticle.getArticleHeadUrl());
+
+            userQuestionArticleList.add(userQuestionArticleItem);
+        }
+
+        result.put("userQuestionArticle",userQuestionArticleList);
+        result.put("status","success");
+        return result;
     }
 }

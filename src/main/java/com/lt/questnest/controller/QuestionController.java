@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -314,9 +313,15 @@ public class QuestionController {
 
     }
 
-    // 显示问题对应的回答
+    /**
+     * 显示问题对应的回答
+     * 20241107
+     * @param questionId
+     * @param session
+     * @return
+     */
     @PostMapping("/showQuestionAndArticle")
-    public ResponseEntity<Map<String, Object>> showQuestionAndArticle(@RequestParam("title") String title,
+    public ResponseEntity<Map<String, Object>> showQuestionAndArticle(@RequestParam("questionId") Integer questionId,
                                                                  HttpSession session) {
 
         Map<String,Object> result = new HashMap<>();
@@ -325,9 +330,22 @@ public class QuestionController {
         try {
             if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录
                 // 从Service层获取搜索结果
-                Integer answerNumber = null;
-                result.put("status","success");
-                return ResponseEntity.ok(result); // 返回200状态
+                Map<String,Object> map = questionService.getQuestionAndArticle(questionId);
+                if (map.containsValue("success")){
+                    result.put("status","success");
+                    if (map.containsKey("userQuestionArticle")){
+                        result.put("userQuestionArticle",map.get("userQuestionArticle"));
+                    }
+                    result.put("questionId",map.get("questionId"));
+                    result.put("questionTitle",map.get("questionTitle"));
+                    result.put("questionContent",map.get("questionContent"));
+                    return ResponseEntity.ok(result); // 返回200状态
+                } else {
+                    result.put("status","error");
+                    result.put("message",map.get("msg"));
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);  // 返回400状态
+                }
+
             } else {
                 result.put("status","error");
                 result.put("message","用户未登录");
@@ -335,7 +353,7 @@ public class QuestionController {
             }
         } catch (Exception e) {
             result.put("status", "error");
-            result.put("message", "显示问题回答数目失败：" + e.getMessage());
+            result.put("message", "显示问题对应的回答失败：" + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);  // 返回500状态
         }
 

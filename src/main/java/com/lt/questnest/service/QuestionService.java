@@ -20,4 +20,6 @@ public interface QuestionService {
     Map<String,Object> getIllegalQuestion(String email);
 
     Integer getAnswerNumber(String title);
+
+    Map<String,Object> getQuestionAndArticle(Integer questionId);
 }
