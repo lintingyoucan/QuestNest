@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/admin")
-public class AdminDeleteQuestionController {
+public class AdminQuestionController {
 
     @Autowired
     AdminDeleteQuestionService adminDeleteQuestionService;

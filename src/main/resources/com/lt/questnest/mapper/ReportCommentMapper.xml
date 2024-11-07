@@ -1,0 +1,23 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.ReportCommentMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="ReportCommentResultMap" type="com.lt.questnest.entity.ReportComment">
+        <result property="reportCommentId" column="report_comment_id"/>
+        <result property="reporterId" column="reporter_id"/>
+        <result property="commentId" column="comment_id"/>
+        <result property="reportTime" column="report_time"/>
+        <result property="reason" column="reason"/>
+        <result property="read" column="read"/>
+    </resultMap>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="reportCommentId">
+        insert into `report_comment` (`reporter_id`, `comment_id`, `reason`)
+        values (#{reporterId},#{commentId},#{reason})
+    </insert>
+
+    <delete id="delete">
+        delete from `report_comment` where `report_comment_id` = #{reportCommentId}
+    </delete>
+</mapper>

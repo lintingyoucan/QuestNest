@@ -1,0 +1,22 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.questnest.mapper.ReportCommentViewMapper">
+
+    <!-- 实体类和表的字段映射 -->
+    <resultMap id="ReportCommentViewResultMap" type="com.lt.questnest.entity.ReportCommentView">
+        <result property="reportCommentId" column="report_comment_id"/>
+        <result property="reporterId" column="reporter_id"/>
+        <result property="reporterUsername" column="reporter_username"/>
+        <result property="reporterHeadUrl" column="reporter_head_url"/>
+        <result property="commentId" column="comment_id"/>
+        <result property="commentContent" column="comment_content"/>
+        <result property="reportTime" column="report_time"/>
+        <result property="reason" column="reason"/>
+    </resultMap>
+
+    <select id="getReportComment" resultMap="ReportCommentViewResultMap">
+        select `report_comment_id`,`reporter_id`,`reporter_username`,
+               `reporter_head_url`,`comment_id`,`comment_content`,`report_time`,`reason`
+        from `report_comment_view`
+    </select>
+</mapper>

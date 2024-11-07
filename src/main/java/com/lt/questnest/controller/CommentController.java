@@ -1,9 +1,6 @@
 package com.lt.questnest.controller;
 
-import com.lt.questnest.service.CommentAreaMuteService;
-import com.lt.questnest.service.AdminUserMuteService;
-import com.lt.questnest.service.CommentService;
-import com.lt.questnest.service.FileService;
+import com.lt.questnest.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,9 @@ public class CommentController {
 
     @Autowired
     CommentAreaMuteService commentAreaMuteService;
+
+    @Autowired
+    ReportCommentService reportCommentService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -373,4 +373,41 @@ public class CommentController {
         }
     }
 
+    /**
+     * 举报评论
+     * 20241107
+     * @param commentId
+     * @param reason
+     * @param session
+     * @return
+     */
+    @PostMapping("/reportComment")
+    public ResponseEntity<Map<String, Object>> reportComment(@RequestParam("commentId") int commentId,
+                                                             @RequestParam("reason") String reason,
+                                                             HttpSession session) {
+        Map<String, Object> result = new HashMap<>();
+        String email = (String) session.getAttribute("email");
+        try {
+            if (email != null && !(email.isEmpty())) { // 用户已登录
+
+                Map<String, String> map = reportCommentService.reportComment(email,commentId,reason);
+                if (map.containsValue("success")) {
+                    result.put("status", "success");
+                    return ResponseEntity.ok(result);
+                } else {
+                    result.put("status", "error");
+                    result.put("message", map.get("msg"));
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);  // 返回400状态
+                }
+            } else {
+                result.put("status", "error");
+                result.put("message", "用户未登录");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);  // 返回401状态
+            }
+        } catch (Exception e) {
+            result.put("status", "error");
+            result.put("message", "举报评论失败：" + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);  // 返回500状态
+        }
+    }
 }
