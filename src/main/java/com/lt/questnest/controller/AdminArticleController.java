@@ -2,12 +2,15 @@ package com.lt.questnest.controller;
 
 import com.lt.questnest.service.AdminCheckArticleService;
 import com.lt.questnest.service.AdminDeleteArticleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,21 +25,24 @@ public class AdminArticleController {
     @Autowired
     AdminCheckArticleService adminCheckArticleService;
 
+    private static final Logger logger = LoggerFactory.getLogger(AdminArticleController.class);
+
+
     /**
      * 20241024
      * 审核不通过文章
      * @param articleId
      * @param reason
-     * @param session
      * @return
      */
     @PostMapping("/failToArticle")
     public ResponseEntity<Map<String, Object>> failToArticle(@RequestParam("articleId") Integer articleId,
                                                              @RequestParam("reason") String reason,
-                                                             HttpSession session) {
+                                                             Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String account = (String)session.getAttribute("account");
+        String account = principal.getName();
+        logger.info("取出account:{}",account);
         try {
             if (account != null && !(account.isEmpty()) ){ // 管理员已登录
 
@@ -66,15 +72,14 @@ public class AdminArticleController {
     /**
      * 显示未审核文章
      * 20241106
-     * @param session
      * @return
      */
     @GetMapping("/showUncheckArticle")
-    public ResponseEntity<Map<String, Object>> showUncheckArticle(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> showUncheckArticle(Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String account = (String)session.getAttribute("account");
-        try {
+        String account = principal.getName();
+        logger.info("取出account:{}",account);        try {
             if (account != null && !(account.isEmpty()) ){ // 管理员已登录
 
                 // 返回添加结果

@@ -2,12 +2,15 @@ package com.lt.questnest.controller;
 
 import com.lt.questnest.service.AdminDeleteCommentService;
 import com.lt.questnest.service.ReportCommentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,21 +25,24 @@ public class AdminCommentController {
     @Autowired
     ReportCommentService reportCommentService;
 
+    private static final Logger logger = LoggerFactory.getLogger(AdminCommentController.class);
+
+
     /**
      * 审核不通过评论（直接删除）
      * 20241024
      * @param commentId
      * @param reason
-     * @param session
      * @return
      */
     @PostMapping("/deleteComment")
     public ResponseEntity<Map<String, Object>> deleteComment(@RequestParam("commentId") Integer commentId,
                                                              @RequestParam("reason") String reason,
-                                                          HttpSession session) {
+                                                             Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String account = (String)session.getAttribute("account");
+        String account = principal.getName();
+        logger.info("取出account:{}",account);
         try {
             if (account != null && !(account.isEmpty()) ){ // 管理员已登录
 
@@ -66,14 +72,14 @@ public class AdminCommentController {
     /**
      * 显示举报评论信息
      * 20241107
-     * @param session
      * @return
      */
     @GetMapping("/showReportComment")
-    public ResponseEntity<Map<String, Object>> showReportComment(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> showReportComment(Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String account = (String)session.getAttribute("account");
+        String account = principal.getName();
+        logger.info("取出account:{}",account);
         try {
             if (account != null && !(account.isEmpty()) ){ // 管理员已登录
 
@@ -105,15 +111,15 @@ public class AdminCommentController {
      * 处理举报信息后，删除举报信息
      * 20241107
      * @param reportCommentId
-     * @param session
      * @return
      */
     @PostMapping("/readReportComment")
     public ResponseEntity<Map<String, Object>> readReportComment(@RequestParam("reportCommentId") Integer reportCommentId,
-                                                             HttpSession session) {
+                                                                 Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String account = (String)session.getAttribute("account");
+        String account = principal.getName();
+        logger.info("取出account:{}",account);
         try {
             if (account != null && !(account.isEmpty()) ){ // 管理员已登录
 

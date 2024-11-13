@@ -8,4 +8,5 @@ import java.util.Map;
 public interface AdminService {
 
     Map<String, String> loginByPasswd(String account, String password);
+
 }

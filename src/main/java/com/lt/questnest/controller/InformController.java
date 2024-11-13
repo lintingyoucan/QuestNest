@@ -1,6 +1,8 @@
 package com.lt.questnest.controller;
 
 import com.lt.questnest.service.InformService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,16 +22,19 @@ public class InformController {
     @Autowired
     InformService informService;
 
+    private static final Logger logger = LoggerFactory.getLogger(InformController.class);
+
+
     /**
      * 返回未读消息条数
      * 20241105
-     * @param session
      * @return
      */
     @GetMapping("/getUnreadNumber")
-    public ResponseEntity<Map<String,Object>> getUnreadNumber(HttpSession session) {
+    public ResponseEntity<Map<String,Object>> getUnreadNumber(Principal principal) {
 
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         Map<String,Object> result = new HashMap<>();
         try {
             if (email != null || !(email.isEmpty())){ // 用户已登录
@@ -54,14 +60,14 @@ public class InformController {
     /**
      * 20241106
      * 显示用户订阅消息
-     * @param session
      * @return
      */
     @GetMapping("/showInform")
-    public ResponseEntity<Map<String, Object>> showInform(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> showInform(Principal principal) {
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String)session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
 
         try {
             if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录

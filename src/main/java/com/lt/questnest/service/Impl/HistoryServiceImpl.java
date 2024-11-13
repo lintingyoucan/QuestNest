@@ -123,7 +123,7 @@ public class HistoryServiceImpl implements HistoryService {
                 // 修改viewTime格式
                 Timestamp viewTime = history.getViewTime();  // viewTime:2024-10-13T10:50:52.000+00:00
                 // 创建 SimpleDateFormat 实例以定义输出格式
-                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
                 // 格式化 Timestamp 为字符串
                 String formattedViewTime = outputFormat.format(viewTime);
                 historyItem.put("viewTime", formattedViewTime);

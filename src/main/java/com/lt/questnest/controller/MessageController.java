@@ -2,6 +2,8 @@ package com.lt.questnest.controller;
 
 import com.lt.questnest.service.FileService;
 import com.lt.questnest.service.MessageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +29,9 @@ public class MessageController {
     @Autowired
     FileService fileService;
 
+    private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
+
+
     /**
      * 私信
      * 202041021
@@ -33,7 +39,6 @@ public class MessageController {
      * @param content
      * @param images
      * @param videos
-     * @param session
      * @return
      */
     @PostMapping("/sendMessage")
@@ -41,9 +46,10 @@ public class MessageController {
                                                           @RequestParam("messageContent") String content,
                                                           @RequestParam(value = "images", required = false) List<MultipartFile> images,  // 图片文件
                                                           @RequestParam(value = "videos", required = false) List<MultipartFile> videos,  // 视频文件
-                                                          HttpSession session) {
+                                                          Principal principal) {
 
-        String senderEmail = (String) session.getAttribute("email");
+        String senderEmail = principal.getName();
+        logger.info("取出的email:{}",senderEmail);
         Map<String,Object> result = new HashMap<>();
         try {
             if (senderEmail != null || !(senderEmail.isEmpty())){ // 用户已登录
@@ -81,14 +87,14 @@ public class MessageController {
      * 显示用户间的私信
      * 20241021
      * @param conversationId
-     * @param session
      * @return
      */
     @PostMapping("/getMessage")
     public ResponseEntity<Map<String,Object>> getMessage(@RequestParam("conversationId") Integer conversationId,
-                                                          HttpSession session) {
+                                                         Principal principal) {
 
-        String senderEmail = (String) session.getAttribute("email");
+        String senderEmail = principal.getName();
+        logger.info("取出的email:{}",senderEmail);
         Map<String,Object> result = new HashMap<>();
         try {
             if (senderEmail != null || !(senderEmail.isEmpty())){ // 用户已登录

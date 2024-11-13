@@ -10,11 +10,11 @@
         <result property="articleId" column="article_id"/>
         <result property="articleContent" column="article_content"/>
         <result property="articleUsername" column="article_username"/>
-        <result property="articleHeadUrl" column="article_head_url"/>
+        <result property="articleEmail" column="article_email"/>
     </resultMap>
 
     <select id="get" resultMap="UserQuestionArticleViewResultMap">
-        select `question_id`,`question_title`,`question_content`,`article_id`,`article_content`,`article_username`,`article_head_url`
+        select `question_id`,`question_title`,`question_content`,`article_id`,`article_content`,`article_username`,`article_email`
         from `user_question_article_view`
         where `question_id` = #{questionId}
     </select>

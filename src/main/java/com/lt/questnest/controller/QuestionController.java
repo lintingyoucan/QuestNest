@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,6 @@ public class QuestionController {
      * @param title
      * @param content
      * @param topics
-     * @param session
      * @return
      */
     @PostMapping("/addQuestion")
@@ -49,11 +49,11 @@ public class QuestionController {
             @RequestParam("topic") Set<String> topics,
             @RequestParam(value = "images", required = false) List<MultipartFile> images,  // 图片文件
             @RequestParam(value = "videos", required = false) List<MultipartFile> videos,  // 视频文件
-            HttpSession session) {
+            Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
-
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
             if (email != null && !email.isEmpty()) {  // 判断用户是否登录
 
@@ -100,7 +100,6 @@ public class QuestionController {
      * @param topics
      * @param images
      * @param videos
-     * @param session
      * @return
      */
     @PostMapping("/updateQuestion")
@@ -111,10 +110,11 @@ public class QuestionController {
             @RequestParam("topic") Set<String> topics,
             @RequestParam(value = "images", required = false) List<MultipartFile> images,  // 图片文件
             @RequestParam(value = "videos", required = false) List<MultipartFile> videos,  // 视频文件
-            HttpSession session) {
+            Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
 
         try {
             if (email != null && !(email.isEmpty())) { // 判断用户是否已经登录
@@ -162,12 +162,12 @@ public class QuestionController {
      * @return 返回查到的问题
      */
     @PostMapping("/search")
-    public ResponseEntity<Map<String, Object>> search(
-            @RequestParam("keyword") String keyword,
-            HttpSession session) {
+    public ResponseEntity<Map<String, Object>> search(@RequestParam("keyword") String keyword,
+                                                      Principal principal) {
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String)session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
 
         try {
             if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录
@@ -201,15 +201,16 @@ public class QuestionController {
      * 利用AI回答搜索的问题
      * 20241025
      * @param keyword
-     * @param session
      * @return
      */
     @PostMapping("/searchByAI")
     public ResponseEntity<Map<String, Object>> searchByAI(@RequestParam("keyword") String keyword,
-                                                          HttpSession session) {
+                                                          Principal principal) {
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String)session.getAttribute("email");
+
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
 
         try {
             if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录
@@ -243,14 +244,15 @@ public class QuestionController {
     /**
      * 显示用户违规的问题
      * 20241106
-     * @param session
      * @return
      */
     @GetMapping("/showIllegalQuestion")
-    public ResponseEntity<Map<String, Object>> showIllegalQuestion(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> showIllegalQuestion(Principal principal) {
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String)session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
+
 
         try {
             if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录
@@ -283,15 +285,16 @@ public class QuestionController {
      * 显示问题回答数
      * 20241106
      * @param title
-     * @param session
      * @return
      */
     @PostMapping("/showAnswerNumber")
     public ResponseEntity<Map<String, Object>> sshowAnswerNumber(@RequestParam("title") String title,
-                                                          HttpSession session) {
+                                                                 Principal principal) {
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String)session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
+
 
         try {
             if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录
@@ -317,15 +320,16 @@ public class QuestionController {
      * 显示问题对应的回答
      * 20241107
      * @param questionId
-     * @param session
      * @return
      */
     @PostMapping("/showQuestionAndArticle")
     public ResponseEntity<Map<String, Object>> showQuestionAndArticle(@RequestParam("questionId") Integer questionId,
-                                                                 HttpSession session) {
+                                                                      Principal principal) {
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String)session.getAttribute("email");
+
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
 
         try {
             if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录

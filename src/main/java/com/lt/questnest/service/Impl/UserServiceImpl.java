@@ -9,6 +9,7 @@ import com.lt.questnest.util.EncryptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,12 +57,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RedisMessageSubscriber redisMessageSubscriber;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
     /**
      * 注销用户账号，将 state 更新为 0
      * 将用户相关的内容都删除，比如会话、聊天信息、草稿、收藏夹、收藏项、浏览历史、关注话题、订阅消息
+     *
      * @param email 用户邮箱
      * @return 操作结果
      */
@@ -71,68 +76,60 @@ public class UserServiceImpl implements UserService {
 
         Map<String, String> result = new HashMap<>();
 
-        try {
-            // 获取用户id
-            Integer userId = userMapper.getUserByEmail(email).getId();
+        // 获取用户id
+        Integer userId = userMapper.getUserByEmail(email).getId();
 
-            // 删除与用户有关的会话
-            Integer deleteConversation = conversationMapper.deleteByUserId(userId);
-            if (deleteConversation == null || deleteConversation < 0) {
-                throw new RuntimeException("用户注销失败，删除会话失败！");
-            }
+        // 删除与用户有关的会话
+        Integer deleteConversation = conversationMapper.deleteByUserId(userId);
+        if (deleteConversation == null || deleteConversation < 0) {
+            throw new RuntimeException("用户注销失败，删除会话失败！");
+        }
 
-            // 删除用户草稿
-            Integer deleteDraft = draftMapper.deleteDraftByUserId(userId);
-            if (deleteDraft == null || deleteDraft < 0) {
-                throw new RuntimeException("用户注销失败，删除用户草稿失败！");
-            }
+        // 删除用户草稿
+        Integer deleteDraft = draftMapper.deleteDraftByUserId(userId);
+        if (deleteDraft == null || deleteDraft < 0) {
+            throw new RuntimeException("用户注销失败，删除用户草稿失败！");
+        }
 
-            // 用户一定有“默认收藏夹”，删除收藏夹
-            Integer deleteFavourite = favouriteMapper.deleteByUserId(userId);
-            if (deleteFavourite == null || deleteFavourite <= 0){
-                throw new RuntimeException("用户注销失败，删除收藏夹失败！");
-            }
+        // 用户一定有“默认收藏夹”，删除收藏夹
+        Integer deleteFavourite = favouriteMapper.deleteByUserId(userId);
+        if (deleteFavourite == null || deleteFavourite <= 0) {
+            throw new RuntimeException("用户注销失败，删除收藏夹失败！");
+        }
 
-            // 删除浏览历史
-            Integer deleteHistory = historyMapper.deleteByUserId(userId);
-            if (deleteHistory == null || deleteHistory < 0){
-                throw new RuntimeException("用户注销失败，删除浏览记录失败！");
-            }
+        // 删除浏览历史
+        Integer deleteHistory = historyMapper.deleteByUserId(userId);
+        if (deleteHistory == null || deleteHistory < 0) {
+            throw new RuntimeException("用户注销失败，删除浏览记录失败！");
+        }
 
-            // 删除用户是否有关注话题
-            Integer deleteUserTopic = userTopicMapper.deleteByUserId(userId);
-            if (deleteUserTopic == null || deleteUserTopic < 0){
-                throw new RuntimeException("用户注销失败，删除浏览记录失败！");
-            }
+        // 删除用户是否有关注话题
+        Integer deleteUserTopic = userTopicMapper.deleteByUserId(userId);
+        if (deleteUserTopic == null || deleteUserTopic < 0) {
+            throw new RuntimeException("用户注销失败，删除浏览记录失败！");
+        }
 
-            // 取消用户监听频道
-            String unsub = redisMessageSubscriber.unsubscribe(email);
-            if (!(unsub.equals("success"))){
-                throw new RuntimeException("取消用户监听频道失败!");
-            }
+        // 取消用户监听频道
+        String unsub = redisMessageSubscriber.unsubscribe(email);
+        if (!(unsub.equals("success"))) {
+            throw new RuntimeException("取消用户监听频道失败!");
+        }
 
-            // 删除用户订阅消息频道
-            String deleteSub = subService.delete(email);
-            if (!(deleteSub.equals("success"))){
-                throw new RuntimeException("删除用户订阅信息失败!");
-            }
+        // 删除用户订阅消息频道
+        String deleteSub = subService.delete(email);
+        if (!(deleteSub.equals("success"))) {
+            throw new RuntimeException("删除用户订阅信息失败!");
+        }
 
-            // 将用户状态设置为注销（state = 0）
-            Integer update = userMapper.updateUserState(email);
+        // 将用户状态设置为注销（state = 0）
+        Integer update = userMapper.updateUserState(email);
 
-            if (update > 0) {
-                result.put("status", "success");
-                result.put("msg", "用户注销成功！");
-                return result;
-            } else {
-                throw new RuntimeException("用户注销失败，请稍后再试！");
-            }
-
-        } catch (Exception e) {
-
-            result.put("status","error");
-            result.put("msg","数据库操作失败");
+        if (update > 0) {
+            result.put("status", "success");
+            result.put("msg", "用户注销成功！");
             return result;
+        } else {
+            throw new RuntimeException("用户注销失败，请稍后再试！");
         }
 
     }
@@ -140,6 +137,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 注册
+     *
      * @param email
      * @param username
      * @param password
@@ -147,36 +145,36 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Map<String, String> register(String email, String username, String password,String inputCode) {
+    public Map<String, String> register(String email, String username, String password, String inputCode) {
 
         logger.info("进入register的service方法");
-        Map<String,String> result = new HashMap<>();
+        Map<String, String> result = new HashMap<>();
 
         // 对传入参数判空处理
-        if (email == null || email.isEmpty()){
+        if (email == null || email.isEmpty()) {
             result.put("status", "error");
-            result.put("msg","邮箱不能为空!");
+            result.put("msg", "邮箱不能为空!");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
         }
-        if (username == null || username.isEmpty()){
+        if (username == null || username.isEmpty()) {
             result.put("status", "error");
-            result.put("msg","用户名不能为空!");
+            result.put("msg", "用户名不能为空!");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
         }
-        if (password == null || password.isEmpty()){
+        if (password == null || password.isEmpty()) {
             result.put("status", "error");
-            result.put("msg","密码不能为空!");
+            result.put("msg", "密码不能为空!");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
         }
-        if (inputCode == null || inputCode.isEmpty()){
+        if (inputCode == null || inputCode.isEmpty()) {
             result.put("status", "error");
-            result.put("msg","验证码不能为空!");
+            result.put("msg", "验证码不能为空!");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
@@ -186,8 +184,8 @@ public class UserServiceImpl implements UserService {
         // 从redis中取出验证码验证是否正确
         String code = redisService.getVerificationCode(email);
         if (code == null) {
-            logger.info("redis中的验证码为:{}",code);
-            logger.info("redis中的邮箱为:{}",email);
+            logger.info("redis中的验证码为:{}", code);
+            logger.info("redis中的邮箱为:{}", email);
             result.put("status", "error");
             result.put("msg", "验证码已过期或不存在或邮箱不存在，请重新获取！");
             // 删除验证码 key
@@ -204,9 +202,9 @@ public class UserServiceImpl implements UserService {
 
         // 判断用户是否存在
         User user = userMapper.getUserByEmail(email);
-        if (user != null && user.isState()){//如果用户存在，没有注销
+        if (user != null && user.isState()) {//如果用户存在，没有注销
             result.put("status", "error");
-            result.put("msg","用户已存在");
+            result.put("msg", "用户已存在");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
@@ -216,7 +214,10 @@ public class UserServiceImpl implements UserService {
         user = new User();
         user.setEmail(email);
         user.setUsername(username);
-        user.setPassword(EncryptionUtil.encryptPassword(password));// 使用加密算法SHA-256
+        // 对密码进行加密
+        String encryptedPassword = passwordEncoder.encode(password);
+        //user.setPassword(EncryptionUtil.encryptPassword(password));// 使用加密算法SHA-256
+        user.setPassword(encryptedPassword);
 
         Integer addResult = userMapper.addUser(user);
 
@@ -241,7 +242,7 @@ public class UserServiceImpl implements UserService {
      * @param password
      * @return
      */
-    @Override
+/*    @Override
     public Map<String, String> loginByPasswd(String email, String password) {
         Map<String, String> result = new HashMap<>();
 
@@ -277,30 +278,31 @@ public class UserServiceImpl implements UserService {
         result.put("status", "success");
         result.put("msg", "用户登录成功！");
         return result;
-    }
+    }*/
 
     /**
      * 通过验证码登录
+     *
      * @param email
      * @param inputCode
      * @return
      */
-    public Map<String,String> loginByCode(String email,String inputCode){
-        Map<String,String> result = new HashMap<>();
+    public Map<String, String> loginByCode(String email, String inputCode) {
+        Map<String, String> result = new HashMap<>();
 
         // 对传入参数判空处理
-        if (email == null || email.isEmpty()){
+        if (email == null || email.isEmpty()) {
             result.put("status", "error");
-            result.put("msg","邮箱不能为空!");
+            result.put("msg", "邮箱不能为空!");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
         }
 
         inputCode = inputCode.trim();// 去掉末尾的空格
-        if (inputCode == null || inputCode.isEmpty()){
+        if (inputCode == null || inputCode.isEmpty()) {
             result.put("status", "error");
-            result.put("msg","验证码不能为空!");
+            result.put("msg", "验证码不能为空!");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
@@ -308,9 +310,9 @@ public class UserServiceImpl implements UserService {
 
         // 判断用户是否存在
         User user = userMapper.getUserByEmail(email);
-        if (user == null || !(user.isState())){
+        if (user == null || !(user.isState())) {
             result.put("status", "error");
-            result.put("msg","用户不存在!");
+            result.put("msg", "用户不存在!");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
@@ -319,13 +321,13 @@ public class UserServiceImpl implements UserService {
         // 从redis中取出验证码验证是否正确
         String code = redisService.getVerificationCode(email);
         if (code == null) {
-            logger.info("redis中的验证码为:{}",code);
-            logger.info("redis中的邮箱为:{}",email);
+            logger.info("redis中的验证码为:{}", code);
+            logger.info("redis中的邮箱为:{}", email);
             result.put("status", "error");
             result.put("msg", "验证码已过期或不存在或邮箱不存在，请重新获取！");
             String redisCode = redisService.getVerificationCode(email);
-            logger.info("redis中的code:{}",redisCode);
-            logger.info("输入的code:{}",code);
+            logger.info("redis中的code:{}", redisCode);
+            logger.info("输入的code:{}", code);
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
@@ -349,32 +351,33 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 重置密码
+     *
      * @param email
      * @param password
      * @param inputCode
      * @return
      */
-    public Map<String,String> resetPasswd(String email,String password,String inputCode){
-        Map<String,String> result = new HashMap<>();
+    public Map<String, String> resetPasswd(String email, String password, String inputCode) {
+        Map<String, String> result = new HashMap<>();
 
         // 对传入参数判空处理
-        if (email == null || email.isEmpty()){
+        if (email == null || email.isEmpty()) {
             result.put("status", "error");
-            result.put("msg","邮箱不能为空!");
+            result.put("msg", "邮箱不能为空!");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
         }
-        if (password == null || password.isEmpty()){
-            result.put("status","error");
-            result.put("msg","新密码不能为空");
+        if (password == null || password.isEmpty()) {
+            result.put("status", "error");
+            result.put("msg", "新密码不能为空");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
         }
-        if (inputCode == null || inputCode.isEmpty()){
+        if (inputCode == null || inputCode.isEmpty()) {
             result.put("status", "error");
-            result.put("msg","验证码不能为空!");
+            result.put("msg", "验证码不能为空!");
             // 删除验证码 key
             redisService.removeVerificationCode(email);
             return result;
@@ -383,8 +386,8 @@ public class UserServiceImpl implements UserService {
         // 从redis中取出验证码验证是否正确
         String code = redisService.getVerificationCode(email);
         if (code == null) {
-            logger.info("redis中的验证码为:{}",code);
-            logger.info("redis中的邮箱为:{}",email);
+            logger.info("redis中的验证码为:{}", code);
+            logger.info("redis中的邮箱为:{}", email);
             result.put("status", "error");
             result.put("msg", "验证码已过期或不存在或邮箱不存在，请重新获取！");
             // 删除验证码 key
@@ -401,7 +404,7 @@ public class UserServiceImpl implements UserService {
 
         // 判断用户是否存在
         User user = userMapper.getUserByEmail(email);
-        if (user == null || !(user.isState())){
+        if (user == null || !(user.isState())) {
             result.put("status", "error");
             result.put("msg", "用户不存在！");
             // 删除验证码 key
@@ -409,7 +412,9 @@ public class UserServiceImpl implements UserService {
         }
 
         // 重置密码
-        Integer update = userMapper.updatePasswd(email,EncryptionUtil.encryptPassword(password));
+        // 对密码进行加密
+        String encryptedPassword = passwordEncoder.encode(password);
+        Integer update = userMapper.updatePasswd(email, encryptedPassword);
         if (update > 0) {
             result.put("status", "success");
             result.put("msg", "密码修改成功！");
@@ -425,30 +430,30 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     /**
      * 更新用户信息
+     *
      * @param email
      * @param username
      * @param gender
      * @param birthday
      * @return
      */
-    public Map<String,String> updateUser(String email,String username,String gender,String birthday){
+    public Map<String, String> updateUser(String email, String username, String gender, String birthday) {
 
-        Map<String,String> result = new HashMap<>();
+        Map<String, String> result = new HashMap<>();
         User user = userMapper.getUserByEmail(email);
 
         // 对username判空
-        if (username == null || username.isEmpty()){
-            result.put("status","error");
-            result.put("msg","用户名不能为空!");
+        if (username == null || username.isEmpty()) {
+            result.put("status", "error");
+            result.put("msg", "用户名不能为空!");
             return result;
         }
         // 对 gender判空
-        if (gender == null || gender.isEmpty()){
-            result.put("status","error");
-            result.put("msg","性别不能为空");
+        if (gender == null || gender.isEmpty()) {
+            result.put("status", "error");
+            result.put("msg", "性别不能为空");
         }
 
         // 将(String)birthday转换为(Date)birthday
@@ -459,11 +464,11 @@ public class UserServiceImpl implements UserService {
         try {
             // 将字符串转换为 Date 类型
             birthdayDate = dateFormat.parse(birthday);
-            logger.info("转换后的 Date 对象:{} ",birthdayDate);
+            logger.info("转换后的 Date 对象:{} ", birthdayDate);
         } catch (ParseException e) {
-            logger.info("日期格式错误: {}",e.getMessage());
-            result.put("status","error");
-            result.put("msg","日期格式错误");
+            logger.info("日期格式错误: {}", e.getMessage());
+            result.put("status", "error");
+            result.put("msg", "日期格式错误");
             return result;
         }
 
@@ -473,7 +478,7 @@ public class UserServiceImpl implements UserService {
         user.setGender(gender);
         user.setBirthday(birthdayDate);
 
-        Integer update = userMapper.updateUser(email,username,gender,birthdayDate);
+        Integer update = userMapper.updateUser(email, username, gender, birthdayDate);
         if (update > 0) {
             result.put("status", "success");
             result.put("msg", "用户信息修改成功！");
@@ -487,56 +492,99 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 显示个人信息
+     *
      * @param email
      * @return
      */
-    public Map<String,Object> getUser(String email){
+    public Map<String, Object> getUser(String email) {
 
         // 结果
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         // 数据
-        Map<String,Object> userMap = new HashMap<>();
+        Map<String, Object> userMap = new HashMap<>();
 
         // 检查用户是否存在
         User user = userMapper.getUserByEmail(email);
-        if (user == null || !(user.isState())){
-            result.put("status","error");
-            result.put("msg","用户不存在");
+        logger.info("已完成从数据库中取出数据");
+        if (user == null || !(user.isState())) {
+            result.put("status", "error");
+            result.put("msg", "用户不存在");
             return result;
         }
 
+        logger.info("准备修改用户生日格式");
+        // 检查birthday是否存在，否则会引起错误
         // 修改生日格式
+        String birthday = null;
         Date birthdayTime = user.getBirthday(); //2020-02-20T16:00:00.000+00:00
-        // 创建日期格式化对象
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        // 格式化日期
-        String birthday = sdf.format(birthdayTime);
-        logger.info("修改格式后的birthday:{}",birthday);
+        if (birthdayTime != null) {
+            // 创建日期格式化对象
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            // 格式化日期
+            birthday = sdf.format(birthdayTime);
+            logger.info("修改格式后的birthday:{}", birthday);
+        }
 
-        // 返回完整URL
-        String headUrl = "http://localhost:8080"+user.getHeadUrl();
-        logger.info("拼接后的headURL：{}",headUrl);
         // 保存数据
-        userMap.put("email",email);
-        userMap.put("username",user.getUsername());
-        userMap.put("gender",user.getGender());
-        userMap.put("birthday",birthday);
-        userMap.put("headUrl",headUrl);
+        userMap.put("email", email);
+        userMap.put("username", user.getUsername());
+        userMap.put("gender", user.getGender());
+        userMap.put("birthday", birthday);
+        userMap.put("headUrl", "http://192.168.178.78:8080/images?email="+email);
+
+        logger.info("即将返回给Controller的个人信息:{}", userMap);
+        // 返回
+        result.put("status", "success");
+        result.put("user", userMap);
+        return result;
+    }
+
+    /**
+     * 返回头像
+     *
+     * @param email
+     * @return
+     */
+    public Map<String, String> getHeadUrl(String email) {
+
+        // 结果
+        Map<String, String> result = new HashMap<>();
+
+        if (email == null || email.isEmpty()) {
+            result.put("status", "error");
+            result.put("msg", "邮箱为空");
+            return result;
+        }
+        // 检查用户是否存在
+        User user = userMapper.getUserByEmail(email);
+        if (user == null || !(user.isState())) {
+            result.put("status", "error");
+            result.put("msg", "用户不存在");
+            return result;
+        }
+
+        // 取出数据库的URL
+        // 格式：/images/33d58719-b33f-4efb-a01b-ea7a2df88058.jpg
+        // 我需要取出图片名称：33d58719-b33f-4efb-a01b-ea7a2df88058.jpg
+
+        String headUrl = user.getHeadUrl();
+        String fileName = headUrl.substring(headUrl.lastIndexOf("/") + 1);
 
         // 返回
-        result.put("status","success");
-        result.put("user",userMap);
+        result.put("status", "success");
+        result.put("fileName", fileName);
         return result;
     }
 
 
     /**
      * 上传头像
+     *
      * @param email
      * @param file
      * @return
      */
-    public Map<String,String> uploadPicture(String email,MultipartFile file){
+    public Map<String, String> uploadPicture(String email, MultipartFile file) {
 
         logger.info("进入userService的方法uploadPicture");
         Map<String, String> result = fileService.uploadFile(file, "image");
@@ -549,7 +597,7 @@ public class UserServiceImpl implements UserService {
                 Integer update = userMapper.uploadPicture(email, headUrl);
                 if (update > 0) {
                     result.put("status", "success");
-                    result.put("headUrl", headUrl);  // 返回头像的URL
+                    result.put("headUrl", "http://192.168.178.78:8080/images?email="+email);  // 返回头像的URL
                 } else {
                     result.put("status", "error");
                     result.put("msg", "数据库更新失败");

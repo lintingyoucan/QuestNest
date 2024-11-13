@@ -262,7 +262,7 @@ public class MessageServiceImpl implements MessageService {
             Integer senderId = message.getSenderId();
             User sender = userMapper.getUserById(senderId);
             String username = sender.getUsername();
-            String headUrl = sender.getHeadUrl();
+            String email = sender.getEmail();
             String content = message.getContent();
             Timestamp sendTimeBefore = message.getCreateTime();
             // 创建日期格式化对象
@@ -285,7 +285,7 @@ public class MessageServiceImpl implements MessageService {
             // 将消息项添加到分组
             List<Map<String, Object>> groupMessages = groupedMessages.getOrDefault(groupKey, new ArrayList<>());
             messageItem.put("username", username);
-            messageItem.put("headUrl", headUrl);
+            messageItem.put("headUrl", "http://192.168.178.78:8080/images?email="+email);
             messageItem.put("content", content);
             groupMessages.add(messageItem);
 

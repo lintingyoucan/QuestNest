@@ -46,7 +46,7 @@
 
     <!-- 返回所有问题 -->
     <select id="findAllQuestion" resultMap="QuestionResultMap">
-        select `question_id`,`user_id`,`title`,`content`,`state`
+        select `question_id`,`user_id`,`title`,`content`,`update_time`
         from `question`
         where `state` = 1
     </select>
@@ -58,19 +58,19 @@
     </select>
 
     <select id="findByQuestionId" resultMap="QuestionResultMap">
-        select `question_id`,`user_id`,`title`,`content`
+        select `question_id`,`user_id`,`title`,`content`,`update_time`
         from `question`
         where `question_id` = #{questionId} and `state` = 1
     </select>
 
     <select id="findIllegalQuestion" resultMap="QuestionResultMap">
-        select `question_id`,`user_id`,`title`,`content`
+        select `question_id`,`user_id`,`title`,`content`,`update_time`
         from `question`
         where `user_id` = #{userId} and `state` = 0
     </select>
 
     <select id="findByQuestionIdIgnoreState" resultMap="QuestionResultMap">
-        select `question_id`,`user_id`,`title`,`content`
+        select `question_id`,`user_id`,`title`,`content`,`update_time`
         from `question`
         where `question_id` = #{questionId}
     </select>

@@ -4,13 +4,15 @@ import com.lt.questnest.service.AdminUserMuteService;
 import com.lt.questnest.service.ArticleService;
 import com.lt.questnest.service.FileService;
 import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,9 @@ public class ArticleController {
     @Autowired
     AdminUserMuteService adminUserMuteService;
 
+    private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+
+
     /**
      * 添加文章
      * 20240920
@@ -35,7 +40,6 @@ public class ArticleController {
      * @param content
      * @param images
      * @param videos
-     * @param session
      * @return
      */
     @PostMapping("/addArticle")
@@ -43,10 +47,12 @@ public class ArticleController {
                                                           @RequestParam("content") String content,
                                                           @RequestParam(value = "images", required = false) List<MultipartFile> images,  // 图片文件
                                                           @RequestParam(value = "videos", required = false) List<MultipartFile> videos,  // 视频文件
-                                                          HttpSession session){
+                                                          Principal principal){
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -88,15 +94,15 @@ public class ArticleController {
     /**
      * 赞同文章
      * 20240920
-     * @param session
      * @return
      */
     @PostMapping("/agreeArticle")
     public ResponseEntity<Map<String, Object>> agreeArticle(@RequestParam("articleId") int articleId,
-                                                            HttpSession session){
+                                                            Principal principal){
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
         try {
             if (email != null && !(email.isEmpty())){ // 用户已登录
 
@@ -125,14 +131,15 @@ public class ArticleController {
      * 反对文章
      * 20240920
      * @param articleId
-     * @param session
      * @return
      */
     @PostMapping("/disagreeArticle")
     public ResponseEntity<Map<String, Object>> disagreeArticle(@Param("articleId") int articleId,
-                                                               HttpSession session){
+                                                               Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())){ // 用户已登录
 
@@ -161,14 +168,15 @@ public class ArticleController {
      * 取消赞同文章
      * 20240920
      * @param articleId
-     * @param session
      * @return
      */
     @PostMapping("/cancelAgreeArticle")
     public ResponseEntity<Map<String, Object>> cancelAgreeArticle(@RequestParam("articleId") int articleId,
-                                                                  HttpSession session){
+                                                                  Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())){ // 用户已登录
 
@@ -197,14 +205,15 @@ public class ArticleController {
      * 取消反对文章
      * 20240920
      * @param articleId
-     * @param session
      * @return
      */
     @PostMapping("/cancelDisAgreeArticle")
     public ResponseEntity<Map<String, Object>> cancelDisAgreeArticle(@RequestParam("articleId") int articleId,
-                                                                  HttpSession session){
+                                                                     Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())){ // 用户已登录
 
@@ -233,14 +242,15 @@ public class ArticleController {
      * 返回点赞文章人数
      * 20240921
      * @param articleId
-     * @param session
      * @return
      */
     @PostMapping("/agreeArticleNumber")
     public ResponseEntity<Map<String,Object>> agreeArticleNumber(@RequestParam("articleId") int articleId,
-                                                                 HttpSession session){
+                                                                 Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())){ // 用户已登录
 
@@ -274,7 +284,6 @@ public class ArticleController {
      * @param content
      * @param images
      * @param videos
-     * @param session
      * @return
      */
     @PostMapping("/updateArticle")
@@ -282,9 +291,11 @@ public class ArticleController {
                                                             @RequestParam("content") String content,
                                                             @RequestParam(value = "images", required = false) List<MultipartFile> images,  // 图片文件
                                                             @RequestParam(value = "videos", required = false) List<MultipartFile> videos,  // 视频文件
-                                                            HttpSession session){
+                                                            Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -326,14 +337,15 @@ public class ArticleController {
      * 删除文章
      * 20241010
      * @param articleId
-     * @param session
      * @return
      */
     @PostMapping("/deleteArticle")
     public ResponseEntity<Map<String,Object>> deleteArticle(@RequestParam("articleId") Integer articleId,
-                                                            HttpSession session){
+                                                            Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -364,14 +376,15 @@ public class ArticleController {
      * 显示文章内容
      * 20240921
      * @param articleId
-     * @param session
      * @return
      */
     @PostMapping("/showArticleContent")
     public ResponseEntity<Map<String,Object>> showArticleContent(@RequestParam("articleId") int articleId,
-                                                                 HttpSession session){
+                                                                 Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())){ // 用户已登录
 
@@ -400,14 +413,14 @@ public class ArticleController {
     /**
      * 显示用户违规的回答
      * 20241106
-     * @param session
      * @return
      */
     @GetMapping("/showIllegalArticle")
-    public ResponseEntity<Map<String, Object>> showIllegalArticle(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> showIllegalArticle(Principal principal) {
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String)session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
 
         try {
             if (email != null && !(email.isEmpty())){ // 判断用户是否已经登录

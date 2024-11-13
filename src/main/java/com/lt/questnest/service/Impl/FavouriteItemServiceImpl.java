@@ -132,7 +132,7 @@ public class FavouriteItemServiceImpl implements FavouriteItemService {
             FavouriteItem favouriteItem = favouriteItemMapper.findByFavouriteItemId(favouriteItemId);
             if (favouriteItem == null){
                 result.put("status","error");
-                result.put("msg","收藏不存在");
+                result.put("msg","收藏过该回答");
                 return result;
             }
 
@@ -185,20 +185,22 @@ public class FavouriteItemServiceImpl implements FavouriteItemService {
                 // 根据favouriteId找出用户收藏项favouriteItemId
                 List<FavouriteItem> favouriteItems = favouriteItemMapper.findByFavouriteId(favourite.getFavouriteId());
 
+                Map<String,Object> favouriteMap = new HashMap<>();
+                favouriteMap.put("favouriteId", favourite.getFavouriteId());
+                favouriteMap.put("favouriteName", favourite.getName());
                 // 检查收藏项是否为空
                 if (favouriteItems == null || favouriteItems.isEmpty()){
-                    // 如果收藏夹为空，仍然返回收藏夹信息
-                    Map<String, Object> emptyCollection = new HashMap<>();
-                    emptyCollection.put("favouriteId", favourite.getFavouriteId());
-                    emptyCollection.put("favouriteName", favourite.getName());
-                    emptyCollection.put("items", new ArrayList<>()); // 返回空列表
-                    collectionList.add(emptyCollection);
+                    favouriteMap.put("items", new ArrayList<>()); // 返回空列表
+                    collectionList.add(favouriteMap);
                     continue;
                 }
 
+                // 添加收藏项
+                List<Map<String,Object>> itemList = new ArrayList<>();
+
                 for (FavouriteItem favouriteItem : favouriteItems) {
 
-                    Map<String, Object> collectionItem = new HashMap<>();
+                    Map<String, Object> itemMap = new HashMap<>();
 
                     // 根据favouriteItemId找出回答articleId
                     Integer articleId = favouriteItem.getArticleId();
@@ -208,17 +210,19 @@ public class FavouriteItemServiceImpl implements FavouriteItemService {
                     String content = articleMapper.findContent(articleId);
                     // 找出问题title
                     String title = questionMapper.findQuestionTitle(questionId);
-                    // 重新整合数据：收藏夹ID、名称，收藏项ID、收藏回答ID、回答内容，问题ID、问题title
-                    collectionItem.put("favouriteId", favourite.getFavouriteId());
-                    collectionItem.put("favouriteName", favourite.getName());
-                    collectionItem.put("favouriteItemId", favouriteItem.getFavouriteItemId());
-                    collectionItem.put("articleId", articleId);
-                    collectionItem.put("articleContent", content);
-                    collectionItem.put("questionId", questionId);
-                    collectionItem.put("questionTitle", title);
+                    // 重新整合数据：收藏项ID、收藏回答ID、回答内容，问题ID、问题title
+                    itemMap.put("favouriteItemId", favouriteItem.getFavouriteItemId());
+                    itemMap.put("articleId", articleId);
+                    itemMap.put("articleContent", content);
+                    itemMap.put("questionId", questionId);
+                    itemMap.put("questionTitle", title);
 
-                    collectionList.add(collectionItem);
+                    itemList.add(itemMap);
                 }
+
+                favouriteMap.put("items",itemList);
+
+                collectionList.add(favouriteMap);
 
             }
 

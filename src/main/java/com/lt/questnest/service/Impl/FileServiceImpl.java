@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,16 +19,20 @@ import java.util.UUID;
 @Service
 public class FileServiceImpl implements FileService {
 
-    private final String UPLOAD_DIR = "E:/code/zhangJava/files/";
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    // private final String UPLOAD_DIR = "E:\\code\\zhangJava\\final\\QuestNest\\src\\main\\resources\\static\\";
+    private static final Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
+
+    private final String UPLOAD_DIR = "E:/code/zhangJava/files/";
 
     /**
      * 通用的文件上传方法
-     * @param file 上传的文件
-     * @param fileType 文件类型 (image, video)
-     * @return 包含上传结果的Map
+     * @param file
+     * @param fileType
+     * @return
      */
+
     public Map<String, String> uploadFile(MultipartFile file, String fileType) {
 
         logger.info("进入fileService的uploadFile方法");

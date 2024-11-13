@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuestNest 主页</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 10px 20px;
+      color: white;
+      font-size: 16px;
+    }
+
+    .navbar-menu {
+      display: flex;
+      gap: 15px;
+      margin-right: auto;
+      /* 将菜单内容推到左侧 */
+      margin-left: 250px;
+      /* 可根据需要向右移动 */
+    }
+
+    .navbar-menu a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .navbar-menu a:hover {
+      color: #d5dad5;
+    }
+
+    .user {
+      position: relative;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 300px;
+      /* 使用户信息与菜单有一定的间距 */
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      /* 使下拉菜单在用户名称下方 */
+      left: -20px;
+      /* 使下拉菜单与用户名称左对齐 */
+      background-color: white;
+      color: black;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      z-index: 1;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      text-align: center;
+      /* 使文字居中 */
+      color: black;
+      font-size: 16px;
+      width: 70px;
+    }
+
+    .dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .search-container input {
+      padding: 10px;
+      width: 500px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .search-container button {
+      padding: 10px 15px;
+      margin-left: 10px;
+      border: none;
+      background-color: #7f8580;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .search-container button:hover {
+      background-color: #1e1f1e;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="navbar-menu">
+    <span>QuestNest</span>
+    <a href="#">提问</a>
+    <a href="#">订阅消息</a>
+    <a href="#">私信</a>
+    <a href="#">创作中心</a>
+  </div>
+  <div class="user" onclick="toggleDropdown()">
+    <img id="user-avatar" src="" alt="用户头像"
+         style="display: none; width: 30px; height: 30px; border-radius: 50%; margin-right: 8px;">
+    <div class="dropdown" id="dropdown">
+      <a href="person-page.html">我的主页</a>
+      <a href="#">退出</a>
+    </div>
+  </div>
+</div>
+
+<div class="search-container">
+  <input type="text" placeholder="搜索问题...">
+  <button>搜索</button>
+  <button>AI搜索</button>
+</div>
+
+<script>
+  // 从会话中取出用户账号
+  const userEmail = sessionStorage.getItem('userEmail');
+  console.log('从会话中取出的用户邮箱:', userEmail);
+
+  function toggleDropdown() {
+    const dropdown = document.getElementById('dropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  }
+
+  // 点击页面其他地方关闭下拉菜单
+  window.onclick = function (event) {
+    if (!event.target.matches('.user')) {
+      const dropdowns = document.getElementsByClassName("dropdown");
+      for (let i = 0; i < dropdowns.length; i++) {
+        const openDropdown = dropdowns[i];
+        if (openDropdown.style.display === 'block') {
+          openDropdown.style.display = 'none';
+        }
+      }
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // 使用fetch API请求图片
+    fetch("http://localhost:8080/images", {
+      method: 'GET',
+      credentials: 'include' // 确保请求时带上 session 信息
+    })
+            .then(response => {
+              if (response.ok) {
+                return response.blob(); // 将响应体转换为二进制数据（Blob对象）
+              } else {
+                throw new Error("Image not found");
+              }
+            })
+            .then(blob => {
+              const imageUrl = URL.createObjectURL(blob); // 创建图片URL
+              const userAvatar = document.getElementById("user-avatar");
+              userAvatar.src = imageUrl;
+              userAvatar.style.display = "inline"; // 显示图片
+            })
+            .catch(error => {
+              console.error("Error loading image:", error);
+            });
+  });
+</script>
+
+</body>
+
+</html>

@@ -16,5 +16,5 @@ public class UserQuestionArticleView {
     private Integer articleId;
     private String articleContent;
     private String articleUsername;
-    private String articleHeadUrl;
+    private String articleEmail;
 }

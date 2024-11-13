@@ -13,22 +13,21 @@
         values(#{questionId},#{topicId})
     </insert>
 
-    <update id="updateState">
-        update `question_topic`
-        set `state` = 0
-        where `question_id` = (#{questionId}) and `topic_id` = (#{topicId}) and `state` = 1
-    </update>
+    <delete id="delete">
+        delete from `question_topic`
+        where `question_id` = (#{questionId}) and `topic_id` = (#{topicId})
+    </delete>
 
     <select id="findByBoth" resultMap="QuestionResultMap">
         select `question_id`,`topic_id`
         from `question_topic`
-        where `question_id` = (#{questionId}) and `topic_id` = (#{topicId}) and `state` = 1
+        where `question_id` = (#{questionId}) and `topic_id` = (#{topicId})
     </select>
 
     <select id="findTopicByQuestionId" resultType="java.lang.Integer">
         select `topic_id`
         from `question_topic`
-        where `question_id` = (#{questionId}) and `state` = 1
+        where `question_id` = (#{questionId})
     </select>
 
 

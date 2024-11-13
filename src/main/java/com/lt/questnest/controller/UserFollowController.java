@@ -1,12 +1,15 @@
 package com.lt.questnest.controller;
 
 import com.lt.questnest.service.UserFollowService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,18 +20,21 @@ public class UserFollowController {
     @Autowired
     UserFollowService userFollowService;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserFollowController.class);
+
+
     /**
      * 关注用户
      * 20241012
      * @param followedId
-     * @param session
      * @return
      */
     @PostMapping("/addFollow")
     public ResponseEntity<Map<String, Object>> addFollow(@RequestParam("followedId") Integer followedId,
-                                                             HttpSession session) {
+                                                         Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
 
             if (email != null && !email.isEmpty()) { // 用户已登录
@@ -63,14 +69,14 @@ public class UserFollowController {
      * 取消关注用户
      * 20241013
      * @param userFollowId
-     * @param session
      * @return
      */
     @PostMapping("/cancelFollow")
     public ResponseEntity<Map<String, Object>> cancelFollow(@RequestParam("userFollowId") Integer userFollowId,
-                                                         HttpSession session) {
+                                                            Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
 
             if (email != null && !email.isEmpty()) { // 用户已登录
@@ -102,13 +108,13 @@ public class UserFollowController {
     /**
      * 显示粉丝列表
      * 20241013
-     * @param session
      * @return
      */
     @GetMapping("/showFan")
-    public ResponseEntity<Map<String, Object>> showFan(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> showFan(Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
 
             if (email != null && !email.isEmpty()) { // 用户已登录
@@ -146,13 +152,13 @@ public class UserFollowController {
     /**
      * 显示关注列表
      * 20241013
-     * @param session
      * @return
      */
     @GetMapping("/showFollowed")
-    public ResponseEntity<Map<String, Object>> showFollowed(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> showFollowed(Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
 
             if (email != null && !email.isEmpty()) { // 用户已登录

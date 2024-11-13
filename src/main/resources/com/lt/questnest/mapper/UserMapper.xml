@@ -51,7 +51,7 @@
     <!-- 修改用户状态和姓名 -->
     <update id="updateUserState" parameterType="com.lt.questnest.entity.User">
         update `user`
-        set `state` = 0 , `username` = "用户已注销"
+        set `state` = 0 , `username` = "用户已注销",`head_url` = "/images/9bd0712a-6194-4868-a31c-e28654119707.png"
         where `email` = #{email} and `state` = 1
     </update>
 

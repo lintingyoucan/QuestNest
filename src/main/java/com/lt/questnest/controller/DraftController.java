@@ -2,6 +2,8 @@ package com.lt.questnest.controller;
 
 import com.lt.questnest.service.DraftService;
 import com.lt.questnest.service.FileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +29,9 @@ public class DraftController {
     @Autowired
     DraftService draftService;
 
+    private static final Logger logger = LoggerFactory.getLogger(DraftController.class);
+
+
     /**
      * 保存草稿
      * 20241011
@@ -33,7 +39,6 @@ public class DraftController {
      * @param content
      * @param images
      * @param videos
-     * @param session
      * @return
      */
     @PostMapping("/saveDraft")
@@ -41,9 +46,11 @@ public class DraftController {
                                                         @RequestParam("content") String content,
                                                         @RequestParam(value = "images", required = false) List<MultipartFile> images,  // 图片文件
                                                         @RequestParam(value = "videos", required = false) List<MultipartFile> videos,  // 视频文件
-                                                        HttpSession session){
+                                                        Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -81,7 +88,6 @@ public class DraftController {
      * @param content
      * @param images
      * @param videos
-     * @param session
      * @return
      */
     @PostMapping("/updateDraft")
@@ -89,9 +95,11 @@ public class DraftController {
                                                           @RequestParam("content") String content,
                                                           @RequestParam(value = "images", required = false) List<MultipartFile> images,  // 图片文件
                                                           @RequestParam(value = "videos", required = false) List<MultipartFile> videos,  // 视频文件
-                                                          HttpSession session){
+                                                          Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -124,23 +132,25 @@ public class DraftController {
      * 发布草稿
      * 20241011
      * @param draftId
-     * @param session
      * @return
      */
     @PostMapping("/postDraft")
     public ResponseEntity<Map<String,Object>> postDraft(@RequestParam("draftId") Integer draftId,
-                                                        HttpSession session){
+                                                        Principal principal){
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
                 // 返回结果
-                Map<String,String> map = draftService.postDraft(draftId);
+                Map<String,Object> map = draftService.postDraft(draftId);
 
                 if (map.containsValue("success")){
                     result.put("status","success");
+                    result.put("articleId",map.get("articleId"));
                     return ResponseEntity.ok(result);
                 } else {
                     result.put("status","error");
@@ -164,14 +174,15 @@ public class DraftController {
      * 删除草稿
      * 20241011
      * @param draftId
-     * @param session
      * @return
      */
     @PostMapping("/deleteDraft")
     public ResponseEntity<Map<String,Object>> deleteDraft(@RequestParam("draftId") Integer draftId,
-                                                          HttpSession session){
+                                                          Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -203,14 +214,15 @@ public class DraftController {
      * 根据draftId显示草稿
      * 20241011
      * @param draftId
-     * @param session
      * @return
      */
     @PostMapping("/showDraftByDraftId")
     public ResponseEntity<Map<String,Object>> showDraftByDraftId(@RequestParam("draftId") Integer draftId,
-                                                          HttpSession session){
+                                                                 Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -242,13 +254,14 @@ public class DraftController {
     /**
      * 根据用户显示草稿
      * 20241011
-     * @param session
      * @return
      */
     @PostMapping("/showDraftByUserId")
-    public ResponseEntity<Map<String,Object>> showDraftByUserId(HttpSession session){
+    public ResponseEntity<Map<String,Object>> showDraftByUserId(Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 

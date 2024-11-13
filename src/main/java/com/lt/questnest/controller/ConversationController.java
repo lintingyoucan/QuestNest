@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,13 +27,13 @@ public class ConversationController {
     /**
      * 显示用户所有会话
      * 20241021
-     * @param session
      * @return
      */
     @GetMapping("/showConversation")
-    public ResponseEntity<Map<String,Object>> showConversation(HttpSession session){
+    public ResponseEntity<Map<String,Object>> showConversation(Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -69,14 +70,14 @@ public class ConversationController {
      * 删除会话：删除会话和私信
      * 20241021
      * @param conversationId
-     * @param session
      * @return
      */
     @PostMapping("/deleteConversation")
     public ResponseEntity<Map<String,Object>> deleteConversation(@RequestParam("conversationId") Integer conversationId,
-                                                                 HttpSession session){
+                                                                 Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 

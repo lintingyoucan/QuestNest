@@ -61,16 +61,17 @@ public class ConversationServiceImpl implements ConversationService {
                 // 取出对方用户的username、headUrl
                 User receiver = userMapper.getUserById(user1Id);
                 String username = receiver.getUsername();
-                String headUrl = receiver.getHeadUrl();
-                conversationItem.put("username", username);
-                conversationItem.put("headUrl", headUrl);
+                String receiverEmail = receiver.getEmail();
+                conversationItem.put("receiverUsername", username);
+                conversationItem.put("receiverHeadUrl", "http://192.168.178.78:8080/images?email="+receiverEmail);
             } else {
                 conversationItem.put("userId", user2Id);
                 User receiver = userMapper.getUserById(user2Id);
                 String username = receiver.getUsername();
-                String headUrl = receiver.getHeadUrl();
-                conversationItem.put("username", username);
-                conversationItem.put("headUrl", headUrl);
+                String receiverEmail = receiver.getEmail();
+                conversationItem.put("receiverUsername", username);
+                conversationItem.put("receiverHeadUrl", "http://192.168.178.78:8080/images?email="+receiverEmail);
+
             }
 
             // 取出会话ID
@@ -81,7 +82,7 @@ public class ConversationServiceImpl implements ConversationService {
             // 取出最近通话时间:改变时间格式为：年-月-日
             Timestamp lastTimeBefore = conversation.getUpdateTime();
             // 创建日期格式化对象
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             // 格式化时间戳
             String lastTime = dateFormat.format(lastTimeBefore);
             conversationItem.put("lastMessageTime", lastTime);

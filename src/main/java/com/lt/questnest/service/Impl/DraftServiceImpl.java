@@ -1,7 +1,9 @@
 package com.lt.questnest.service.Impl;
 
 import com.lt.questnest.controller.UserController;
+import com.lt.questnest.entity.Article;
 import com.lt.questnest.entity.Draft;
+import com.lt.questnest.mapper.ArticleMapper;
 import com.lt.questnest.mapper.DraftMapper;
 import com.lt.questnest.mapper.QuestionMapper;
 import com.lt.questnest.mapper.UserMapper;
@@ -10,7 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +32,9 @@ public class DraftServiceImpl implements DraftService {
 
     @Autowired
     DraftMapper draftMapper;
+
+    @Autowired
+    ArticleMapper articleMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -132,10 +141,11 @@ public class DraftServiceImpl implements DraftService {
         return result;
     }
 
-    // 发布草稿
-    public Map<String, String> postDraft(Integer draftId) {
+    // 发布草稿,有bug：发布草稿，相当于添加回答，所以也要有添加回答的数据库操作
+    @Transactional
+    public Map<String, Object> postDraft(Integer draftId) {
 
-        Map<String, String> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         // 参数判空
         if (draftId == null || draftId <= 0) {
             result.put("status", "error");
@@ -155,15 +165,25 @@ public class DraftServiceImpl implements DraftService {
             // 如果存在，修改草稿状态，保存进数据库
             Integer updateResult = draftMapper.postDraft(draftId);
             if (updateResult == null || updateResult <= 0) {
-                result.put("status", "error");
-                result.put("msg", "发布草稿失败");
-                return result;
-
+                throw new RuntimeException("发布草稿失败！");
             }
+
+            // 添加回答
+            Article article = new Article();
+            article.setQuestionId(draft.getQuestionId());
+            article.setContent(draft.getContent());
+            article.setUserId(draft.getUserId());
+
+            Integer addResult = articleMapper.addArticle(article);
+            if (addResult == null || addResult <= 0){
+                throw new RuntimeException("发布草稿时。添加回答失败！");
+            }
+            // 返回添加后的文章ID
+            Integer articleId = article.getArticleId();
+            result.put("articleId",articleId);
+
         } catch (Exception e) {
-            result.put("status", "error");
-            result.put("msg", "数据库操作失败");
-            return result;
+            throw new RuntimeException("根据draftId访问数据库失败！");
         }
 
         result.put("status", "success");
@@ -231,13 +251,26 @@ public class DraftServiceImpl implements DraftService {
             }
 
         } catch (Exception e) {
-            result.put("status", "error");
-            result.put("msg", "数据库操作失败");
-            return result;
+            throw new RuntimeException("根据draftId访问数据库失败！");
         }
 
         // 如果存在,返回草稿信息
-        result.put("draft",draft);
+        Map<String,Object> draftItem = new HashMap<>();
+        // 草稿ID、对应问题title、更新时间、草稿内容
+        draftItem.put("draftId",draft.getDraftId());
+
+        String title = questionMapper.findQuestionTitle(draft.getQuestionId());
+        draftItem.put("questionTitle",title);
+
+        Timestamp lastTimeDate = draft.getUpdateTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        // 格式化 Timestamp 对象，转换为字符串
+        String lastTime = sdf.format(lastTimeDate);
+        draftItem.put("lastTime",lastTime);
+
+        draftItem.put("content",draft.getContent());
+
+        result.put("draft",draftItem);
         result.put("status", "success");
         return result;
 
@@ -270,7 +303,27 @@ public class DraftServiceImpl implements DraftService {
         }
 
         // 如果存在,返回草稿信息
-        result.put("drafts",drafts);
+        List<Map<String,Object>> draftList = new ArrayList<>();
+        for (Draft draft : drafts) {
+            Map<String,Object> draftItem = new HashMap<>();
+            // 草稿ID、对应问题title、更新时间、草稿内容
+            draftItem.put("draftId",draft.getDraftId());
+
+            String title = questionMapper.findQuestionTitle(draft.getQuestionId());
+            draftItem.put("questionTitle",title);
+
+            Timestamp lastTimeDate = draft.getUpdateTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            // 格式化 Timestamp 对象，转换为字符串
+            String lastTime = sdf.format(lastTimeDate);
+            draftItem.put("lastTime",lastTime);
+
+            draftItem.put("content",draft.getContent());
+
+            draftList.add(draftItem);
+        }
+
+        result.put("drafts",draftList);
         result.put("status", "success");
         return result;
 

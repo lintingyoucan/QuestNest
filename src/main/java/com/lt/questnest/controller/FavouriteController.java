@@ -1,6 +1,8 @@
 package com.lt.questnest.controller;
 
 import com.lt.questnest.service.FavouriteService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,19 +25,21 @@ public class FavouriteController {
     @Autowired
     FavouriteService favouriteService;
 
+    private static final Logger logger = LoggerFactory.getLogger(FavouriteController.class);
+
 
     /**
      * 创建收藏夹
      * 20241011
      * @param name
-     * @param session
      * @return
      */
     @PostMapping("/createFavourite")
     public ResponseEntity<Map<String,Object>> createFavourite(@RequestParam("name") String name,
-                                                       HttpSession session){
+                                                              Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -67,14 +72,14 @@ public class FavouriteController {
      * 删除收藏夹
      * 20241012
      * @param favouriteId
-     * @param session
      * @return
      */
     @PostMapping("/deleteFavourite")
     public ResponseEntity<Map<String,Object>> deleteFavourite(@RequestParam("favouriteId") Integer favouriteId,
-                                                              HttpSession session){
+                                                              Principal principal){
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 

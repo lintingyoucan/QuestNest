@@ -15,7 +15,7 @@ public interface QuestionTopicMapper {
     // 添加关系
     int add(QuestionTopic questionTopic);
 
-    int updateState(QuestionTopic questionTopic);
+    int delete(QuestionTopic questionTopic);
 
     List<Integer> findTopicByQuestionId(@Param("questionId") Integer questionId);
 }

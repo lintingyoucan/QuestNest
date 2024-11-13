@@ -10,7 +10,7 @@ public interface DraftService {
 
     Map<String,String> updateDraft(Integer draftId, String content);
 
-    Map<String, String> postDraft(Integer draftId);
+    Map<String, Object> postDraft(Integer draftId);
 
     Map<String, String> deleteDraft(Integer draftId);
 

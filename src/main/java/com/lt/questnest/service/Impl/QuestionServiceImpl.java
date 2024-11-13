@@ -9,6 +9,7 @@ import com.lt.questnest.entity.*;
 import com.lt.questnest.mapper.*;
 import com.lt.questnest.service.FileService;
 import com.lt.questnest.service.QuestionService;
+import com.sun.corba.se.impl.ior.OldJIDLObjectKeyTemplate;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -213,9 +214,7 @@ public class QuestionServiceImpl implements QuestionService {
             question.setContent(content);
             Integer updateQuestionResult = questionMapper.updateQuestion(question);
             if (updateQuestionResult == null || updateQuestionResult <= 0){
-                result.put("status","error");
-                result.put("msg","更新问题内容失败");
-                return result;
+                throw new RuntimeException("更新问题内容失败");
             }
 
         }
@@ -230,9 +229,7 @@ public class QuestionServiceImpl implements QuestionService {
                 Integer addTopic = topicMapper.addTopic(topicName);
                 if (addTopic == null || addTopic <= 0) {
                     logger.info("topic添加失败!");
-                    result.put("status", "error");
-                    result.put("msg", "topic在数据库添加失败");
-                    return result;
+                    throw new RuntimeException("topic在数据库添加失败");
                 }
                 topic = topicMapper.findByTopic(topicName);// 重新获取添加后的 topic 信息
             }
@@ -247,13 +244,9 @@ public class QuestionServiceImpl implements QuestionService {
                 Integer addQuestionTopic = questionTopicMapper.add(questionTopic);
                 if (addQuestionTopic == null || addQuestionTopic <= 0){
                     logger.info("QuestionTopic添加失败!");
-                    result.put("status","error");
-                    result.put("msg","question_topic在数据库添加失败");
-                    return result;
+                    throw new RuntimeException("question_topic在数据库添加失败");
                 }
             }
-
-
         }
 
         // 检查question-topic,找出question-topic关系，如果之前存在的话题，现在不存在，那么修改state=0
@@ -270,11 +263,9 @@ public class QuestionServiceImpl implements QuestionService {
                 questionTopic.setQuestionId(questionId);
 
                 // 更新state
-                Integer updateStateResult = questionTopicMapper.updateState(questionTopic);
-                if (updateStateResult == null || updateStateResult <= 0) {
-                    result.put("status","error");
-                    result.put("msg","更新state失败");
-                    return result;
+                Integer deleteResult = questionTopicMapper.delete(questionTopic);
+                if (deleteResult == null || deleteResult <= 0) {
+                    throw new RuntimeException("删除话题标签失败");
                 }
             }
         }
@@ -326,9 +317,19 @@ public class QuestionServiceImpl implements QuestionService {
             return result;
         }
 
-        result.put("questions", matchedQuestions); // 将匹配到的问题列表放入Map
+        // 创建一个数据结果列表
+        List<Map<String, Object>> questionList = new ArrayList<>();
+        for (Question question : matchedQuestions) {
+            Map<String,Object> questionItem = new HashMap<>();
+            questionItem.put("questionId",question.getQuestionId());
+            questionItem.put("title",question.getTitle());
+
+            questionList.add(questionItem);
+        }
+
+        result.put("questions", questionList); // 将匹配到的问题列表放入Map
         result.put("similarities", similarities);  // 将对应的问题相似度列表放入Map
-        logger.info("处理完后的匹配question列表:{}",matchedQuestions);
+        logger.info("处理完后的匹配question列表:{}",questionList);
 
         // 返回包含问题列表和相似度的Map
         return result;
@@ -526,7 +527,9 @@ public class QuestionServiceImpl implements QuestionService {
             userQuestionArticleItem.put("articleId",userQuestionArticle.getArticleId());
             userQuestionArticleItem.put("articleContent",userQuestionArticle.getArticleContent());
             userQuestionArticleItem.put("articleUsername",userQuestionArticle.getArticleUsername());
-            userQuestionArticleItem.put("articleHeadUrl",userQuestionArticle.getArticleHeadUrl());
+            String articleEmail = userQuestionArticle.getArticleEmail();
+
+            userQuestionArticleItem.put("articleHeadUrl","http://192.168.178.78:8080/images?email="+articleEmail);
 
             userQuestionArticleList.add(userQuestionArticleItem);
         }

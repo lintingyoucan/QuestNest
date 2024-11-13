@@ -1,6 +1,8 @@
 package com.lt.questnest.controller;
 
 import com.lt.questnest.service.OnlineUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -20,17 +23,20 @@ public class OnlineUserController {
     @Autowired
     OnlineUserService onlineUserService;
 
+    private static final Logger logger = LoggerFactory.getLogger(OnlineUserController.class);
+
+
     /**
      * 获取在线人数
      * 20241015
-     * @param session
      * @return
      */
     @GetMapping("/getOnlineUserCount")
-    public ResponseEntity<Map<String,Object>> getOnlineUserCount(HttpSession session){
+    public ResponseEntity<Map<String,Object>> getOnlineUserCount(Principal principal){
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 
@@ -64,14 +70,14 @@ public class OnlineUserController {
     /**
      * 获取在线用户
      * 20241015
-     * @param session
      * @return
      */
     @GetMapping("/getOnlineUser")
-    public ResponseEntity<Map<String,Object>> getOnlineUser(HttpSession session){
+    public ResponseEntity<Map<String,Object>> getOnlineUser(Principal principal){
 
         Map<String,Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
             if (email != null && !(email.isEmpty()) ){ // 用户已登录
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,6 @@ public class CommentController {
      * @param articleId
      * @param content
      * @param images
-     * @param session
      * @return
      */
     @PostMapping("/addComment")
@@ -53,10 +53,12 @@ public class CommentController {
                                                           @RequestParam(value = "parentCommentId", required = false) Integer parentCommentId,  // 使用包装类型 Integer
                                                           @RequestParam("content") String content,
                                                           @RequestParam(value = "images", required = false) List<MultipartFile> images,  // 图片文件
-                                                          HttpSession session) {
+                                                          Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())) { // 用户已登录
 
@@ -114,14 +116,15 @@ public class CommentController {
      * 20240921
      *
      * @param commentId
-     * @param session
      * @return
      */
     @PostMapping("/agreeComment")
     public ResponseEntity<Map<String, Object>> agreeComment(@RequestParam("commentId") int commentId,
-                                                            HttpSession session) {
+                                                            Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())) { // 用户已登录
 
@@ -151,14 +154,15 @@ public class CommentController {
      * 20240921
      *
      * @param commentId
-     * @param session
      * @return
      */
     @PostMapping("/cancelAgreeComment")
     public ResponseEntity<Map<String, Object>> cancelAgreeComment(@RequestParam("commentId") int commentId,
-                                                                  HttpSession session) {
+                                                                  Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())) { // 用户已登录
 
@@ -189,14 +193,15 @@ public class CommentController {
      * 20240921
      *
      * @param commentId
-     * @param session
      * @return
      */
     @PostMapping("/agreeCommentNumber")
     public ResponseEntity<Map<String, Object>> agreeCommentNumber(@RequestParam("commentId") int commentId,
-                                                                  HttpSession session) {
+                                                                  Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())) { // 用户已登录
 
@@ -227,14 +232,15 @@ public class CommentController {
      * 20241010
      *
      * @param commentId
-     * @param session
      * @return
      */
     @PostMapping("/deleteComment")
     public ResponseEntity<Map<String, Object>> deleteComment(@RequestParam("commentId") int commentId,
-                                                             HttpSession session) {
+                                                             Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (email != null && !(email.isEmpty())) { // 用户已登录
 
@@ -260,20 +266,22 @@ public class CommentController {
     }
 
     /**
-     * 关闭评论区
+     * 关闭评论区(有bug)
      * 20241106
      *
      * @param articleId
-     * @param session
      * @return
      */
     @PostMapping("/closeCommentArea")
     public ResponseEntity<Map<String, Object>> closeCommentArea(@RequestParam("articleId") Integer articleId,
-                                                                HttpSession session) {
+                                                                Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String account = (String) session.getAttribute("account");
-        String email = (String) session.getAttribute("email");
+        String account = principal.getName();
+        logger.info("取出account:{}",account);
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (account != null && !(account.isEmpty())) { // 管理员已登录
 
@@ -318,20 +326,22 @@ public class CommentController {
     }
 
     /**
-     * 取消关闭评论区
+     * 取消关闭评论区(有bug)
      * 20241106
      *
      * @param articleId
-     * @param session
      * @return
      */
     @PostMapping("/cancelCloseCommentArea")
     public ResponseEntity<Map<String, Object>> cancelCloseCommentArea(@RequestParam("articleId") Integer articleId,
-                                                                      HttpSession session) {
+                                                                      Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String account = (String) session.getAttribute("account");
-        String email = (String) session.getAttribute("email");
+        String account = principal.getName();
+        logger.info("取出account:{}",account);
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
+
         try {
             if (account != null && !(account.isEmpty())) { // 管理员已登录
 
@@ -378,15 +388,15 @@ public class CommentController {
      * 20241107
      * @param commentId
      * @param reason
-     * @param session
      * @return
      */
     @PostMapping("/reportComment")
     public ResponseEntity<Map<String, Object>> reportComment(@RequestParam("commentId") int commentId,
                                                              @RequestParam("reason") String reason,
-                                                             HttpSession session) {
+                                                             Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出email:{}",email);
         try {
             if (email != null && !(email.isEmpty())) { // 用户已登录
 

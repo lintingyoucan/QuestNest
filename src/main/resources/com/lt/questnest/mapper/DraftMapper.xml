@@ -43,13 +43,13 @@
     </delete>
 
     <select id="findByDraftId" resultMap="DraftResultMap">
-        select `draft_id`,`question_id`,`user_id`,`content`
+        select `draft_id`,`question_id`,`user_id`,`content`,`update_time`
         from `draft`
         where `draft_id` = #{draftId} and `post` = 0
     </select>
 
     <select id="findByUserId" resultMap="DraftResultMap">
-        select `draft_id`,`question_id`,`user_id`,`content`
+        select `draft_id`,`question_id`,`user_id`,`content`,`update_time`
         from `draft`
         where `user_id` = #{userId} and `post` = 0
     </select>

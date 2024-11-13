@@ -1,17 +1,26 @@
 package com.lt.questnest.controller;
 
-import com.lt.questnest.entity.User;
+import com.lt.questnest.configuration.SecurityConfig;
+import com.lt.questnest.mapper.UserMapper;
 import com.lt.questnest.pubsub.RedisMessageSubscriber;
 import com.lt.questnest.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -39,21 +48,90 @@ public class UserController {
     @Autowired
     SubService subService;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private SecurityConfig securityConfig;
+
+
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    @Autowired
+    UserMapper userMapper;
+    private final String imagePath = "E:\\code\\zhangJava\\files\\images\\";
+
+    private final String videoPath = "E:\\code\\zhangJava\\files\\videos\\";
+
+    /**
+     * 显示用户头像
+     * 20241110
+     *
+     * @return
+     */
+    @GetMapping("/images")
+    public ResponseEntity<Resource> getImage(@RequestParam("email") String email) {
+
+        Map<String, String> map = userService.getHeadUrl(email);
+
+        try {
+            String imageName = map.get("fileName");
+            if (imageName != null && !(imageName.isEmpty())) {
+                File file = new File(imagePath + imageName);
+                if (!file.exists()) {
+                    return ResponseEntity.notFound().build();
+                }
+
+                Resource resource = new org.springframework.core.io.FileSystemResource(file);
+                HttpHeaders headers = new HttpHeaders();
+                headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + file.getName());
+
+                return ResponseEntity.ok()
+                        .headers(headers)
+                        .contentType(MediaType.IMAGE_PNG) // 如果是 PNG 图片
+                        .body(resource);
+            }
+            return ResponseEntity.notFound().build();
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @GetMapping("/videos")
+    public ResponseEntity<Resource> getVideo(@RequestParam("videoName") String videoName) {
+        try {
+            File file = new File(videoPath + videoName);
+            if (!file.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            Resource resource = new org.springframework.core.io.FileSystemResource(file);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     /**
      * 上传头像
      * 20240916
+     *
      * @param file
-     * @param session
      * @return
      */
     @PostMapping("/uploadPicture")
     public ResponseEntity<Map<String, Object>> uploadPicture(@RequestParam("file") MultipartFile file,
-                                                             HttpSession session) {
+                                                             Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
 
             if (email != null && !email.isEmpty()) { // 用户已登录
@@ -87,17 +165,17 @@ public class UserController {
      * 返回用户信息
      * 20240915
      *
-     * @param session
      * @return
      */
     @GetMapping("/getUser")
-    public ResponseEntity<Map<String, Object>> getUser(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> getUser(Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
             if (email != null && !email.isEmpty()) { // 用户已登录
-                Map<String,Object> map = userService.getUser(email);
+                Map<String, Object> map = userService.getUser(email);
 
                 if (map.containsValue("success")) {
                     result.put("status", "success");
@@ -127,17 +205,17 @@ public class UserController {
      * @param username
      * @param gender
      * @param birthday
-     * @param session
      * @return
      */
     @PostMapping("/updateUser")
     public ResponseEntity<Map<String, Object>> updateUser(@RequestParam("username") String username,
                                                           @RequestParam("gender") String gender,
                                                           @RequestParam("birthday") String birthday,
-                                                          HttpSession session) {
+                                                          Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
 
         try {
             // 用户已登录
@@ -217,126 +295,43 @@ public class UserController {
      * 注销用户账号
      * 20240915
      *
-     * @param session 当前会话
      * @return 注销操作结果
      */
     @PostMapping("/delete")
-    public ResponseEntity<Map<String, Object>> delete(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> delete(Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
 
         try {
-            // 从 session 中获取当前登录用户的 email
-            String email = (String) session.getAttribute("email");
+            String email = principal.getName();
+            logger.info("取出的email:{}", email);
 
-            // 检查用户是否已登录
-            if (email != null && !email.isEmpty()) {
-                // 调用业务层注销用户账号
-                Map<String, String> serviceResult = userService.delete(email);
+            // 调用业务层注销用户账号
+            Map<String, String> map = userService.delete(email);
 
-                // 移除在线用户
-                onlineUserService.removeOnlineUser(email);
+            // 移除在线用户
+            onlineUserService.removeOnlineUser(email);
 
-                // 如果注销成功，清除会话
-                if ("success".equals(serviceResult.get("status"))) {
-                    session.removeAttribute("email");
-                    session.invalidate();
-
-                    // 返回注销成功的消息和状态码 200 OK
-                    result.put("status", "success");
-                    result.put("message", serviceResult.get("msg"));
-                    return new ResponseEntity<>(result, HttpStatus.OK);
-                } else {
-                    // 返回业务层处理失败的消息和状态码 400 Bad Request
-                    result.put("status", "error");
-                    result.put("message", serviceResult.get("msg"));
-                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-                }
+            // 如果注销成功，清除会话
+            if (map.containsValue("success")) {
+                // 返回注销成功的消息和状态码 200 OK
+                result.put("status", "success");
+                result.put("message", map.get("msg"));
+                return new ResponseEntity<>(result, HttpStatus.OK);
             } else {
-                // 返回用户未登录的消息和状态码 401 Unauthorized
+                // 返回业务层处理失败的消息和状态码 400 Bad Request
                 result.put("status", "error");
-                result.put("message", "用户未登录，无法注销账号");
-                return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
+                result.put("message", map.get("msg"));
+                return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
-
         } catch (Exception e) {
             // 记录异常并返回服务器错误的消息和状态码 500 Internal Server Error
             logger.info("注销账号异常: " + e.getMessage());
             result.put("status", "error");
-            result.put("message", "服务器错误");
+            result.put("message", "注销账号异常: " + e.getMessage());
             return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-    /**
-     * 用户登出
-     * 20240915
-     *
-     * @param session
-     * @return
-     */
-    @GetMapping("/logout")
-    public ResponseEntity<Map<String, Object>> logout(HttpSession session) {
-        Map<String, Object> result = new HashMap<>();
-
-        try {
-            String email = (String) session.getAttribute("email");
-            if (email != null && !email.isEmpty()) { // 用户已登录
-
-                // 移除在线用户
-                onlineUserService.removeOnlineUser(email);
-
-                // 移除 session 中的用户信息
-                session.removeAttribute("email");
-
-                // 销毁 session
-                session.invalidate();
-
-                result.put("status", "success");
-                result.put("message", "用户已成功登出");
-                // 返回 HTTP 200 OK
-                return ResponseEntity.ok(result);
-            } else {
-                result.put("status", "error");
-                result.put("message", "用户未登录");
-                // 返回 HTTP 400 Bad Request
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
-            }
-        } catch (Exception e) {
-            logger.info("登出异常: " + e.getMessage());
-            result.put("status", "error");
-            result.put("message", "服务器错误，登出失败");
-            // 返回 HTTP 500 Internal Server Error
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
-        }
-    }
-
-
-    /**
-     * 公共登录处理逻辑
-     * 20240915
-     *
-     * @param map     登录结果信息
-     * @param session HttpSession
-     * @param email   用户邮箱
-     * @return 登录结果
-     */
-    private Map<String, Object> handleLogin(Map<String, String> map, HttpSession session, String email) {
-        Map<String, Object> result = new HashMap<>();
-        if (map.containsValue("success")) {
-            result.put("status", "success");
-            result.put("message", "登录成功");
-            session.setAttribute("email", email);
-            // 记录在线用户
-            onlineUserService.addOnlineUser(email);
-        } else {
-            result.put("status", "error");
-            result.put("message", map.get("msg"));
-        }
-        return result;
-    }
-
 
 
     /**
@@ -345,47 +340,37 @@ public class UserController {
      *
      * @param email
      * @param password
-     * @param session
      * @return
      */
     @PostMapping("/loginByPasswd")
     public ResponseEntity<Map<String, Object>> loginByPasswd(@RequestParam("email") String email,
-                                                             @RequestParam("password") String password,
-                                                             HttpSession session) {
+                                                             @RequestParam("password") String password) {
 
         Map<String, Object> result = new HashMap<>();
 
         try {
-            // 检查用户是否已经登录
-            String loginEmail = (String) session.getAttribute("email");
-            if (loginEmail != null && loginEmail.equals(email)) {
-                result.put("status", "error");
-                result.put("message", "该账号已登录，请先退出！");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
-            }
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(email, password));
 
-            Map<String, String> map = userService.loginByPasswd(email, password);
+            // 如果认证成功，生成JWT
+            String token = securityConfig.generateToken(email, "ROLE_USER");
+            result.put("status", "success");
+            result.put("token", token); // 返回token，以便后续操作
+            // 记录在线用户
+            onlineUserService.addOnlineUser(email);
+            // 登录成功，返回 200 OK
+            return ResponseEntity.ok(result);
 
-            if (map.containsValue("success")) {
-                result.put("status", "success");
-                result.put("message", "登录成功");
-                session.setAttribute("email", email);
-                logger.info("HttpSession中存储的email:{}",session.getAttribute("email"));
-                // 记录在线用户
-                onlineUserService.addOnlineUser(email);
-                // 登录成功，返回 200 OK
-                return ResponseEntity.ok(result);
-            } else {
-                result.put("status", "error");
-                result.put("message", map.get("msg"));
-                // 登录失败，返回 400 Bad Request
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
-            }
+        } catch (AuthenticationException e) {
+            result.put("status", "error");
+            result.put("message", "邮箱或密码错误");
 
+            // 认证失败，返回 400 Bad Request
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
         } catch (Exception e) {
-            logger.info("密码登录异常: " + e.getMessage());
             result.put("status", "error");
             result.put("message", "服务器错误");
+
             // 服务器异常，返回 500 Internal Server Error
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
         }
@@ -397,32 +382,32 @@ public class UserController {
      *
      * @param email
      * @param inputCode
-     * @param session
      * @return
      */
     @PostMapping("/loginByCode")
     public ResponseEntity<Map<String, Object>> loginByCode(@RequestParam("email") String email,
-                                                           @RequestParam("inputCode") String inputCode,
-                                                           HttpSession session) {
+                                                           @RequestParam("inputCode") String inputCode) {
 
         Map<String, Object> result = new HashMap<>();
 
         try {
-            // 检查用户是否已经登录
-            String loginEmail = (String) session.getAttribute("email");
-            if (loginEmail != null && loginEmail.equals(email)) {
-                result.put("status", "error");
-                result.put("message", "该账号已登录，请先退出！");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
-            }
 
             Map<String, String> map = userService.loginByCode(email, inputCode);
-            result = handleLogin(map, session, email);
+            if (map.containsValue("success")) {
 
-            if (result.get("status").equals("success")) {
+                // 生成JWT Token
+                String token = securityConfig.generateToken(email, "ROLE_USER");
+                result.put("status", "success");
+                result.put("token", token); // 返回token
+
+                // 记录在线用户
+                onlineUserService.addOnlineUser(email);
+
                 // 返回 HTTP 200 OK
                 return ResponseEntity.ok(result);
             } else {
+                result.put("status", "error");
+                result.put("message", map.get("msg"));
                 // 返回 HTTP 400 Bad Request，错误信息在 result 中
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
             }
@@ -430,7 +415,7 @@ public class UserController {
         } catch (Exception e) {
             logger.info("验证码登录异常: " + e.getMessage());
             result.put("status", "error");
-            result.put("message", "服务器错误");
+            result.put("message", "验证码登录异常: " + e.getMessage());
             // 返回 HTTP 500 Internal Server Error
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
         }
@@ -467,15 +452,15 @@ public class UserController {
                 // 订阅用户关于自己的消息
                 String subByRedis = redisMessageSubscriber.subscribe(email);
                 String subByDB = subService.add(email);
-                if (subByRedis.equals("success") && subByDB.equals("success")){
+                if (subByRedis.equals("success") && subByDB.equals("success")) {
                     result.put("status", "success");
                     // result.put("message", "订阅消息成功,注册成功");
-                    logger.info("userController中调用查看订阅的人:{}",RedisMessageSubscriber.emitters.get(email));
+                    logger.info("userController中调用查看订阅的人:{}", RedisMessageSubscriber.emitters.get(email));
                     // 返回 HTTP 200 OK
                     return ResponseEntity.ok(result);
                 } else {
-                    result.put("status","error");
-                    result.put("message","订阅消息失败");
+                    result.put("status", "error");
+                    result.put("message", "订阅消息失败");
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
                 }
 
@@ -526,7 +511,7 @@ public class UserController {
             // 捕获异常并返回服务器错误
             logger.info("发送验证码异常: " + e.getMessage());
             response.put("status", "error");
-            response.put("message", "服务器错误");
+            response.put("message", "发送验证码异常: " + e.getMessage());
             // 返回 HTTP 500 Internal Server Error
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

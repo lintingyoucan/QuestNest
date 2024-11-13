@@ -1,12 +1,15 @@
 package com.lt.questnest.controller;
 
 import com.lt.questnest.service.AdminUserMuteService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,21 +21,24 @@ public class AdminUserMuteController {
     @Autowired
     AdminUserMuteService adminUserMuteService;
 
+    private static final Logger logger = LoggerFactory.getLogger(AdminUserMuteController.class);
+
+
     /**
      * 用户禁言
      * 20241014
      * @param email
      * @param reason
-     * @param session
      * @return
      */
     @PostMapping("/addMute")
     public ResponseEntity<Map<String, Object>> addMute(@RequestParam("email") String email,
                                                              @RequestParam("reason") String reason,
-                                                             HttpSession session) {
+                                                       Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String account = (String)session.getAttribute("account");
+        String account = principal.getName();
+        logger.info("取出account:{}",account);
         try {
             if (account != null && !(account.isEmpty()) ){ // 管理员已登录
 
@@ -65,15 +71,15 @@ public class AdminUserMuteController {
      * 取消禁言
      * 20241014
      * @param email
-     * @param session
      * @return
      */
     @PostMapping("/cancelMute")
     public ResponseEntity<Map<String, Object>> cancelMute(@RequestParam("email") String email,
-                                                       HttpSession session) {
+                                                          Principal principal) {
 
         Map<String, Object> result = new HashMap<>();
-        String account = (String)session.getAttribute("account");
+        String account = principal.getName();
+        logger.info("取出account:{}",account);
         try {
             if (account != null && !(account.isEmpty()) ){ // 管理员已登录
 

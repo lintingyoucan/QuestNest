@@ -7,6 +7,7 @@ import com.lt.questnest.service.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -18,7 +19,8 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     AdminMapper adminMapper;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
+
 
     // 登录
     public Map<String, String> loginByPasswd(String account, String password) {

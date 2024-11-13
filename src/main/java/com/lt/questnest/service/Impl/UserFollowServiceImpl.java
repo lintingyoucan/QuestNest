@@ -165,7 +165,7 @@ public class UserFollowServiceImpl implements UserFollowService {
                 User user = userMapper.getUserByIdIgnoreState(followerId);
                 fanItem.put("userId",followerId);
                 fanItem.put("username",user.getUsername());
-                fanItem.put("headUrl",user.getHeadUrl());
+                fanItem.put("headUrl", "http://192.168.178.78:8080/images?email="+user.getEmail());
                 // 添加
                 fanList.add(fanItem);
             }
@@ -215,7 +215,7 @@ public class UserFollowServiceImpl implements UserFollowService {
                 User user = userMapper.getUserByIdIgnoreState(followedId);
                 followedItem.put("userId",followedId);
                 followedItem.put("username",user.getUsername());
-                followedItem.put("headUrl",user.getHeadUrl());
+                followedItem.put("headUrl", "http://192.168.178.78:8080/images?email="+user.getEmail());
                 // 添加
                 followedList.add(followedItem);
             }

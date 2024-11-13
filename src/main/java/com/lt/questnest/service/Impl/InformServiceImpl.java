@@ -96,7 +96,7 @@ public class InformServiceImpl implements InformService {
             Map<String, Object> informItem = new HashMap<>();
 
             informItem.put("senderUsername",inform.getSenderUsername());
-            informItem.put("senderHeadUrl",inform.getSenderHeadUrl());
+            informItem.put("senderHeadUrl","http://192.168.178.78:8080/images?email="+inform.getSenderEmail());
             informItem.put("content",inform.getContent());
 
             Timestamp sendTimeFormat  = inform.getSendTime();

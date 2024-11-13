@@ -14,7 +14,7 @@ public interface UserService {
     Map<String,String> register(String email,String username,String password,String inputCode);
 
     // 通过密码登录
-    Map<String, String> loginByPasswd(String email, String password);
+   // Map<String, String> loginByPasswd(String email, String password);
 
     //通过验证码登录
     Map<String,String> loginByCode(String email,String inputCode);
@@ -33,4 +33,7 @@ public interface UserService {
 
     // 上传头像
     Map<String,String> uploadPicture(String email, MultipartFile file);
+
+    // 返回头像
+    Map<String,String> getHeadUrl(String email);
 }

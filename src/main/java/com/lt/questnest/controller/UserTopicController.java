@@ -1,12 +1,15 @@
 package com.lt.questnest.controller;
 
 import com.lt.questnest.service.UserTopicService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,18 +21,21 @@ public class UserTopicController {
     @Autowired
     UserTopicService userTopicService;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserTopicController.class);
+
+
     /**
      * 添加关注话题：一次性可以选择一个或多个
      * 20241013
      * @param topicId
-     * @param session
      * @return
      */
     @PostMapping("/addConcernTopic")
     public ResponseEntity<Map<String, Object>> addConcernTopic(@RequestParam("topicIds") List<Integer> topicId,
-                                                               HttpSession session) {
+                                                               Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
 
             if (email != null && !email.isEmpty()) { // 用户已登录
@@ -63,14 +69,14 @@ public class UserTopicController {
      * 取消关注话题
      * 20241013
      * @param userTopicId
-     * @param session
      * @return
      */
     @PostMapping("/cancelConcernTopic")
     public ResponseEntity<Map<String, Object>> cancelConcernTopic(@RequestParam("userTopicId") Integer userTopicId,
-                                                            HttpSession session) {
+                                                                  Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
 
             if (email != null && !email.isEmpty()) { // 用户已登录
@@ -102,13 +108,13 @@ public class UserTopicController {
     /**
      * 显示关注话题列表
      * 20241013
-     * @param session
      * @return
      */
     @GetMapping("/showTopic")
-    public ResponseEntity<Map<String, Object>> showTopic(HttpSession session) {
+    public ResponseEntity<Map<String, Object>> showTopic(Principal principal) {
         Map<String, Object> result = new HashMap<>();
-        String email = (String) session.getAttribute("email");
+        String email = principal.getName();
+        logger.info("取出的email:{}",email);
         try {
 
             if (email != null && !email.isEmpty()) { // 用户已登录
