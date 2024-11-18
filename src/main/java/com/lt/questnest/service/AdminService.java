@@ -7,6 +7,6 @@ import java.util.Map;
 @Service
 public interface AdminService {
 
-    Map<String, String> loginByPasswd(String account, String password);
+    Map<String, Object> loginByPasswd(String account, String password);
 
 }

@@ -38,12 +38,13 @@ public class AdminController {
 
         try {
 
-            Map<String, String> map = adminService.loginByPasswd(account,password);
+            Map<String, Object> map = adminService.loginByPasswd(account,password);
             if (map.containsValue("success")) {
                 // 生成token
                 String token = securityConfig.generateToken(account,"ROLE_ADMIN");
                 // 登录成功，返回 200 OK
                 result.put("token",token);
+                result.put("adminId",map.get("adminId"));
                 result.put("status", "success");
                 return ResponseEntity.ok(result);
             } else {

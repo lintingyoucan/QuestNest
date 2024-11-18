@@ -23,9 +23,9 @@ public class AdminServiceImpl implements AdminService {
 
 
     // 登录
-    public Map<String, String> loginByPasswd(String account, String password) {
+    public Map<String, Object> loginByPasswd(String account, String password) {
 
-        Map<String,String> result = new HashMap<>();
+        Map<String,Object> result = new HashMap<>();
 
         // 对传入参数判空处理
         if (account == null || account.isEmpty()){
@@ -58,7 +58,7 @@ public class AdminServiceImpl implements AdminService {
 
         // 登录成功
         result.put("status", "success");
-        result.put("msg", "用户登录成功！");
+        result.put("adminId",admin.getAdminId());
 
         return result;
     }

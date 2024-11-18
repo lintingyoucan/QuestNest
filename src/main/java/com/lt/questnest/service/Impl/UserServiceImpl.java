@@ -242,9 +242,8 @@ public class UserServiceImpl implements UserService {
      * @param password
      * @return
      */
-/*    @Override
-    public Map<String, String> loginByPasswd(String email, String password) {
-        Map<String, String> result = new HashMap<>();
+    public Map<String, Object> loginByPasswd(String email, String password) {
+        Map<String, Object> result = new HashMap<>();
 
         // 判断传入参数是否为空
         if (email == null || email.isEmpty()) {
@@ -267,8 +266,8 @@ public class UserServiceImpl implements UserService {
         }
 
         // 判断密码是否正确
-        String encryptPassword = EncryptionUtil.encryptPassword(password);
-        if (!user.getPassword().equals(encryptPassword)) {
+        String encryptPassword = passwordEncoder.encode(password);
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             result.put("status", "error");
             result.put("msg", "密码错误!");
             return result;
@@ -276,9 +275,9 @@ public class UserServiceImpl implements UserService {
 
         // 登录成功
         result.put("status", "success");
-        result.put("msg", "用户登录成功！");
+        result.put("userId",user.getId());
         return result;
-    }*/
+    }
 
     /**
      * 通过验证码登录
@@ -287,8 +286,8 @@ public class UserServiceImpl implements UserService {
      * @param inputCode
      * @return
      */
-    public Map<String, String> loginByCode(String email, String inputCode) {
-        Map<String, String> result = new HashMap<>();
+    public Map<String, Object> loginByCode(String email, String inputCode) {
+        Map<String, Object> result = new HashMap<>();
 
         // 对传入参数判空处理
         if (email == null || email.isEmpty()) {
@@ -342,7 +341,7 @@ public class UserServiceImpl implements UserService {
 
         // 登录成功
         result.put("status", "success");
-        result.put("msg", "用户登录成功！");
+        result.put("userId",user.getId());
         // 删除验证码 key
         redisService.removeVerificationCode(email);
 
@@ -526,6 +525,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // 保存数据
+        userMap.put("userId",user.getId());
         userMap.put("email", email);
         userMap.put("username", user.getUsername());
         userMap.put("gender", user.getGender());

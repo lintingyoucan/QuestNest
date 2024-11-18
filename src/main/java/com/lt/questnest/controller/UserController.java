@@ -13,9 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,9 +44,6 @@ public class UserController {
 
     @Autowired
     SubService subService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     private SecurityConfig securityConfig;
@@ -349,29 +343,33 @@ public class UserController {
         Map<String, Object> result = new HashMap<>();
 
         try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(email, password));
 
-            // 如果认证成功，生成JWT
-            String token = securityConfig.generateToken(email, "ROLE_USER");
-            result.put("status", "success");
-            result.put("token", token); // 返回token，以便后续操作
-            // 记录在线用户
-            onlineUserService.addOnlineUser(email);
-            // 登录成功，返回 200 OK
-            return ResponseEntity.ok(result);
+            Map<String, Object> map = userService.loginByPasswd(email, password);
+            if (map.containsValue("success")) {
 
-        } catch (AuthenticationException e) {
-            result.put("status", "error");
-            result.put("message", "邮箱或密码错误");
+                // 生成JWT Token
+                String token = securityConfig.generateToken(email, "ROLE_USER");
+                result.put("status", "success");
+                result.put("userId",map.get("userId"));
+                result.put("token", token); // 返回token
 
-            // 认证失败，返回 400 Bad Request
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+                // 记录在线用户
+                onlineUserService.addOnlineUser(email);
+
+                // 返回 HTTP 200 OK
+                return ResponseEntity.ok(result);
+            } else {
+                result.put("status", "error");
+                result.put("message", map.get("msg"));
+                // 返回 HTTP 400 Bad Request，错误信息在 result 中
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+            }
+
         } catch (Exception e) {
+            logger.info("验证码登录异常: " + e.getMessage());
             result.put("status", "error");
-            result.put("message", "服务器错误");
-
-            // 服务器异常，返回 500 Internal Server Error
+            result.put("message", "验证码登录异常: " + e.getMessage());
+            // 返回 HTTP 500 Internal Server Error
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
         }
     }
@@ -392,12 +390,13 @@ public class UserController {
 
         try {
 
-            Map<String, String> map = userService.loginByCode(email, inputCode);
+            Map<String, Object> map = userService.loginByCode(email, inputCode);
             if (map.containsValue("success")) {
 
                 // 生成JWT Token
                 String token = securityConfig.generateToken(email, "ROLE_USER");
                 result.put("status", "success");
+                result.put("userId",map.get("userId"));
                 result.put("token", token); // 返回token
 
                 // 记录在线用户

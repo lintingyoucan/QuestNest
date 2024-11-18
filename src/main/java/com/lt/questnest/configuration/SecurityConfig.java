@@ -28,11 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Long expiration;
 
     // 配置AuthenticationManager以便可以被注入
-    @Bean
+    /*@Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

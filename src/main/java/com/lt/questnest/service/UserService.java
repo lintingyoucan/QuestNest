@@ -14,10 +14,10 @@ public interface UserService {
     Map<String,String> register(String email,String username,String password,String inputCode);
 
     // 通过密码登录
-   // Map<String, String> loginByPasswd(String email, String password);
+    Map<String, Object> loginByPasswd(String email, String password);
 
     //通过验证码登录
-    Map<String,String> loginByCode(String email,String inputCode);
+    Map<String,Object> loginByCode(String email,String inputCode);
 
     // 注销
     Map<String, String> delete(String email);
